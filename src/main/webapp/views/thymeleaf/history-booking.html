@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8"/>
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link rel="icon" href="../../resources/img/qtc-logo-black.png" type="image/png" />
+    <title>The Best IT Training Center - 100+ Courses | QTCenter.com</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com/%22%3E
+        <link rel=" preconnect
+    " href="https://fonts.gstatic.com/" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;1,100;1,300&display=swap"
+          rel="stylesheet">
+
+    <script src="https://kit.fontawesome.com/330a21053c.js" crossorigin="anonymous"></script>
+    <!-- main css -->
+    <link rel="stylesheet" href="../../resources/css/history-booking.css"/>
+</head>
+<body>
+<div class="container">
+    <h1 class="title">History Booking</h1>
+    <div>
+        <div class="order-container">
+            <!--order-->
+            <c:forEach items="${histories}" var="history">
+                <div class="order-item">
+                    <div class="order-item-header">
+                        <span class="status"><i class="fa-solid fa-money-bills"></i>Pay Successful</span>
+                        <span class="status"><i class="fa-solid fa-calendar-days"></i>30-01-2023</span>
+                    </div>
+                    <div class="order-item-info">
+                        <div>
+                            <div class="product">
+                                <div class="detail">
+                                    <div class="product-img"
+                                         style="background-image: url('../../resources/img/testimonials/t1.jpg')">
+                                        <span class="quantity">1</span>
+                                    </div>
+                                    <div class="product-info">
+                                        <a href="#" class="product-name">Course Name</a>
+                                        <div class="store"><a href="#">Trainer</a>
+                                        </div>
+                                        <div class="product-review">
+                                            <span>Chatting</span>
+                                            <span>Feedback</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="price">
+                                    <span><fmt:formatNumber value="${item.price}" type="currency"/></span>
+                                </div>
+
+                            </div>
+            </c:forEach>
+            <div class="btn-more"><p>Show more</p></div>
+            <!--end product-->
+
+        </div>
+    </div>
+    <div class="total-order">
+        <div class="total-title">Total price</div>
+        <div class="total-price">
+            <fmt:formatNumber value="${history.total}" type="currency"/>
+        </div>
+    </div>
+</div>
+</body>
+<script src="../../resources/js/history-booking.js"></script>
+</html>

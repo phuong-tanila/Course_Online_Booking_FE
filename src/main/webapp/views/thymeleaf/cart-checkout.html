@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8"/>
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link rel="icon" href="../../resources/img/qtc-logo-black.png" type="image/png" />
+    <title>The Best IT Training Center - 100+ Courses | QTCenter.com</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../../resources/css/bootstrap.css"/>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+            integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=AcSATbC34qNTc0kDCzZGDxWFgnsdQpuWt8HMIPQwHfGU2UBgNx6lAPkoOtczUGEpWuHK0dm-ZOupi3iY"
+            data-namespace="paypal_sdk"></script>
+    <script src="https://kit.fontawesome.com/f1ddccea8b.js" crossorigin="anonymous"></script>
+    <!-- main css -->
+    <link rel="stylesheet" href="../../resources/css/style.css"/>
+</head>
+<body>
+<section class="h-100 gradient-custom">
+    <div class="container py-4">
+        <div class="row d-flex justify-content-center my-4">
+            <div class="col-lg-8" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
+                <div class="card mb-4">
+                    <div class="card-header py-3">
+                        <h5 class="mb-0 d-flex justify-content-between"><span
+                                class="justify-content-center">Cart - <span class='cart-size'>1</span> <span
+                                class='letter-s'>item</span></span></h5>
+                    </div>
+                    <div class="card-body">
+                        <!-- Single item -->
+                        <div class="row course-id">
+                            <a href="#">
+                                <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
+                                    <!-- Image -->
+                                    <div class="bg-image hover-overlay hover-zoom ripple rounded"
+                                         data-mdb-ripple-color="light">
+                                        <img src="https://img-b.udemycdn.com/course/480x270/2259120_305f_6.jpg"
+                                             class="w-100" alt="course img"/>
+                                        <a href="#!">
+                                            <div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
+                                    <!-- Data -->
+                                    <p><span class="card-p">Course: </span>The Complete Flutter</p>
+                                    <p><span class="card-p">Trainer: </span>ChienNDA</p>
+                                    <p><span class="card-p">Duration: </span>24-03-2023 to 06-04-2023</p>
+                                    <p><span class="card-p">Tuition fee: </span><span style="color: red"
+                                                                                      class="itemMoney">2,199,000 VNĐ</span>
+                                    </p>
+                                    <!-- Data -->
+                                </div>
+                                <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                                    <button type="button" onclick="handleDelete(this, ${i.courseID})"
+                                            class="btn w-100 btn-outline-danger btn-sm me-1 mb-2 justify-content-center"
+                                            data-mdb-toggle="tooltip"
+                                            title="Remove item">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </a>
+                        </div>
+
+                        <hr class="my-4"/>
+                        <!-- Single item -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card mb-4" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
+                    <div class="card text-black rounded-3">
+                        <div class='card-header py-3'>
+                            <h5 class="mb-0">Payment method</h5>
+                        </div>
+                        <div class="card-body">
+                            <a type="submit" class="text-white payment-method "
+                               onclick='handleChangePaymentMethod(this)'>
+                                <i class="fa-solid fa-money-bills opa-1"></i>
+                            </a>
+                            <a type="submit" class="text-white payment-method"
+                               onclick='handleChangePaymentMethod(this)'>
+                                <i class="fa-brands fa-cc-paypal"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mb-4" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
+                    <div class="card-header py-3">
+                        <h5 class="mb-0">Summary</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+
+                            <li
+                                    class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                                <div>
+                                    <strong>Total amount</strong>
+                                    <p class="mb-0"><strong>(including VAT)</strong></p>
+                                </div>
+                                <span><strong class="total-money">2,199,000 VNĐ</strong></span>
+                            </li>
+                        </ul>
+
+
+                        <!-- Button trigger modal -->
+                        <div>
+                            <button type="button" class="btn btn-success btn-lg btn-block">
+                                Pay at center
+                            </button>
+                        </div>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog modal-xl">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Input payment information</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text" id="basic-addon1">@</span>
+                                            <input id='email' type="email" onchange="checkInput()" class="form-control"
+                                                   placeholder="Input your email" aria-label="Email"
+                                                   aria-describedby="basic-addon1">
+                                        </div>
+                                        <p style="color: red" class="email-noti"></p>
+                                        <div class="input-group mb-3">
+                                            <input id='fullName' type="text" onchange="checkInput()"
+                                                   class="form-control" placeholder="Input your full name">
+                                        </div>
+                                        <p style="color: red" class="fullName-noti"></p>
+                                        <div class="input-group mb-3">
+                                            <input id='phone' type="tel" onchange="checkInput()" class="form-control"
+                                                   placeholder="Input your phone">
+                                        </div>
+                                        <p style="color: red" class="phone-noti"></p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <!--<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
+                                        <div id="paypal-button-container">
+                                            <button type="button" class="btn btn-primary"
+                                                    onclick='handlePayment("not logged in")'>Pay
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <form id="hiddenForm" action="MainController">
+            <input name='btnAction' value='cart' hidden>
+            <input name='func' value='pay' hidden>
+            <input name='total' id="total" hidden>
+            <input name='email' id='hiddenEmail' hidden>
+            <input name='fullName' id='hiddenFullName' hidden>
+            <input name='phone' id='hiddenPhone' hidden>
+            <input name="paymentMethod" id="paymentMethod" hidden>
+        </form>
+    </div>
+</section>
+</body>
+<script src="../../resources/js/cart-checkout.js"></script>
+</html>

@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8"/>
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link rel="icon" href="../../resources/img/qtc-logo-black.png" type="image/png"/>
+    <title>The Best IT Training Center - 100+ Courses | QTCenter.com</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../../resources/css/bootstrap.css"/>
+    <link rel="stylesheet" href="../../resources/css/flaticon.css"/>
+    <link rel="stylesheet" href="../../resources/css/themify-icons.css"/>
+    <link rel="stylesheet" href="../../resources/vendors/owl-carousel/owl.carousel.min.css"/>
+    <link rel="stylesheet" href="../../resources/vendors/nice-select/css/nice-select.css"/>
+    <link rel="stylesheet" href="../../resources/css/header.css"/>
+    <!-- main css -->
+    <link rel="stylesheet" href="../../resources/css/style.css"/>
+</head>
+<body>
+<!--    <div th:replace="thymeleaf/header :: header"></div>-->
+<header th:replace="../thymeleaf/header :: header"></header>
+<!--================ Start Home Banner Area =================-->
+<section class="home_banner_area">
+    <div class="banner_inner">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="banner_content text-center">
+                        <p class="text-uppercase">
+                            Best programming teaching service center
+                        </p>
+                        <h2 class="text-uppercase mt-4 mb-5">
+                            Alone we can do so little,<br> together we can do so much
+                        </h2>
+                        <!--            <div>-->
+                        <!--              <a href="#" class="primary-btn2 mb-3 mb-sm-0">learn more</a>-->
+                        <!--              <a href="#" class="primary-btn ml-sm-3 ml-0">see course</a>-->
+                        <!--            </div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================ End Home Banner Area =================-->
+
+<!--================ Start Feature Area =================-->
+<section class="feature_area section_gap_top title-bg">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-5">
+                <div class="main_title">
+                    <h2 class="mb-2 text-white">Awesome Feature</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4 col-md-6">
+                <div class="single_feature">
+                    <div class="icon"><span class="flaticon-student"></span></div>
+                    <div class="desc">
+                        <h4 class="mt-3 mb-2">Scholarship Facility</h4>
+                        <p>
+                            Awarding scholarships to students with outstanding achievements
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="single_feature">
+                    <div class="icon"><span class="flaticon-book"></span></div>
+                    <div class="desc">
+                        <h4 class="mt-3 mb-2">Study At Center</h4>
+                        <p>
+                            Teaching knowledge in line with the requirements of companies
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="single_feature">
+                    <div class="icon"><span class="flaticon-earth"></span></div>
+                    <div class="desc">
+                        <h4 class="mt-3 mb-2">Global Certification</h4>
+                        <p>
+                            Certificates are given to students upon completion of the course
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================ End Feature Area =================-->
+
+<!--================ Start Popular Courses Area =================-->
+<div class="popular_courses">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-5 mt-5">
+                <div class="main_title">
+                    <h2 class="mb-3">Most Studied Courses</h2>
+                    <p>
+                        Courses with the most students enrolled
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!-- single course -->
+            <div class="col-lg-12">
+                <div class="owl-carousel active_course">
+                    <div class="single_course" th:each="prod: ${courses}">
+                        <div class="course_head">
+                            <img class="img-fluid" th:src="${prod.imageUrl}" alt=""/>
+                        </div>
+                        <div class="course_content">
+                            <span class="price" th:text="${prod.getTuitionFeeFormat()}"></span>
+                            <span class="tag mb-4 d-inline-block">Java</span>
+                            <h4 class="mb-3">
+                                <a th:href="@{/course-detail/{courseId}(courseId=${prod.id})}"
+                                   th:text="${prod.courseName}"></a>
+                            </h4>
+                            <p th:text="|${prod.getStartDate()} to ${prod.getEndDate()}|"></p>
+                            <div
+                                    class="course_meta d-flex justify-content-lg-between align-items-lg-center flex-lg-row flex-column mt-4"
+                            >
+                                <div class="authr_meta">
+                                    <img src="../../resources/img/courses/author1.png" alt=""/>
+                                    <span class="d-inline-block ml-2" th:text="${prod.teacher.fullname}"></span>
+                                </div>
+                                <div class="mt-lg-0 mt-3">
+                      <span class="meta_info mr-4">
+                        <i class="ti-user mr-2"></i><span th:text="${prod.slot}"></span>
+                      </span>
+                                    <span class="meta_info"
+                                    ><i class="ti-heart mr-2"></i><span th:text="${prod.soldCount}"></span>
+                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--================ NEW COURSES =================-->
+<div class="popular_courses">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-5">
+                <div class="main_title">
+                    <h2 class="mb-3">New Courses</h2>
+                    <p>
+                        The new courses
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!-- single course -->
+            <div class="col-lg-12">
+                <div class="owl-carousel active_course">
+                    <div class="single_course" th:each="prod: ${courses1}">
+                        <div class="course_head">
+                            <img class="img-fluid" th:src="${prod.imageUrl}" alt=""/>
+                        </div>
+                        <div class="course_content">
+                            <span class="price" th:text="${prod.getTuitionFeeFormat()}"></span>
+                            <span class="tag mb-4 d-inline-block">Java</span>
+                            <h4 class="mb-3">
+                                <a href="course-details.html" th:text="${prod.courseName}"></a>
+                            </h4>
+                            <p th:text="|${prod.getStartDate()} to ${prod.getEndDate()}|"></p>
+                            <div
+                                    class="course_meta d-flex justify-content-lg-between align-items-lg-center flex-lg-row flex-column mt-4"
+                            >
+                                <div class="authr_meta">
+                                    <img src="../../resources/img/courses/author1.png" alt=""/>
+                                    <span class="d-inline-block ml-2" th:text="${prod.teacher.fullname}"></span>
+                                </div>
+                                <div class="mt-lg-0 mt-3">
+                      <span class="meta_info mr-4">
+                        <i class="ti-user mr-2"></i><span th:text="${prod.slot}"></span>
+                      </span>
+                                    <span class="meta_info"
+                                    ><i class="ti-heart mr-2"></i><span th:text="${prod.soldCount}"></span>
+                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--================ End Popular Courses Area =================-->
+
+
+<!--================ Start Trainers Area =================-->
+<section class="trainer_area">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-5">
+                <div class="main_title">
+                    <h2 class="mb-3">Experienced Instructors</h2>
+                    <p>
+                        The trainers at our center have a lot of experience in teaching and imparting practical
+                        knowledge to students
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center d-flex align-items-center">
+            <div class="col-lg-3 col-md-6 col-sm-12 single-trainer">
+                <div class="thumb d-flex justify-content-sm-center">
+                    <img class="img-fluid" src="../../resources/img/trainer/t1.jpg" alt=""/>
+                </div>
+                <div class="meta-text text-sm-center">
+                    <h4>Hoai Phuong</h4>
+                    <p class="designation">Java Full-Stack Developer</p>
+                    <div class="mb-4">
+                        <p>
+                            If you are looking for path to becoming a Full-Stack Java Developer, I"m here.
+                        </p>
+                    </div>
+                    <div class="align-items-center justify-content-center d-flex">
+                        <a href="#"><i class="ti-facebook"></i></a>
+                        <a href="#"><i class="ti-twitter"></i></a>
+                        <a href="#"><i class="ti-linkedin"></i></a>
+                        <a href="#"><i class="ti-pinterest"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-sm-12 single-trainer">
+                <div class="thumb d-flex justify-content-sm-center">
+                    <img class="img-fluid" src="../../resources/img/trainer/t2.jpg" alt=""/>
+                </div>
+                <div class="meta-text text-sm-center">
+                    <h4>Huynh Phi</h4>
+                    <p class="designation">Mobile Programmer</p>
+                    <div class="mb-4">
+                        <p>
+                            Mobile programming has never been so easy. Let do it.
+                        </p>
+                    </div>
+                    <div class="align-items-center justify-content-center d-flex">
+                        <a href="#"><i class="ti-facebook"></i></a>
+                        <a href="#"><i class="ti-twitter"></i></a>
+                        <a href="#"><i class="ti-linkedin"></i></a>
+                        <a href="#"><i class="ti-pinterest"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-sm-12 single-trainer">
+                <div class="thumb d-flex justify-content-sm-center">
+                    <img class="img-fluid" src="../../resources/img/trainer/t3.jpg" alt=""/>
+                </div>
+                <div class="meta-text text-sm-center">
+                    <h4>Quoc Thinh</h4>
+                    <p class="designation">Faculty Data Science</p>
+                    <div class="mb-4">
+                        <p>
+                            Data design always needs to be careful and meticulous, to understand the business.
+                        </p>
+                    </div>
+                    <div class="align-items-center justify-content-center d-flex">
+                        <a href="#"><i class="ti-facebook"></i></a>
+                        <a href="#"><i class="ti-twitter"></i></a>
+                        <a href="#"><i class="ti-linkedin"></i></a>
+                        <a href="#"><i class="ti-pinterest"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-sm-12 single-trainer">
+                <div class="thumb d-flex justify-content-sm-center">
+                    <img class="img-fluid" src="../../resources/img/trainer/t4.jpg" alt=""/>
+                </div>
+                <div class="meta-text text-sm-center">
+                    <h4>Duc Thanh</h4>
+                    <p class="designation">.NET Full-Stack Developer</p>
+                    <div class="mb-4">
+                        <p>
+                            Want to learn about Unity, build the Website,... Welcome to my team.
+                        </p>
+                    </div>
+                    <div class="align-items-center justify-content-center d-flex">
+                        <a href="#"><i class="ti-facebook"></i></a>
+                        <a href="#"><i class="ti-twitter"></i></a>
+                        <a href="#"><i class="ti-linkedin"></i></a>
+                        <a href="#"><i class="ti-pinterest"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================ End Trainers Area =================-->
+
+<!--================ Start Testimonial Area =================-->
+<div class="testimonial_area section_gap">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-5">
+                <div class="main_title">
+                    <h2 class="mb-3">Students say about us</h2>
+                    <p>
+                        Feedbacks of students after studying at the center
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="testi_slider owl-carousel">
+                <div class="testi_item">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6">
+                            <img src="../../resources/img/testimonials/t1.jpg" alt=""/>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="testi_text">
+                                <h4>Thinh Suy</h4>
+                                <p>
+                                    After taking the Java Full-Stack course at the center, it helped me find a job
+                                    with a fairly high salary.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testi_item">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6">
+                            <img src="../../resources/img/testimonials/t2.jpg" alt=""/>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="testi_text">
+                                <h4>Bao Thien</h4>
+                                <p>
+                                    I started learning programming from 0 and now I'm a React developer with 5 years
+                                    of experience.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testi_item">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6">
+                            <img src="../../resources/img/testimonials/t1.jpg" alt=""/>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="testi_text">
+                                <h4>Thanh Trung</h4>
+                                <p>
+                                    Learning programming is not difficult as long as you are passionate enough for
+                                    it.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testi_item">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6">
+                            <img src="../../resources/img/testimonials/t2.jpg" alt=""/>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="testi_text">
+                                <h4>Davil Saden</h4>
+                                <p>
+                                    Him, made can't called over won't there on divide there
+                                    male fish beast own his day third seed sixth seas unto.
+                                    Saw from
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testi_item">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6">
+                            <img src="../../resources/img/testimonials/t1.jpg" alt=""/>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="testi_text">
+                                <h4>Elite Martin</h4>
+                                <p>
+                                    Him, made can't called over won't there on divide there
+                                    male fish beast own his day third seed sixth seas unto.
+                                    Saw from
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testi_item">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6">
+                            <img src="../../resources/img/testimonials/t2.jpg" alt=""/>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="testi_text">
+                                <h4>Davil Saden</h4>
+                                <p>
+                                    Him, made can't called over won't there on divide there
+                                    male fish beast own his day third seed sixth seas unto.
+                                    Saw from
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--================ End Testimonial Area =================-->
+<footer th:replace="../thymeleaf/footer :: footer"></footer>
+</body>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="../../resources/js/jquery-3.2.1.min.js"></script>
+<script src="../../resources/js/popper.js"></script>
+<script src="../../resources/js/bootstrap.min.js"></script>
+<script src="../../resources/vendors/nice-select/js/jquery.nice-select.min.js"></script>
+<script src="../../resources/vendors/owl-carousel/owl.carousel.min.js"></script>
+<script src="../../resources/js/owl-carousel-thumb.min.js"></script>
+<script src="../../resources/js/jquery.ajaxchimp.min.js"></script>
+<script src="../../resources/js/mail-script.js"></script>
+<script src="../../resources/js/login.btn.js"></script>
+<!--gmaps Js-->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
+<script src="../../resources/js/gmaps.min.js"></script>
+<script src="../../resources/js/theme.js"></script>
+</html>

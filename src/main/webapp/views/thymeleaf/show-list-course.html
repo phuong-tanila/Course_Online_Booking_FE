@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8"/>
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link rel="icon" href="../../resources/img/qtc-logo-black.png" type="image/png"/>
+    <title>The Best IT Training Center - 100+ Courses | QTCenter.com</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../../resources/css/bootstrap.css"/>
+    <link rel="stylesheet" href="../../resources/css/flaticon.css"/>
+    <link rel="stylesheet" href="../../resources/css/themify-icons.css"/>
+    <link rel="stylesheet" href="../../resources/vendors/owl-carousel/owl.carousel.min.css"/>
+    <link rel="stylesheet" href="../../resources/vendors/nice-select/css/nice-select.css"/>
+    <link rel="stylesheet" href="../../resources/css/header.css"/>
+    <!-- main css -->
+    <link rel="stylesheet" href="../../resources/css/style.css"/>
+</head>
+<body>
+<div class="popular_courses">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-5">
+                <div class="main_title">
+                    <h2 class="mb-3">Popular Courses</h2>
+                    <p>
+                        Courses available at the center
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div th:if="${!courses.isEmpty}">
+            <div class="row mb-3 ml-2">
+                <select class="form-select-sm" aria-label=".form-select-sm example">
+                    <option selected>Sort</option>
+                    <option value="1">Newest</option>
+                    <option value="2">Low price</option>
+                    <option value="3">Highest rating</option>
+                </select>
+            </div>
+
+            <!-- List Course 4x5 -->
+
+            <div class="row justify-content-center d-flex">
+                <!-- single course -->
+
+                <div class="single_course col-lg-3 col-sm-6 mb-4" th:each="prod: ${courses}">
+                    <div class="course_head">
+                        <img class="img-fluid" th:src="${prod.imageUrl}" alt=""/>
+                    </div>
+
+                    <div class="course_content">
+                        <span class="price-list-course" th:text="${prod.getTuitionFeeFormat()}"></span>
+                        <span class="tag-list-course mb-4 d-inline-block">JAVA</span>
+                        <h4 class="mb-3 course-name">
+                            <a href="course-details.html" th:text="${prod.courseName}"></a>
+                        </h4>
+                        <p th:text="|${prod.getStartDate()} to ${prod.getEndDate()}|"></p>
+                        <div class="course_meta d-flex justify-content-lg-between align-items-lg-center flex-lg-row flex-column mt-4"
+                        >
+                            <div class="authr_meta_list_course">
+                                <img src="../../resources/img/courses/author1.png" alt=""/>
+                                <span class="d-inline-block ml-2" th:text="${prod.teacher.fullname}"></span>
+                            </div>
+                            <div class="mt-lg-0 mt-3 list-course-slot">
+                      <span class="meta_info mr-2">
+                        <i class="ti-user mr-2"></i><span th:text="${prod.slot}"></span>
+                      </span>
+                                <span class="meta_info mr-2"
+                                ><a href="#"> <i class="ti-heart mr-2"></i>35 </a></span
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--pagination-->
+            <nav class="blog-pagination justify-content-center d-flex">
+                <ul class="pagination" th:if="${pageNumbers.size() > 0}">
+                    <li class="page-item">
+                        <a th:style="${pageNo == 1}?'pointer-events: none;cursor: default;'"
+                           th:href="@{/category/{categoryId}?pageNo={pageNo}(pageNo=${pageNo - 1},categoryId=${categoryId})}"
+                           class="page-link" aria-label="Previous">
+                                        <span aria-hidden="true">
+                                            <i class="ti-angle-left"></i>
+                                        </span>
+                        </a>
+                    </li>
+                    <span th:each="pageNumber : ${pageNumbers}">
+                    <li class="page-item" th:classappend="${pageNo == pageNumber} ? active">
+                        <a th:href="@{/category/{categoryId}?pageNo={pageNo}(pageNo=${pageNumber},categoryId=${categoryId})}"
+                           class="page-link" th:text=${pageNumber}></a>
+                    </li>
+                        </span>
+                    <li class="page-item">
+                        <a th:style="${totalPage == pageNo}?'pointer-events: none;cursor: default;'"
+                           th:href="@{/category/{categoryId}?pageNo={pageNo}(pageNo=${pageNo + 1},categoryId=${categoryId})}"
+                           class="page-link" aria-label="Next">
+                                        <span aria-hidden="true">
+                                            <i class="ti-angle-right"></i>
+                                        </span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div th:if="${courses.isEmpty}">No record match!!!!</div>
+    </div>
+</div>
+</body>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="../../resources/js/jquery-3.2.1.min.js"></script>
+<script src="../../resources/js/popper.js"></script>
+<script src="../../resources/js/bootstrap.min.js"></script>
+<script src="../../resources/vendors/nice-select/js/jquery.nice-select.min.js"></script>
+<script src="../../resources/vendors/owl-carousel/owl.carousel.min.js"></script>
+<script src="../../resources/js/owl-carousel-thumb.min.js"></script>
+<script src="../../resources/js/jquery.ajaxchimp.min.js"></script>
+<script src="../../resources/js/mail-script.js"></script>
+<script src="../../resources/js/login.btn.js"></script>
+<!--gmaps Js-->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
+<script src="../../resources/js/gmaps.min.js"></script>
+<script src="../../resources/js/theme.js"></script>
+</html>
