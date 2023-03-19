@@ -76,8 +76,8 @@
                     >Categories</a
                   >
                   <ul class="dropdown-menu">
-                    <li class="nav-item">
-                      <a class="nav-link" href="#">Java</a>
+                    <li class="nav-item" th:each="cate: ${categories}">
+                      <a class="nav-link" th:text="${categories.categoryName}">Java</a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" href="#">JavaScript</a>
@@ -119,11 +119,11 @@
                         title="Close Modal"
                         >&times;</span
                       >
-                      <img
-                        src="../../resources/img/CODI_logo.png"
-                        alt="Avatar"
-                        class="avatar"
-                      />
+<!--                      <img-->
+<!--                        src="../../resources/img/LOGO QT CENTER.png"-->
+<!--                        alt="Avatar"-->
+<!--                        class="avatar"-->
+<!--                      />-->
                     </div>
 
                     <div class="container">

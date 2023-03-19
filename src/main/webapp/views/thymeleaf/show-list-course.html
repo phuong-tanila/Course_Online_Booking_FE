@@ -25,7 +25,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-5">
                 <div class="main_title">
-                    <h2 class="mb-3">Popular Courses</h2>
+                    <h2 class="mb-3">List Courses</h2>
                     <p>
                         Courses available at the center
                     </p>
@@ -52,11 +52,16 @@
                         <img class="img-fluid" th:src="${prod.imageUrl}" alt=""/>
                     </div>
 
+<!--                    <div class="tag d-inline" th:each="cate: ${prod.categories}"-->
+<!--                         th:text="${cate.categoryName}"></div>-->
+<!--                    <div class="price mb-4" th:text="${prod.getTuitionFeeFormat()}"></div>-->
+
                     <div class="course_content">
-                        <span class="price-list-course" th:text="${prod.getTuitionFeeFormat()}"></span>
-                        <span class="tag-list-course mb-4 d-inline-block">JAVA</span>
+                        <div class="tag-list-course d-inline" th:each="cate: ${prod.categories}" th:text="${cate.categoryName}"></div>
+                        <div class="price-list-course mb-4" th:text="${prod.getTuitionFeeFormat()}"></div>
                         <h4 class="mb-3 course-name">
-                            <a href="course-details.html" th:text="${prod.courseName}"></a>
+                            <a th:href="@{/course-detail/{courseId}(courseId=${prod.id})}"
+                               th:text="${prod.courseName}"></a>
                         </h4>
                         <p th:text="|${prod.getStartDate()} to ${prod.getEndDate()}|"></p>
                         <div class="course_meta d-flex justify-content-lg-between align-items-lg-center flex-lg-row flex-column mt-4"
@@ -78,12 +83,41 @@
                 </div>
             </div>
 
+            <!--pagination by cate-->
+<!--            <nav class="blog-pagination justify-content-center d-flex">-->
+<!--                <ul class="pagination" th:if="${pageNumbers.size() > 0}">-->
+<!--                    <li class="page-item">-->
+<!--                        <a th:style="${pageNo == 1}?'pointer-events: none;cursor: default;'"-->
+<!--                           th:href="@{/categories/{categoryId}?pageNo={pageNo}(pageNo=${pageNo - 1},categoryId=${categoryId})}"-->
+<!--                           class="page-link" aria-label="Previous">-->
+<!--                                        <span aria-hidden="true">-->
+<!--                                            <i class="ti-angle-left"></i>-->
+<!--                                        </span>-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <span th:each="pageNumber : ${pageNumbers}">-->
+<!--                    <li class="page-item" th:classappend="${pageNo == pageNumber} ? active">-->
+<!--                        <a th:href="@{/categories/{categoryId}?pageNo={pageNo}(pageNo=${pageNumber},categoryId=${categoryId})}"-->
+<!--                           class="page-link" th:text=${pageNumber}></a>-->
+<!--                    </li>-->
+<!--                        </span>-->
+<!--                    <li class="page-item">-->
+<!--                        <a th:style="${totalPage == pageNo}?'pointer-events: none;cursor: default;'"-->
+<!--                           th:href="@{/categories/{categoryId}?pageNo={pageNo}(pageNo=${pageNo + 1},categoryId=${categoryId})}"-->
+<!--                           class="page-link" aria-label="Next">-->
+<!--                                        <span aria-hidden="true">-->
+<!--                                            <i class="ti-angle-right"></i>-->
+<!--                                        </span>-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </nav>-->
             <!--pagination-->
             <nav class="blog-pagination justify-content-center d-flex">
                 <ul class="pagination" th:if="${pageNumbers.size() > 0}">
                     <li class="page-item">
                         <a th:style="${pageNo == 1}?'pointer-events: none;cursor: default;'"
-                           th:href="@{/category/{categoryId}?pageNo={pageNo}(pageNo=${pageNo - 1},categoryId=${categoryId})}"
+                           th:href="@{/courses-newest?pageNo={pageNo}(pageNo=${pageNo - 1})}"
                            class="page-link" aria-label="Previous">
                                         <span aria-hidden="true">
                                             <i class="ti-angle-left"></i>
@@ -92,13 +126,13 @@
                     </li>
                     <span th:each="pageNumber : ${pageNumbers}">
                     <li class="page-item" th:classappend="${pageNo == pageNumber} ? active">
-                        <a th:href="@{/category/{categoryId}?pageNo={pageNo}(pageNo=${pageNumber},categoryId=${categoryId})}"
+                        <a th:href="@{/courses-newest?pageNo={pageNo}(pageNo=${pageNumber})}"
                            class="page-link" th:text=${pageNumber}></a>
                     </li>
                         </span>
                     <li class="page-item">
                         <a th:style="${totalPage == pageNo}?'pointer-events: none;cursor: default;'"
-                           th:href="@{/category/{categoryId}?pageNo={pageNo}(pageNo=${pageNo + 1},categoryId=${categoryId})}"
+                           th:href="@{/courses-newest?pageNo={pageNo}(pageNo=${pageNo + 1})}"
                            class="page-link" aria-label="Next">
                                         <span aria-hidden="true">
                                             <i class="ti-angle-right"></i>

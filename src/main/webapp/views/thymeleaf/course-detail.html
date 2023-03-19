@@ -32,7 +32,7 @@
             <h2 style="color: #fdc632">Course Details</h2>
             <div class="page_link">
               <a href="/home">Home</a>
-              <a href="/show-list-course">Courses</a>
+              <a href="/categories/1">Courses</a>
             </div>
           </div>
         </div>
@@ -206,7 +206,7 @@
           </li>
 
         </ul>
-        <a href="#" class="primary-btn2 text-uppercase enroll rounded-0">Enroll the course</a>
+        <a href="#" class="primary-btn2 text-uppercase enroll rounded-0">Add course to cart</a>
       </div>
     </div>
 
@@ -221,10 +221,12 @@
                 <img class="img-fluid" th:src="${prod.imageUrl}" alt=""/>
               </div>
               <div class="course_content">
-                <span class="price" th:text="${prod.getTuitionFeeFormat()}"></span>
-                <span class="tag mb-4 d-inline-block">Java</span>
+                <div class="tag d-inline" th:each="cate: ${prod.categories}"
+                     th:text="${cate.categoryName}"></div>
+                <div class="price mb-4" th:attr="course-price=${prod.tuitionFee}"></div>
                 <h4 class="mb-3">
-                  <a href="course-details.html" th:text="${prod.courseName}"></a>
+                  <a th:href="@{/course-detail/{courseId}(courseId=${prod.id})}"
+                     th:text="${prod.courseName}"></a>
                 </h4>
                 <p th:text="|${prod.getStartDate()} to ${prod.getEndDate()}|"></p>
                 <div
@@ -272,23 +274,23 @@
 <!-- course detail JS -->
 <script src="../../resources/js/course-detail.js"></script>
 
-<!--<script th:inline="javascript">-->
+<script th:inline="javascript">
 
-<!--      /*<![CDATA[*/-->
+      /*<![CDATA[*/
 
-<!--          document.querySelectorAll(".price").forEach( el => {-->
-<!--            formatOnLoad(el, el.getAttribute("course-price"))-->
-<!--          })-->
+          document.querySelectorAll(".price").forEach( el => {
+            formatOnLoad(el, el.getAttribute("course-price"))
+          })
 
-<!--          document.querySelectorAll(".review-star").forEach( el => {-->
+          document.querySelectorAll(".review-star").forEach( el => {
 
-<!--            const reviewStar = parseInt(el.getAttribute("star"));-->
+            const reviewStar = parseInt(el.getAttribute("star"));
 
-<!--            for(var i = 1; i <= 5; i++){-->
-<!--              console.log(`${i <= reviewStar ? "checked" : "" }`)-->
-<!--              el.innerHTML += `<i class="ti-star ${i <= reviewStar ? "checked" : "" }"></i>`-->
-<!--            }-->
-<!--          });-->
-<!--       /*]]>*/-->
-<!--</script>-->
+            for(var i = 1; i <= 5; i++){
+              console.log(`${i <= reviewStar ? "checked" : "" }`)
+              el.innerHTML += `<i class="ti-star ${i <= reviewStar ? "checked" : "" }"></i>`
+            }
+          });
+       /*]]>*/
+</script>
 </html>
