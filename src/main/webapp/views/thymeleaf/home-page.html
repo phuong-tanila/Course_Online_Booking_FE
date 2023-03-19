@@ -35,10 +35,6 @@
                         <h2 class="text-uppercase mt-4 mb-5">
                             Alone we can do so little,<br> together we can do so much
                         </h2>
-                        <!--            <div>-->
-                        <!--              <a href="#" class="primary-btn2 mb-3 mb-sm-0">learn more</a>-->
-                        <!--              <a href="#" class="primary-btn ml-sm-3 ml-0">see course</a>-->
-                        <!--            </div>-->
                     </div>
                 </div>
             </div>
@@ -112,17 +108,23 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+
+        <div style="position: relative" class="row">
+            <a style="position: absolute; top: -30px; right: 25px; font-style: italic; color: #f39c12" href="#">View more</a>
             <!-- single course -->
             <div class="col-lg-12">
+                <div></div>
                 <div class="owl-carousel active_course">
                     <div class="single_course" th:each="prod: ${courses}">
                         <div class="course_head">
                             <img class="img-fluid" th:src="${prod.imageUrl}" alt=""/>
                         </div>
                         <div class="course_content">
-                            <span class="price" th:text="${prod.getTuitionFeeFormat()}"></span>
-                            <span class="tag mb-4 d-inline-block">Java</span>
+
+                            <div class="tag d-inline" th:each="cate: ${prod.categories}"
+                                  th:text="${cate.categoryName}"></div>
+                            <div class="price mb-4" th:text="${prod.getTuitionFeeFormat()}"></div>
+
                             <h4 class="mb-3">
                                 <a th:href="@{/course-detail/{courseId}(courseId=${prod.id})}"
                                    th:text="${prod.courseName}"></a>
@@ -164,7 +166,8 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div style="position: relative" class="row">
+            <a style="position: absolute; top: -30px; right: 25px; font-style: italic; color: #f39c12" href="/courses-newest">View more</a>
             <!-- single course -->
             <div class="col-lg-12">
                 <div class="owl-carousel active_course">
@@ -173,8 +176,10 @@
                             <img class="img-fluid" th:src="${prod.imageUrl}" alt=""/>
                         </div>
                         <div class="course_content">
-                            <span class="price" th:text="${prod.getTuitionFeeFormat()}"></span>
-                            <span class="tag mb-4 d-inline-block">Java</span>
+                            <div class="tag d-inline" th:each="cate: ${prod.categories}"
+                                 th:text="${cate.categoryName}"></div>
+                            <div class="price mb-3" th:text="${prod.getTuitionFeeFormat()}"></div>
+
                             <h4 class="mb-3">
                                 <a href="course-details.html" th:text="${prod.courseName}"></a>
                             </h4>
@@ -327,11 +332,11 @@
                 <div class="testi_item">
                     <div class="row">
                         <div class="col-lg-4 col-md-6">
-                            <img src="../../resources/img/testimonials/t1.jpg" alt=""/>
+                            <img src="../../resources/img/testimonials/15-M.jpg" alt=""/>
                         </div>
                         <div class="col-lg-8">
                             <div class="testi_text">
-                                <h4>Thinh Suy</h4>
+                                <h4>Quoc Thinh</h4>
                                 <p>
                                     After taking the Java Full-Stack course at the center, it helped me find a job
                                     with a fairly high salary.
@@ -343,11 +348,11 @@
                 <div class="testi_item">
                     <div class="row">
                         <div class="col-lg-4 col-md-6">
-                            <img src="../../resources/img/testimonials/t2.jpg" alt=""/>
+                            <img src="../../resources/img/testimonials/18-F.jpg" alt=""/>
                         </div>
                         <div class="col-lg-8">
                             <div class="testi_text">
-                                <h4>Bao Thien</h4>
+                                <h4>Kieu An</h4>
                                 <p>
                                     I started learning programming from 0 and now I'm a React developer with 5 years
                                     of experience.
@@ -359,7 +364,7 @@
                 <div class="testi_item">
                     <div class="row">
                         <div class="col-lg-4 col-md-6">
-                            <img src="../../resources/img/testimonials/t1.jpg" alt=""/>
+                            <img src="../../resources/img/testimonials/17-M.jpg" alt=""/>
                         </div>
                         <div class="col-lg-8">
                             <div class="testi_text">
@@ -375,15 +380,13 @@
                 <div class="testi_item">
                     <div class="row">
                         <div class="col-lg-4 col-md-6">
-                            <img src="../../resources/img/testimonials/t2.jpg" alt=""/>
+                            <img src="../../resources/img/testimonials/17-F.jpg" alt=""/>
                         </div>
                         <div class="col-lg-8">
                             <div class="testi_text">
-                                <h4>Davil Saden</h4>
+                                <h4>Mai Anh</h4>
                                 <p>
-                                    Him, made can't called over won't there on divide there
-                                    male fish beast own his day third seed sixth seas unto.
-                                    Saw from
+                                    Python is a very easy to learn, accessible language. I'm currently a researcher for AI projects at Google
                                 </p>
                             </div>
                         </div>
@@ -392,32 +395,13 @@
                 <div class="testi_item">
                     <div class="row">
                         <div class="col-lg-4 col-md-6">
-                            <img src="../../resources/img/testimonials/t1.jpg" alt=""/>
+                            <img src="../../resources/img/testimonials/16-M.jpg" alt=""/>
                         </div>
                         <div class="col-lg-8">
                             <div class="testi_text">
-                                <h4>Elite Martin</h4>
+                                <h4>Hoang Trung</h4>
                                 <p>
-                                    Him, made can't called over won't there on divide there
-                                    male fish beast own his day third seed sixth seas unto.
-                                    Saw from
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="testi_item">
-                    <div class="row">
-                        <div class="col-lg-4 col-md-6">
-                            <img src="../../resources/img/testimonials/t2.jpg" alt=""/>
-                        </div>
-                        <div class="col-lg-8">
-                            <div class="testi_text">
-                                <h4>Davil Saden</h4>
-                                <p>
-                                    Him, made can't called over won't there on divide there
-                                    male fish beast own his day third seed sixth seas unto.
-                                    Saw from
+                                    Learning mobile programming is very easy to find a job, although it is a bit difficult to approach it at first.
                                 </p>
                             </div>
                         </div>
