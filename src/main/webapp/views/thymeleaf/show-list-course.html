@@ -52,12 +52,13 @@
                         <img class="img-fluid" th:src="${prod.imageUrl}" alt=""/>
                     </div>
 
-<!--                    <div class="tag d-inline" th:each="cate: ${prod.categories}"-->
-<!--                         th:text="${cate.categoryName}"></div>-->
-<!--                    <div class="price mb-4" th:text="${prod.getTuitionFeeFormat()}"></div>-->
+                    <!--                    <div class="tag d-inline" th:each="cate: ${prod.categories}"-->
+                    <!--                         th:text="${cate.categoryName}"></div>-->
+                    <!--                    <div class="price mb-4" th:text="${prod.getTuitionFeeFormat()}"></div>-->
 
                     <div class="course_content">
-                        <div class="tag-list-course d-inline" th:each="cate: ${prod.categories}" th:text="${cate.categoryName}"></div>
+                        <div class="tag-list-course d-inline" th:each="cate: ${prod.categories}"
+                             th:text="${cate.categoryName}"></div>
                         <div class="price-list-course mb-4" th:text="${prod.getTuitionFeeFormat()}"></div>
                         <h4 class="mb-3 course-name">
                             <a th:href="@{/course-detail/{courseId}(courseId=${prod.id})}"
@@ -82,69 +83,73 @@
                     </div>
                 </div>
             </div>
-
-            <!--pagination by cate-->
-<!--            <nav class="blog-pagination justify-content-center d-flex">-->
-<!--                <ul class="pagination" th:if="${pageNumbers.size() > 0}">-->
-<!--                    <li class="page-item">-->
-<!--                        <a th:style="${pageNo == 1}?'pointer-events: none;cursor: default;'"-->
-<!--                           th:href="@{/categories/{categoryId}?pageNo={pageNo}(pageNo=${pageNo - 1},categoryId=${categoryId})}"-->
-<!--                           class="page-link" aria-label="Previous">-->
-<!--                                        <span aria-hidden="true">-->
-<!--                                            <i class="ti-angle-left"></i>-->
-<!--                                        </span>-->
-<!--                        </a>-->
-<!--                    </li>-->
-<!--                    <span th:each="pageNumber : ${pageNumbers}">-->
-<!--                    <li class="page-item" th:classappend="${pageNo == pageNumber} ? active">-->
-<!--                        <a th:href="@{/categories/{categoryId}?pageNo={pageNo}(pageNo=${pageNumber},categoryId=${categoryId})}"-->
-<!--                           class="page-link" th:text=${pageNumber}></a>-->
-<!--                    </li>-->
-<!--                        </span>-->
-<!--                    <li class="page-item">-->
-<!--                        <a th:style="${totalPage == pageNo}?'pointer-events: none;cursor: default;'"-->
-<!--                           th:href="@{/categories/{categoryId}?pageNo={pageNo}(pageNo=${pageNo + 1},categoryId=${categoryId})}"-->
-<!--                           class="page-link" aria-label="Next">-->
-<!--                                        <span aria-hidden="true">-->
-<!--                                            <i class="ti-angle-right"></i>-->
-<!--                                        </span>-->
-<!--                        </a>-->
-<!--                    </li>-->
-<!--                </ul>-->
-<!--            </nav>-->
-            <!--pagination-->
-            <nav class="blog-pagination justify-content-center d-flex">
-                <ul class="pagination" th:if="${pageNumbers.size() > 0}">
-                    <li class="page-item">
-                        <a th:style="${pageNo == 1}?'pointer-events: none;cursor: default;'"
-                           th:href="@{/courses-newest?pageNo={pageNo}(pageNo=${pageNo - 1})}"
-                           class="page-link" aria-label="Previous">
+            <div th:unless="${sortByCourse}">
+                <!--pagination by cate-->
+                <nav class="blog-pagination justify-content-center d-flex">
+                    <ul class="pagination" th:if="${pageNumbers.size() > 0}">
+                        <li class="page-item">
+                            <a th:style="${pageNo == 1}?'pointer-events: none;cursor: default;'"
+                               th:href="@{/categories/{categoryId}?pageNo={pageNo}(pageNo=${pageNo - 1},categoryId=${categoryId})}"
+                               class="page-link" aria-label="Previous">
                                         <span aria-hidden="true">
                                             <i class="ti-angle-left"></i>
                                         </span>
-                        </a>
-                    </li>
-                    <span th:each="pageNumber : ${pageNumbers}">
+                            </a>
+                        </li>
+                        <span th:each="pageNumber : ${pageNumbers}">
                     <li class="page-item" th:classappend="${pageNo == pageNumber} ? active">
-                        <a th:href="@{/courses-newest?pageNo={pageNo}(pageNo=${pageNumber})}"
+                        <a th:href="@{/categories/{categoryId}?pageNo={pageNo}(pageNo=${pageNumber},categoryId=${categoryId})}"
                            class="page-link" th:text=${pageNumber}></a>
                     </li>
                         </span>
-                    <li class="page-item">
-                        <a th:style="${totalPage == pageNo}?'pointer-events: none;cursor: default;'"
-                           th:href="@{/courses-newest?pageNo={pageNo}(pageNo=${pageNo + 1})}"
-                           class="page-link" aria-label="Next">
+                        <li class="page-item">
+                            <a th:style="${totalPage == pageNo}?'pointer-events: none;cursor: default;'"
+                               th:href="@{/categories/{categoryId}?pageNo={pageNo}(pageNo=${pageNo + 1},categoryId=${categoryId})}"
+                               class="page-link" aria-label="Next">
                                         <span aria-hidden="true">
                                             <i class="ti-angle-right"></i>
                                         </span>
-                        </a>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div th:if="${sortByCourse}">
+                <!--pagination-->
+                <nav class="blog-pagination justify-content-center d-flex">
+                    <ul class="pagination" th:if="${pageNumbers.size() > 0}">
+                        <li class="page-item">
+                            <a th:style="${pageNo == 1}?'pointer-events: none;cursor: default;'"
+                               th:href="@{/courses-sortBy/{sortBy}?pageNo={pageNo}(pageNo=${pageNo - 1}, sortBy=${sortBy})}"
+                               class="page-link" aria-label="Previous">
+                                        <span aria-hidden="true">
+                                            <i class="ti-angle-left"></i>
+                                        </span>
+                            </a>
+                        </li>
+                        <span th:each="pageNumber : ${pageNumbers}">
+                    <li class="page-item" th:classappend="${pageNo == pageNumber} ? active">
+                        <a th:href="@{/courses-sortBy/{sortBy}?pageNo={pageNo}(pageNo=${pageNumber}, sortBy=${sortBy})}"
+                           class="page-link" th:text=${pageNumber}></a>
                     </li>
-                </ul>
-            </nav>
+                        </span>
+                        <li class="page-item">
+                            <a th:style="${totalPage == pageNo}?'pointer-events: none;cursor: default;'"
+                               th:href="@{/courses-sortBy/{sortBy}?pageNo={pageNo}(pageNo=${pageNo + 1}, sortBy=${sortBy})}"
+                               class="page-link" aria-label="Next">
+                                        <span aria-hidden="true">
+                                            <i class="ti-angle-right"></i>
+                                        </span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
         </div>
         <div th:if="${courses.isEmpty}">No record match!!!!</div>
     </div>
 </div>
+<footer th:replace="../thymeleaf/footer :: footer"></footer>
 </body>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

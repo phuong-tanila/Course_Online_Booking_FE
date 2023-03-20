@@ -36,6 +36,7 @@ public class CategoryController {
         model.addAttribute("courses", courses);
         model.addAttribute("pageNo", pageNo);
         model.addAttribute("categoryId", id);
+        model.addAttribute("sortByCourse", false);
         url = apiUrl + "/categories/total-course/" + id;
         int pageNum = 20;
         int totalCourse = restTemplate.getForObject(url, Integer.class);

@@ -1,5 +1,6 @@
 package fa.training.frontend.controller;
 
+import model.Category;
 import model.Course;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -9,6 +10,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 import javax.websocket.server.PathParam;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,16 +27,22 @@ public class CoursesController {
     private RestTemplate restTemplate;
     @Value("${courses.api.url}")
     private String apiUrl;
+
     @GetMapping("/home")
-    public String home(Model model) {
-        String url = apiUrl + "/courses/slider-popular";
+    public String home(Model model, HttpServletRequest request) {
+        String url = apiUrl + "/courses/slider/soldCount";
         List<Course> courses = List.of(restTemplate.getForObject(url, Course[].class));
         model.addAttribute("courses", courses);
-        String url1 = apiUrl + "/courses/slider-newest";
+        String url1 = apiUrl + "/courses/slider/createDate";
         List<Course> courses1 = List.of(restTemplate.getForObject(url1, Course[].class));
         model.addAttribute("courses1", courses1);
+        String url2 = apiUrl + "/categories/";
+        List<Category> categories = List.of(restTemplate.getForObject(url2, Category[].class));
+        HttpSession session = request.getSession();
+        session.setAttribute("categories", categories);
         return "home-page";
     }
+
     @GetMapping("/")
     public String index(Model model) {
         String url = apiUrl + "/courses";
@@ -41,27 +52,31 @@ public class CoursesController {
     }
 
     @GetMapping("/course-detail/{courseId}")
-    public String getCourseDetail(@PathVariable("courseId") int courseId, Model model){
-        String url = apiUrl  + "/courses/" + courseId;
+    public String getCourseDetail(@PathVariable("courseId") int courseId, Model model) {
+        String url = apiUrl + "/courses/" + courseId;
         Course course = restTemplate.getForObject(url, Course.class);
         model.addAttribute("course", course);
-        String url1 = apiUrl + "/courses/slider-newest";
+        String url1 = apiUrl + "/courses/slider/soldCount";
         List<Course> courses1 = List.of(restTemplate.getForObject(url1, Course[].class));
         model.addAttribute("courses1", courses1);
         return "course-detail";
     }
 
-    @GetMapping("/courses-newest")
-    public String getCoursesNewest(Model model, @RequestParam(defaultValue = "1") int pageNo) {
-        String url = apiUrl + "/courses/newest" + "?pageNo=" + (pageNo-1);
+    @GetMapping("/courses-sortBy/{sortBy}")
+    public String getCoursesList(Model model,
+                                 @RequestParam(defaultValue = "1") int pageNo,
+                                 @PathVariable("sortBy") String sortBy) {
+        String url = apiUrl + "/courses/list/" + sortBy + "?pageNo=" + (pageNo - 1);
         List<Course> courses;
-        try{
+        try {
             courses = List.of(restTemplate.getForObject(url, Course[].class));
-        }catch (Exception ex){
+        } catch (Exception ex) {
             courses = new ArrayList<>();
         }
         model.addAttribute("courses", courses);
         model.addAttribute("pageNo", pageNo);
+        model.addAttribute("sortBy", sortBy);
+        model.addAttribute("sortByCourse", true);
         url = apiUrl + "/courses/total-course";
         int pageNum = 20;
         int totalCourse = restTemplate.getForObject(url, Integer.class);
@@ -75,6 +90,12 @@ public class CoursesController {
         }
         return "show-list-course";
     }
+
+    @GetMapping("/contact-us")
+    public String contact() {
+        return "contact-us";
+    }
+
 //    @PostMapping("/")
 //    public String getWeatherInfo(@ModelAttribute("weather") WeatherInfo weather, Model model) {
 //        String url = apiUrl + "?city=" + weather.getName();

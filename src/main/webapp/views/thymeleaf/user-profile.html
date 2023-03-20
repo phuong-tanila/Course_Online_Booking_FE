@@ -23,10 +23,10 @@
             <div class="row justify-content-center">
                 <div class="col-lg-6">
                     <div class="banner_content text-center">
-                        <h2 style="color: #fdc632">Your Profile</h2>
+                        <h2 style="color: #fdc632">Profile</h2>
                         <div class="page_link">
-                            <a href="home-page.html">Home</a>
-                            <a href="show-list-course.html">Courses</a>
+                            <a href="/home">Home</a>
+                            <a href="/categories/1">Courses</a>
                         </div>
                     </div>
                 </div>
@@ -42,8 +42,8 @@
                     <div class="card-body text-center">
                         <img src="../../resources/img/VU_09217 (6).jpg" alt="avatar"
                              class="img-thumbnail img-fluid" style="width: 150px;">
-                        <h5 class="my-3 social-link">Hoai Phuong</h5>
-                        <p class="text-muted mb-1">Full Stack Developer</p>
+                        <h5 class="my-3 social-link" th:text="${teacher.fullname}"></h5>
+                        <p class="text-muted mb-1" th:text="${teacher.description}"></p>
                         <p class="text-muted mb-4">District 9, HCM city</p>
                         <div class="d-flex justify-content-center mb-2">
                             <button type="button" class="btn btn-light" data-mdb-ripple-color="dark">Follow</button>
@@ -60,7 +60,7 @@
                                 <p class="mb-0 card-p">Full Name</p>
                             </div>
                             <div class="col-sm-9">
-                                <p class="text-muted mb-0">Nguyen Hoai Phuong</p>
+                                <p class="text-muted mb-0" th:text="${teacher.fullname}"></p>
                             </div>
                         </div>
                         <hr>
@@ -69,7 +69,7 @@
                                 <p class="mb-0 card-p">Email</p>
                             </div>
                             <div class="col-sm-9">
-                                <p class="text-muted mb-0">PhuongNH@fa.edu.vn</p>
+                                <p class="text-muted mb-0" th:text="${teacher.email}"></p>
                             </div>
                         </div>
                         <hr>
@@ -78,7 +78,7 @@
                                 <p class="mb-0 card-p">Mobile</p>
                             </div>
                             <div class="col-sm-9">
-                                <p class="text-muted mb-0">0123586904</p>
+                                <p class="text-muted mb-0" th:text="${teacher.phone}"></p>
                             </div>
                         </div>
                         <hr>
@@ -87,7 +87,7 @@
                                 <p class="mb-0 card-p">Description</p>
                             </div>
                             <div class="col-sm-9">
-                                <p class="text-muted mb-0">Admin</p>
+                                <p class="text-muted mb-0" th:text="${teacher.description}"></p>
                             </div>
                         </div>
                         <hr>
@@ -134,5 +134,6 @@
         </div>
     </div>
 </section>
+<footer th:replace="../thymeleaf/footer :: footer"></footer>
 </body>
 </html>

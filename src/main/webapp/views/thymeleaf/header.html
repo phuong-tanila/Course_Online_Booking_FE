@@ -44,7 +44,7 @@
         <nav class="navbar navbar-expand-lg navbar-light">
           <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
-            <a class="navbar-brand logo_h" href="index.html"
+            <a class="navbar-brand logo_h" href="/home"
               ><img class="img-logo" src="../../resources/img/LOGO QT CENTER.png" alt="Logo"
             /></a>
             <button
@@ -65,36 +65,22 @@
               id="navbarSupportedContent"
             >
               <ul class="nav navbar-nav menu_nav ml-auto">
+                <li class="nav-item">
+                  <a class="nav-link" href="/contact-us">Contact</a>
+                </li>
                 <li class="nav-item submenu dropdown">
                   <a
                     href="#"
                     class="nav-link dropdown-toggle"
                     data-toggle="dropdown"
                     role="button"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                    >Categories</a
-                  >
+                    >Categories</a>
                   <ul class="dropdown-menu">
-                    <li class="nav-item" th:each="cate: ${categories}">
-                      <a class="nav-link" th:text="${categories.categoryName}">Java</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#">JavaScript</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#">.NET</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#">Flutter</a>
+                    <li class="nav-item" th:each="cate: ${session.categories}">
+                      <a class="nav-link" th:text="${cate.categoryName}"
+                         th:href="@{/categories/{categoryId}(categoryId=${cate.id})}" ></a>
                     </li>
                   </ul>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="about-us.html">About</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="contact.html">Contact</a>
                 </li>
                 <li class="nav-item">
                   <a href="#" class="nav-link">
