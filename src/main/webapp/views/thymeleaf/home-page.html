@@ -110,7 +110,7 @@
         </div>
 
         <div style="position: relative" class="row">
-            <a style="position: absolute; top: -30px; right: 25px; font-style: italic; color: #f39c12" href="#">View more</a>
+            <a style="position: absolute; top: -30px; right: 25px; font-style: italic; color: #f39c12" href="/courses-sortBy/soldCount?pageNo=1">View more</a>
             <!-- single course -->
             <div class="col-lg-12">
                 <div></div>
@@ -120,11 +120,9 @@
                             <img class="img-fluid" th:src="${prod.imageUrl}" alt=""/>
                         </div>
                         <div class="course_content">
-
                             <div class="tag d-inline" th:each="cate: ${prod.categories}"
                                   th:text="${cate.categoryName}"></div>
                             <div class="price mb-4" th:text="${prod.getTuitionFeeFormat()}"></div>
-
                             <h4 class="mb-3">
                                 <a th:href="@{/course-detail/{courseId}(courseId=${prod.id})}"
                                    th:text="${prod.courseName}"></a>
@@ -167,7 +165,7 @@
             </div>
         </div>
         <div style="position: relative" class="row">
-            <a style="position: absolute; top: -30px; right: 25px; font-style: italic; color: #f39c12" href="/courses-newest">View more</a>
+            <a style="position: absolute; top: -30px; right: 25px; font-style: italic; color: #f39c12" href="/courses-sortBy/createDate?pageNo=1">View more</a>
             <!-- single course -->
             <div class="col-lg-12">
                 <div class="owl-carousel active_course">
@@ -181,7 +179,8 @@
                             <div class="price mb-3" th:text="${prod.getTuitionFeeFormat()}"></div>
 
                             <h4 class="mb-3">
-                                <a href="course-details.html" th:text="${prod.courseName}"></a>
+                                <a th:href="@{/course-detail/{courseId}(courseId=${prod.id})}"
+                                   th:text="${prod.courseName}"></a>
                             </h4>
                             <p th:text="|${prod.getStartDate()} to ${prod.getEndDate()}|"></p>
                             <div
@@ -233,9 +232,9 @@
                     <h4>Hoai Phuong</h4>
                     <p class="designation">Java Full-Stack Developer</p>
                     <div class="mb-4">
-                        <p>
+                        <q>
                             If you are looking for path to becoming a Full-Stack Java Developer, I"m here.
-                        </p>
+                        </q>
                     </div>
                     <div class="align-items-center justify-content-center d-flex">
                         <a href="#"><i class="ti-facebook"></i></a>
@@ -254,9 +253,9 @@
                     <h4>Huynh Phi</h4>
                     <p class="designation">Mobile Programmer</p>
                     <div class="mb-4">
-                        <p>
-                            Mobile programming has never been so easy. Let do it.
-                        </p>
+                        <q>
+                            The mobile programming market currently needs a lot of developers.
+                        </q>
                     </div>
                     <div class="align-items-center justify-content-center d-flex">
                         <a href="#"><i class="ti-facebook"></i></a>
@@ -275,9 +274,9 @@
                     <h4>Quoc Thinh</h4>
                     <p class="designation">Faculty Data Science</p>
                     <div class="mb-4">
-                        <p>
+                        <q>
                             Data design always needs to be careful and meticulous, to understand the business.
-                        </p>
+                        </q>
                     </div>
                     <div class="align-items-center justify-content-center d-flex">
                         <a href="#"><i class="ti-facebook"></i></a>
@@ -296,9 +295,9 @@
                     <h4>Duc Thanh</h4>
                     <p class="designation">.NET Full-Stack Developer</p>
                     <div class="mb-4">
-                        <p>
+                        <q>
                             Want to learn about Unity, build the Website,... Welcome to my team.
-                        </p>
+                        </q>
                     </div>
                     <div class="align-items-center justify-content-center d-flex">
                         <a href="#"><i class="ti-facebook"></i></a>
@@ -336,11 +335,11 @@
                         </div>
                         <div class="col-lg-8">
                             <div class="testi_text">
-                                <h4>Quoc Thinh</h4>
-                                <p>
+                                <h4>Quoc Thien</h4>
+                                <q>
                                     After taking the Java Full-Stack course at the center, it helped me find a job
                                     with a fairly high salary.
-                                </p>
+                                </q>
                             </div>
                         </div>
                     </div>
@@ -353,10 +352,10 @@
                         <div class="col-lg-8">
                             <div class="testi_text">
                                 <h4>Kieu An</h4>
-                                <p>
-                                    I started learning programming from 0 and now I'm a React developer with 5 years
+                                <q>
+                                    I started learning programming from zero and now I'm a React developer with 5 years
                                     of experience.
-                                </p>
+                                </q>
                             </div>
                         </div>
                     </div>
@@ -369,10 +368,10 @@
                         <div class="col-lg-8">
                             <div class="testi_text">
                                 <h4>Thanh Trung</h4>
-                                <p>
+                                <q>
                                     Learning programming is not difficult as long as you are passionate enough for
                                     it.
-                                </p>
+                                </q>
                             </div>
                         </div>
                     </div>
@@ -385,9 +384,9 @@
                         <div class="col-lg-8">
                             <div class="testi_text">
                                 <h4>Mai Anh</h4>
-                                <p>
-                                    Python is a very easy to learn, accessible language. I'm currently a researcher for AI projects at Google
-                                </p>
+                                <q>
+                                    Python is a very easy to learn, accessible language. I'm currently a researcher for AI projects at Google.
+                                </q>
                             </div>
                         </div>
                     </div>
@@ -400,9 +399,9 @@
                         <div class="col-lg-8">
                             <div class="testi_text">
                                 <h4>Hoang Trung</h4>
-                                <p>
+                                <q>
                                     Learning mobile programming is very easy to find a job, although it is a bit difficult to approach it at first.
-                                </p>
+                                </q>
                             </div>
                         </div>
                     </div>

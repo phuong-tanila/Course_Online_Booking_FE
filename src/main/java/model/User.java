@@ -4,7 +4,8 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.util.Set;
-
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class User implements Serializable {
