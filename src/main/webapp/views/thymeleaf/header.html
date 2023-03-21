@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head>
+<head>
     <!-- Required meta tags -->
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-    <link rel="icon" href="../../resources/img/qtc-logo-black.png" type="image/png" />
+    <link rel="icon" href="../../resources/img/qtc-logo-black.png" type="image/png"/>
     <title>The Best IT Training Center - 100+ Courses | QTCenter.com</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../../resources/css/bootstrap.css"/>
@@ -18,309 +18,172 @@
     <link rel="stylesheet" href="../../resources/css/header.css"/>
     <!-- main css -->
     <link rel="stylesheet" href="../../resources/css/style.css"/>
-  </head>
-  <body>
-    <header class="header_area" th:fragment="header">
-      <div class="main_menu">
+</head>
+<body>
+<header class="header_area" th:fragment="header">
+    <div class="main_menu">
         <div class="search_input" id="search_input_box">
-          <div class="container">
-            <form class="d-flex justify-content-between" method="" action="">
-              <input
-                type="text"
-                class="form-control"
-                id="search_input"
-                placeholder="Search for any courses"
-              />
-              <button type="submit" class="btn"></button>
-              <span
-                class="ti-close"
-                id="close_search"
-                title="Close Search"
-              ></span>
-            </form>
-          </div>
+            <div class="container">
+                <form class="d-flex justify-content-between" method="" action="">
+                    <input
+                            type="text"
+                            class="form-control"
+                            id="search_input"
+                            placeholder="Search for any courses"
+                    />
+                    <button type="submit" class="btn"></button>
+                    <span
+                            class="ti-close"
+                            id="close_search"
+                            title="Close Search"
+                    ></span>
+                </form>
+            </div>
         </div>
 
         <nav class="navbar navbar-expand-lg navbar-light">
-          <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <a class="navbar-brand logo_h" href="/home"
-              ><img class="img-logo" src="../../resources/img/LOGO QT CENTER.png" alt="Logo"
-            /></a>
-            <button
-              class="navbar-toggler"
-              type="button"
-              data-toggle="collapse"
-              data-target="#navbarSupportedContent"
-              aria-controls="navbarSupportedContent"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <span class="icon-bar"></span> <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div
-              class="collapse navbar-collapse offset"
-              id="navbarSupportedContent"
-            >
-              <ul class="nav navbar-nav menu_nav ml-auto">
-                <li class="nav-item">
-                  <a class="nav-link" href="/contact-us">Contact</a>
-                </li>
-                <li class="nav-item submenu dropdown">
-                  <a
-                    href="#"
-                    class="nav-link dropdown-toggle"
-                    data-toggle="dropdown"
-                    role="button"
-                    >Categories</a>
-                  <ul class="dropdown-menu">
-                    <li class="nav-item" th:each="cate: ${session.categories}">
-                      <a class="nav-link" th:text="${cate.categoryName}"
-                         th:href="@{/categories/{categoryId}(categoryId=${cate.id})}" ></a>
-                    </li>
-                  </ul>
-                </li>
-                <li class="nav-item">
-                  <a href="#" class="nav-link">
-                    <i class="ti-shopping-cart"></i>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a
-                    href="#"
-                    class="nav-link"
-                    onclick="document.getElementById('login-form').style.display='block'"
-                    >Login
-                  </a>
-                </li>
-
-                <div id="login-form" class="modal">
-                  <form class="modal-content animate" action="" method="">
-                    <div class="imgcontainer">
-                      <span
-                        onclick="document.getElementById('login-form').style.display='none'"
-                        class="close"
-                        title="Close Modal"
-                        >&times;</span
-                      >
-<!--                      <img-->
-<!--                        src="../../resources/img/LOGO QT CENTER.png"-->
-<!--                        alt="Avatar"-->
-<!--                        class="avatar"-->
-<!--                      />-->
-                    </div>
-
-                    <div class="container">
-                        <form class="d-flex justify-content-between" method="" action="">
-                            <input
-                                type="text"
-                                class="form-control"
-                                id="search_input"
-                                placeholder="Search for any courses"
-                                />
-                            <button type="submit" class="btn"></button>
-                            <span
-                                class="ti-close"
-                                id="close_search"
-                                title="Close Search"
-                                ></span>
-                        </form>
-                    </div>
-                </div>
-
-                <nav class="navbar navbar-expand-lg navbar-light">
-                    <div class="container">
-                        <!-- Brand and toggle get grouped for better mobile display -->
-                        <a class="navbar-brand logo_h" href="/home"
-                           ><img class="img-logo" src="../../resources/img/LOGO QT CENTER.png" alt="Logo"
-                              /></a>
-                        <button
-                            class="navbar-toggler"
-                            type="button"
-                            data-toggle="collapse"
-                            data-target="#navbarSupportedContent"
-                            aria-controls="navbarSupportedContent"
-                            aria-expanded="false"
-                            aria-label="Toggle navigation"
-                            >
-                            <span class="icon-bar"></span> <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <!-- Collect the nav links, forms, and other content for toggling -->
-                        <div
-                            class="collapse navbar-collapse offset"
-                            id="navbarSupportedContent"
-                            >
-                            <ul class="nav navbar-nav menu_nav ml-auto">
-                                <li class="nav-item submenu dropdown">
-                                    <a
-                                        href="#"
-                                        class="nav-link dropdown-toggle"
-                                        data-toggle="dropdown"
-                                        role="button"
-                                        aria-haspopup="true"
-                                        aria-expanded="false"
-                                        >Categories</a
-                                    >
-                                    <ul class="dropdown-menu">
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#">Java</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#">JavaScript</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#">.NET</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#">Flutter</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="about-us.html">About</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="contact.html">Contact</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="ti-shopping-cart"></i>
-                                    </a>
-                                </li>
-                                <li class="nav-item" id="userInfo">
-                                    <a
-                                        href="#"
-                                        class="nav-link"
-                                        onclick="document.getElementById('login-form').style.display = 'block'"
-                                        >Login
-                                    </a>
-                                </li>
-
-                                <div id="login-form" class="modal">
-                                    <form class="modal-content animate" action="/login" method="POST">
-                                        <div class="imgcontainer">
-                                            <span
-                                                onclick="document.getElementById('login-form').style.display = 'none'"
-                                                class="close"
-                                                title="Close Modal"
-                                                >&times;</span
-                                            >
-                                            <img
-                                                src="../../resources/img/CODI_logo.png"
-                                                alt="Avatar"
-                                                class="avatar"
-                                                />
-                                        </div>
-
-                                        <div class="container">
-                                            <label for="uname"><b>Username or Phone</b></label>
-                                            <input
-                                                type="text"
-                                                placeholder="Enter Username Or Phone"
-                                                name="email" id="email-input"
-                                                required
-                                                />
-
-                                            <label for="psw"><b>Password</b></label>
-                                            <input
-                                                type="password"
-                                                placeholder="Enter Password"
-                                                name="password" id="password-input"
-                                                required
-                                                />
-
-                                            <button type="button" class="modal-login-btn">
-                                                Login
-                                            </button>
-                                            <div id="g_id_onload"
-                                                 data-client_id="148898507863-35p32uerrpsqcs752loi69eb9ouji8k1.apps.googleusercontent.com"
-                                                 data-context="signin"
-                                                 data-ux_mode="popup"
-                                                 data-callback="loginByGoogle"
-                                                 data-itp_support="true">
-                                            </div>
-
-                                            <div class="g_id_signin"
-                                                 data-type="standard"
-                                                 data-shape="pill"
-                                                 data-theme="outline"
-                                                 data-text="signin_with"
-                                                 data-size="large"
-                                                 data-logo_alignment="left">
-                                            </div>
-
-                                            <div class="remember-me">
-                                                <label>
-                                                    <input
-                                                        type="checkbox"
-                                                        checked="checked"
-                                                        name="remember"
-                                                        />
-                                                    Remember me
-                                                </label>
-                                                <span class="psw"
-                                                      >Forgot
-                                                    <a href="forgot-pwd-form.html">password?</a></span
-                                                >
-                                            </div>
-                                        </div>
-
-                                        <div class="container" style="background-color: #f1f1f1">
-                                            <button
-                                                type="button"
-                                                onclick="document.getElementById('login-form').style.display = 'none'"
-                                                class="cancelbtn"
-                                                >
-                                                Cancel
-                                            </button>
-                                            <div style="float: right; margin-top: 3%">
-                                                <p>
-                                                    Don't have an account?
-                                                    <a href="register.html">Sign Up</a>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-
-                                <!-- Avatar user after login success -->
-                                <!-- <li class="nav-item submenu dropdown">
-                                    <a
-                                      href="#"
-                                      class="nav-link dropdown-toggle avatar_user"
-                                      data-toggle="dropdown"
-                                      role="button"
-                                      aria-haspopup="true"
-                                      aria-expanded="false"
-                                      ><img class="avatar_user_image" src="././img/VU_09217 (6).jpg"
-                                    /></a>
-                                    <ul class="dropdown-menu">
-                                      <li class="nav-item">
-                                        <a class="nav-link" href="#">Edit profile</a>
-                                      </li>
-                                      <li class="nav-item">
-                                        <a class="nav-link" href="#">Purchase history</a>
-                                      </li>
-                                      <li class="nav-item">
-                                        <a class="nav-link" href="#">Log out</a>
-                                      </li>
-                                    </ul>
-                                  </li> -->
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link search" id="search">
-                                        <i class="ti-search"></i>
-                                    </a>
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <a class="navbar-brand logo_h" href="/home"
+                ><img class="img-logo" src="../../resources/img/LOGO QT CENTER.png" alt="Logo"
+                /></a>
+                <button
+                        class="navbar-toggler"
+                        type="button"
+                        data-toggle="collapse"
+                        data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation"
+                >
+                    <span class="icon-bar"></span> <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div
+                        class="collapse navbar-collapse offset"
+                        id="navbarSupportedContent"
+                >
+                    <ul class="nav navbar-nav menu_nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/contact-us">Contact</a>
+                        </li>
+                        <li class="nav-item submenu dropdown">
+                            <a
+                                    href="#"
+                                    class="nav-link dropdown-toggle"
+                                    data-toggle="dropdown"
+                                    role="button"
+                            >Categories</a>
+                            <ul class="dropdown-menu">
+                                <li class="nav-item" th:each="cate: ${session.categories}">
+                                    <a class="nav-link" th:text="${cate.categoryName}"
+                                       th:href="@{/categories/{categoryId}(categoryId=${cate.id})}"></a>
                                 </li>
                             </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="ti-shopping-cart"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a
+                                    href="#"
+                                    class="nav-link"
+                                    onclick="document.getElementById('login-form').style.display='block'"
+                            >Login
+                            </a>
+                        </li>
+                        <div id="login-form" class="modal">
+                            <form class="modal-content animate" action="/login" method="POST">
+                                <div class="imgcontainer">
+                                            <span
+                                                    onclick="document.getElementById('login-form').style.display = 'none'"
+                                                    class="close"
+                                                    title="Close Modal"
+                                            >&times;</span
+                                            >
+                                </div>
+
+                                <div class="container">
+                                    <label for="uname"><b>Username or Phone</b></label>
+                                    <input
+                                            type="text"
+                                            placeholder="Enter Username Or Phone"
+                                            name="email" id="email-input"
+                                            required
+                                    />
+
+                                    <label for="psw"><b>Password</b></label>
+                                    <input
+                                            type="password"
+                                            placeholder="Enter Password"
+                                            name="password" id="password-input"
+                                            required
+                                    />
+
+                                    <button type="submit" class="modal-login-btn">
+                                        Login
+                                    </button>
+                                    <div id="g_id_onload"
+                                         data-client_id="148898507863-35p32uerrpsqcs752loi69eb9ouji8k1.apps.googleusercontent.com"
+                                         data-context="signin"
+                                         data-ux_mode="popup"
+                                         data-callback="loginByGoogle"
+                                         data-itp_support="true">
+                                    </div>
+
+                                    <div class="g_id_signin"
+                                         data-type="standard"
+                                         data-shape="pill"
+                                         data-theme="outline"
+                                         data-text="signin_with"
+                                         data-size="large"
+                                         data-logo_alignment="left">
+                                    </div>
+
+                                    <div class="remember-me">
+                                        <label>
+                                            <input
+                                                    type="checkbox"
+                                                    checked="checked"
+                                                    name="remember"
+                                            />
+                                            Remember me
+                                        </label>
+                                        <span class="psw"
+                                        >Forgot
+                                                    <a href="forgot-pwd-form.html">password?</a></span
+                                        >
+                                    </div>
+                                </div>
+
+                                <div class="container" style="background-color: #f1f1f1">
+                                    <button
+                                            type="button"
+                                            onclick="document.getElementById('login-form').style.display = 'none'"
+                                            class="cancelbtn"
+                                    >
+                                        Cancel
+                                    </button>
+                                    <div style="float: right; margin-top: 3%">
+                                        <p>
+                                            Don't have an account?
+                                            <a href="register.html">Sign Up</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                    </div>
-                </nav>
-            </div>
-            <script src="https://accounts.google.com/gsi/client" async defer></script>
-            <script>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link search" id="search">
+                                <i class="ti-search"></i>
+                            </a>
+                        </li>
+                </div>
+                <script src="https://accounts.google.com/gsi/client" async defer></script>
+                <script>
                 function setCookie(name,value,days) {
                     var expires = "";
                     if (days) {
@@ -340,17 +203,17 @@
                     }
                     return null;
                 }
-                function eraseCookie(name) {   
+                function eraseCookie(name) {
                     document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
                 }
                 function displayLoginedUser(){
-                    
+
                     const accessToken = localStorage.getItem("accessToken");
                     if(accessToken != null){
                         const claims = decodeJwtResponse(accessToken);
                         console.log(claims);
                         const userInfoDropDown = document.querySelector("#userInfo");
-                        
+
                         userInfoDropDown.classList.add("submenu");
                         userInfoDropDown.classList.add("dropdown");
                         userInfoDropDown.innerHTML = `
@@ -377,7 +240,7 @@
                     window.location.href = "/home";
                 }
                 window.onload = function () {
-                    
+
                     displayLoginedUser();
                 }
                 function decodeJwtResponse(token) {
@@ -415,9 +278,10 @@
                         })
                     }
                 });
-            </script>
 
-        </header>
-    </body>
+                </script>
+
+</header>
+</body>
 
 </html>
