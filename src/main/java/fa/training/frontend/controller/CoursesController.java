@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
+
 import javax.websocket.server.PathParam;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,7 @@ public class CoursesController {
     private RestTemplate restTemplate;
     @Value("${courses.api.url}")
     private String apiUrl;
+
     @GetMapping("/home")
     public String home(Model model) {
         String url = apiUrl + "/courses/slider-popular";
@@ -32,6 +34,7 @@ public class CoursesController {
         model.addAttribute("courses1", courses1);
         return "home-page";
     }
+
     @GetMapping("/")
     public String index(Model model) {
         String url = apiUrl + "/courses";
@@ -41,8 +44,8 @@ public class CoursesController {
     }
 
     @GetMapping("/course-detail/{courseId}")
-    public String getCourseDetail(@PathVariable("courseId") int courseId, Model model){
-        String url = apiUrl  + "/courses/" + courseId;
+    public String getCourseDetail(@PathVariable("courseId") int courseId, Model model) {
+        String url = apiUrl + "/courses/" + courseId;
         Course course = restTemplate.getForObject(url, Course.class);
         model.addAttribute("course", course);
         String url1 = apiUrl + "/courses/slider-newest";
@@ -53,11 +56,11 @@ public class CoursesController {
 
     @GetMapping("/courses-newest")
     public String getCoursesNewest(Model model, @RequestParam(defaultValue = "1") int pageNo) {
-        String url = apiUrl + "/courses/newest" + "?pageNo=" + (pageNo-1);
+        String url = apiUrl + "/courses/newest" + "?pageNo=" + (pageNo - 1);
         List<Course> courses;
-        try{
+        try {
             courses = List.of(restTemplate.getForObject(url, Course[].class));
-        }catch (Exception ex){
+        } catch (Exception ex) {
             courses = new ArrayList<>();
         }
         model.addAttribute("courses", courses);
@@ -73,6 +76,19 @@ public class CoursesController {
             model.addAttribute("pageNumbers", pageNumbers);
             model.addAttribute("totalPage", totalPage);
         }
+        return "show-list-course";
+    }
+
+    @GetMapping("search")
+    public String search(Model model, @RequestParam(defaultValue = "") String name,
+                         @RequestParam(defaultValue = "0") int pageNo) {
+        int pageSize = 10;
+        List<Course> courses = new ArrayList<>();
+        if (name.trim().isEmpty()) {
+            String url = apiUrl + "/courses/search?name=" + name +"&pageNo=" + pageNo + "&pageSize=" + pageSize;
+            courses = List.of(restTemplate.getForObject(url, Course[].class));
+        }
+        model.addAttribute("courses", courses);
         return "show-list-course";
     }
 //    @PostMapping("/")
