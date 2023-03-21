@@ -75,6 +75,18 @@ public class CoursesController {
         }
         return "show-list-course";
     }
+    @GetMapping("search")
+    public String search(Model model, @RequestParam(defaultValue = "") String name,
+                         @RequestParam(defaultValue = "0") int pageNo) {
+        int pageSize = 10;
+        List<Course> courses = new ArrayList<>();
+        if (name.trim().isEmpty()) {
+            String url = apiUrl + "/courses/search?name=" + name +"&pageNo=" + pageNo + "&pageSize=" + pageSize;
+            courses = List.of(restTemplate.getForObject(url, Course[].class));
+        }
+        model.addAttribute("courses", courses);
+        return "show-list-course";
+    }
 //    @PostMapping("/")
 //    public String getWeatherInfo(@ModelAttribute("weather") WeatherInfo weather, Model model) {
 //        String url = apiUrl + "?city=" + weather.getName();
