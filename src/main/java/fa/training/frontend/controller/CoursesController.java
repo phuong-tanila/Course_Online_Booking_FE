@@ -1,28 +1,32 @@
 package fa.training.frontend.controller;
 
+import fa.training.frontend.helpers.JwtProvider;
+import io.jsonwebtoken.Claims;
 import model.Category;
 import model.Course;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
-import javax.websocket.server.PathParam;
-import java.util.ArrayList;
 import java.util.List;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 
 @Controller
 public class CoursesController {
+
     @Autowired
     private RestTemplate restTemplate;
     @Value("${courses.api.url}")
@@ -52,13 +56,39 @@ public class CoursesController {
     }
 
     @GetMapping("/course-detail/{courseId}")
-    public String getCourseDetail(@PathVariable("courseId") int courseId, Model model) {
+    public String getCourseDetail(
+            @PathVariable("courseId") int courseId,
+            Model model,
+            HttpServletRequest request,
+            HttpServletResponse response
+    ) {
         String url = apiUrl + "/courses/" + courseId;
         Course course = restTemplate.getForObject(url, Course.class);
         model.addAttribute("course", course);
         String url1 = apiUrl + "/courses/slider/soldCount";
         List<Course> courses1 = List.of(restTemplate.getForObject(url1, Course[].class));
         model.addAttribute("courses1", courses1);
+
+        Cookie[] cookies = request.getCookies();
+        boolean foundTokenCookie = false;
+        String role = "US";
+        for (Cookie cooky : cookies) {
+            if (cooky.getName().equals("accessToken")) {
+                foundTokenCookie = true;
+                try {
+                    String accessToken = cooky.getValue();
+                    JwtProvider.validateAccessToken(accessToken);
+                    Claims claims = JwtProvider.getClaimsFromAccessToken(accessToken);
+                    role = claims.get("role").toString();
+
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    cooky.setMaxAge(0);
+                }
+            }
+        }
+        model.addAttribute("role", role);
+        System.out.println(role);
         return "course-detail";
     }
 
@@ -76,7 +106,7 @@ public class CoursesController {
         model.addAttribute("courses", courses);
         model.addAttribute("pageNo", pageNo);
         model.addAttribute("sortBy", sortBy);
-        model.addAttribute("sortByCourse", true);
+        model.addAttribute("paginationBy", "slider");
         url = apiUrl + "/courses/total-course";
         int pageNum = 20;
         int totalCourse = restTemplate.getForObject(url, Integer.class);
@@ -88,6 +118,36 @@ public class CoursesController {
             model.addAttribute("pageNumbers", pageNumbers);
             model.addAttribute("totalPage", totalPage);
         }
+        return "show-list-course";
+    }
+
+    @GetMapping("search")
+    public String search(Model model, @RequestParam(defaultValue = "") String name,
+                         @RequestParam(defaultValue = "1") int pageNo) {
+        int pageSize = 20;
+        List<Course> courses = new ArrayList<>();
+        if (!name.trim().isEmpty()) {
+            String url = apiUrl + "/courses/total-course-search?name=" + name;
+            int pageNum = 20;
+            int totalCourse = restTemplate.getForObject(url, Integer.class);
+            int totalPage = totalCourse % pageNum == 0 ? totalCourse / pageNum : totalCourse / pageNum + 1;
+            if (totalPage >= pageNo) {
+                url = apiUrl + "/courses/search?name=" + name + "&pageNo=" + (pageNo - 1) + "&pageSize=" + pageSize;
+                courses = List.of(restTemplate.getForObject(url, Course[].class));
+                model.addAttribute("pageNo", pageNo);
+                model.addAttribute("paginationBy", "search");
+                model.addAttribute("name", name);
+                if (totalPage > 0) {
+                    List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPage)
+                            .boxed()
+                            .collect(Collectors.toList());
+                    model.addAttribute("pageNumbers", pageNumbers);
+                    model.addAttribute("totalPage", totalPage);
+                }
+            }
+
+        }
+        model.addAttribute("courses", courses);
         return "show-list-course";
     }
 

@@ -4622,7 +4622,7 @@ h6 {
 
 .right-contents.sticky {
   position: fixed;
-  top: 5%;
+  top: 17%;
   z-index: 10;
 }
 
@@ -4702,5 +4702,84 @@ a.text-white.payment-method i{
     opacity: 1 !important;
 }
 /*---------------------------------------------------- */
+
+#input-avatar{
+    display: none;
+}
+
+.input-profile{
+    width: 100%;
+}
+
+.overflow_title{
+    width: 100%;
+     display: block;
+    overflow: hidden;
+    /* height: 1px; */
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+/*---------------------------------------------------- */
+.tooltip-text {text-decoration:none;position:relative;}
+.tooltip-text span {display:none;
+
+
+
+}
+.tooltip-text:hover span {
+    width: 85%;
+    border-radius: 3px;
+    font-size: 14px;
+    padding: 1px 5px;
+    display: block;
+    position:fixed;
+    overflow:hidden;
+    background-color: #35363A;
+    color: #CCC;
+   /* white-space: nowrap;*/
+
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: var(--background-header-center);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+/*---------------------------------------------------- */
+.search_result{
+    padding: 0;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.search_result li a{
+  display: block;
+  text-decoration: none;
+  color: #696969;
+  padding: 5px 0;
+}
+
+.search_result li a:hover{
+  opacity: 0.7
+  cursor: pointer;
+  color: #f39c12;
+  background-color: #fafafa;
+}
 
 /*# sourceMappingURL=style.css.map */

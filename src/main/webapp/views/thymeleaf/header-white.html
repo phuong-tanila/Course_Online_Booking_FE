@@ -18,20 +18,23 @@
     <link rel="stylesheet" href="../../resources/css/header.css"/>
     <!-- main css -->
     <link rel="stylesheet" href="../../resources/css/style.css"/>
+
+
 </head>
 <body>
-<header class="header_area" th:fragment="header">
+<!--================ Start Header Menu Area =================-->
+<header class="header_area white-header" th:fragment="header-white">
     <div class="main_menu">
         <div class="search_input" id="search_input_box">
-            <div class="container" style="position: relative">
+            <div style="position: relative">
                 <form class="d-flex justify-content-between" method="GET" th:action="@{'/search'}">
                     <input
                             name="name"
                             type="text"
                             class="form-control"
-                            id="search_input"
+                            id="search2_input"
                             placeholder="Search for any courses"/>
-                    <ul id="search_result" class="search_result"></ul>
+                    <ul id="search2_result" class="search_result"></ul>
                     <button type="submit" class="btn"></button>
                     <span
                             class="ti-close"
@@ -45,9 +48,9 @@
         <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container">
                 <!-- Brand and toggle get grouped for better mobile display -->
-                <a class="navbar-brand logo_h" href="/home"
-                ><img class="img-logo" src="../../resources/img/LOGO QT CENTER.png" alt="Logo"
-                /></a>
+                <a class="navbar-brand" href="/home">
+                    <img class="img-logo" src="../../resources/img/LOGO QT CENTER 02.png" alt="logo"/>
+                </a>
                 <button
                         class="navbar-toggler"
                         type="button"
@@ -288,9 +291,11 @@
         </nav>
     </div>
 </header>
+<!--================ End Header Menu Area =================-->
 </body>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
 <script src="../../resources/js/jquery-3.2.1.min.js"></script>
 <script src="../../resources/js/popper.js"></script>
 <script src="../../resources/js/bootstrap.min.js"></script>
@@ -304,5 +309,4 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
 <script src="../../resources/js/gmaps.min.js"></script>
 <script src="../../resources/js/theme.js"></script>
-<script src="../../resources/js/search-ajax.js"></script>
 </html>

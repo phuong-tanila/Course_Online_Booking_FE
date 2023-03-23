@@ -83,7 +83,7 @@
                     </div>
                 </div>
             </div>
-            <div th:unless="${sortByCourse}">
+            <div th:if="${paginationBy == 'category'}">
                 <!--pagination by cate-->
                 <nav class="blog-pagination justify-content-center d-flex">
                     <ul class="pagination" th:if="${pageNumbers.size() > 0}">
@@ -114,7 +114,7 @@
                     </ul>
                 </nav>
             </div>
-            <div th:if="${sortByCourse}">
+            <div th:if="${paginationBy == 'slider'}">
                 <!--pagination-->
                 <nav class="blog-pagination justify-content-center d-flex">
                     <ul class="pagination" th:if="${pageNumbers.size() > 0}">
@@ -145,8 +145,39 @@
                     </ul>
                 </nav>
             </div>
+            <div th:if="${paginationBy == 'search'}">
+                <!--pagination-->
+                <nav class="blog-pagination justify-content-center d-flex">
+                    <ul class="pagination" th:if="${pageNumbers.size() > 0}">
+                        <li class="page-item">
+                            <a th:style="${pageNo == 1}?'pointer-events: none;cursor: default;'"
+                               th:href="@{/search?name={name}&pageNo={pageNo}(pageNo=${pageNo - 1}, name=${name})}"
+                               class="page-link" aria-label="Previous">
+                                        <span aria-hidden="true">
+                                            <i class="ti-angle-left"></i>
+                                        </span>
+                            </a>
+                        </li>
+                        <span th:each="pageNumber : ${pageNumbers}">
+                    <li class="page-item" th:classappend="${pageNo == pageNumber} ? active">
+                        <a th:href="@{/search?name={name}&pageNo={pageNo}(pageNo=${pageNumber}, name=${name})}"
+                           class="page-link" th:text=${pageNumber}></a>
+                    </li>
+                        </span>
+                        <li class="page-item">
+                            <a th:style="${totalPage == pageNo}?'pointer-events: none;cursor: default;'"
+                               th:href="@{/search?name={name}&pageNo={pageNo}(pageNo=${pageNo + 1}, name=${name})}"
+                               class="page-link" aria-label="Next">
+                                        <span aria-hidden="true">
+                                            <i class="ti-angle-right"></i>
+                                        </span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
         </div>
-        <div th:if="${courses.isEmpty}">No record match!!!!</div>
+        <div style="text-align: center" th:if="${courses.isEmpty}">No record match!!!!</div>
     </div>
 </div>
 <footer th:replace="../thymeleaf/footer :: footer"></footer>

@@ -13,9 +13,6 @@ window.onscroll = () => {
 // console.log(window.pageYOffset)
 
 const handleSticky = () => {
-    console.log("height" + right_contents_height)
-    console.log("wondwo: " + window.pageYOffset)
-    console.log("stop: " + stop_point_sticky)
     if (bannerTop <= window.pageYOffset) {
         right_contents.style.width = right_contents_width + "px"
         right_contents.style.marginLeft = course_details_left + "px"
@@ -34,9 +31,5 @@ const handleSticky = () => {
         right_contents.removeAttribute('style')
         right_contents.classList.remove("sticky")
     }
-
-
-    console.log(window.pageYOffset + right_contents_height)
-
 }
 handleSticky()
