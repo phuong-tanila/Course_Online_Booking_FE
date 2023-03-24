@@ -96,6 +96,7 @@ public class CoursesController {
     public String getCoursesList(Model model,
                                  @RequestParam(defaultValue = "1") int pageNo,
                                  @PathVariable("sortBy") String sortBy) {
+        sortBy = sortBy.split(",")[0];
         String url = apiUrl + "/courses/list/" + sortBy + "?pageNo=" + (pageNo - 1);
         List<Course> courses;
         try {
@@ -121,9 +122,10 @@ public class CoursesController {
         return "show-list-course";
     }
 
-    @GetMapping("search")
+    @GetMapping("search/{sortBy}")
     public String search(Model model, @RequestParam(defaultValue = "") String name,
-                         @RequestParam(defaultValue = "1") int pageNo) {
+                         @RequestParam(defaultValue = "1") int pageNo,
+                         @PathVariable("sortBy") String sortBy) {
         int pageSize = 20;
         List<Course> courses = new ArrayList<>();
         if (!name.trim().isEmpty()) {
@@ -132,7 +134,7 @@ public class CoursesController {
             int totalCourse = restTemplate.getForObject(url, Integer.class);
             int totalPage = totalCourse % pageNum == 0 ? totalCourse / pageNum : totalCourse / pageNum + 1;
             if (totalPage >= pageNo) {
-                url = apiUrl + "/courses/search?name=" + name + "&pageNo=" + (pageNo - 1) + "&pageSize=" + pageSize;
+                url = apiUrl + "/courses/search?name=" + name + "&sort=" + sortBy  + "&pageNo=" + (pageNo - 1) + "&pageSize=" + pageSize;
                 courses = List.of(restTemplate.getForObject(url, Course[].class));
                 model.addAttribute("pageNo", pageNo);
                 model.addAttribute("paginationBy", "search");

@@ -24,9 +24,11 @@ public class CategoryController {
     @Value("${courses.api.url}")
     private String apiUrl;
 
-    @GetMapping("/categories/{id}")
-    public String index(Model model, @PathVariable int id, @RequestParam(defaultValue = "1") int pageNo) {
-        String url = apiUrl + "/categories/" + id + "?pageNo=" + (pageNo-1);
+    @GetMapping("/categories/{sortBy}")
+    public String index(Model model, @RequestParam int categoryId,
+                        @RequestParam(defaultValue = "1") int pageNo,
+                        @PathVariable("sortBy") String sortBy) {
+        String url = apiUrl + "/categories/" + categoryId + "?sort=" + sortBy + "&pageNo=" + (pageNo-1);
         List<Course> courses;
         try{
             courses = List.of(restTemplate.getForObject(url, Course[].class));
@@ -35,9 +37,10 @@ public class CategoryController {
         }
         model.addAttribute("courses", courses);
         model.addAttribute("pageNo", pageNo);
-        model.addAttribute("categoryId", id);
+        model.addAttribute("sortBy", sortBy);
+        model.addAttribute("categoryId", categoryId);
         model.addAttribute("paginationBy", "category");
-        url = apiUrl + "/categories/total-course/" + id;
+        url = apiUrl + "/categories/total-course/" + categoryId;
         int pageNum = 20;
         int totalCourse = restTemplate.getForObject(url, Integer.class);
         int totalPage = totalCourse % pageNum == 0 ? totalCourse / pageNum : totalCourse / pageNum + 1;

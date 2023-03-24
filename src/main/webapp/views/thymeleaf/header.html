@@ -24,7 +24,7 @@
     <div class="main_menu">
         <div class="search_input" id="search_input_box">
             <div class="container" style="position: relative">
-                <form class="d-flex justify-content-between" method="GET" th:action="@{'/search'}">
+                <form class="d-flex justify-content-between" method="GET" th:action="@{'/search/tuitionFee,asc'}">
                     <input
                             name="name"
                             type="text"
@@ -76,10 +76,10 @@
                                     data-toggle="dropdown"
                                     role="button"
                             >Categories</a>
-                            <ul class="dropdown-menu">
+                            <ul class="dropdown-menu" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
                                 <li class="nav-item" th:each="cate: ${session.categories}">
                                     <a class="nav-link" th:text="${cate.categoryName}"
-                                       th:href="@{/categories/{categoryId}(categoryId=${cate.id})}"></a>
+                                       th:href="@{/categories/tuitionFee,asc (categoryId=${cate.id})}"></a>
                                 </li>
                             </ul>
                         </li>
