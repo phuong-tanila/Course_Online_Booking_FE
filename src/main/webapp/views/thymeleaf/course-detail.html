@@ -206,8 +206,14 @@
             </li>
 
           </ul>
-          <button th:disabled='${role != "US"}' type="button"
-            class="primary-btn2  text-uppercase enroll rounded-0">Enroll the course</button>
+          <button  type="button"
+            class="primary-btn2  text-uppercase enroll rounded-0"
+            th:classappend='${role != "US" ? "btn-disabled" : ""}' 
+            th:disabled='${role != "US"}'
+            th:text='${role == "US" ? "Enroll the course": "You can not enroll the course"}'
+            >
+              Enroll the course
+          </button>
         </div>
       </div>
 
