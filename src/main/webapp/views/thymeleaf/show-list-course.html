@@ -20,25 +20,30 @@
     <link rel="stylesheet" href="../../resources/css/style.css"/>
 </head>
 <body>
-<div class="popular_courses">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-5">
-                <div class="main_title">
-                    <h2 class="mb-3">List Courses</h2>
-                    <p>
-                        Courses available at the center
-                    </p>
+<header th:replace="../thymeleaf/header-white :: header-white"></header>
+<section class="banner_area">
+    <div class="banner_inner d-flex align-items-center">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="banner_content text-center">
+                        <h2 style="color: #fdc632">List Of Courses</h2>
+                        <p>Courses available at Center</p>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
+</section>
+<div class="popular_courses">
+    <div class="container">
         <div th:if="${!courses.isEmpty}">
             <div class="row mb-3 ml-2">
-                <select class="form-select-sm" aria-label=".form-select-sm example">
-                    <option selected>Sort</option>
-                    <option value="1">Newest</option>
-                    <option value="2">Low price</option>
-                    <option value="3">Highest rating</option>
+                <select id="selection-sort" class="form-select-sm" aria-label=".form-select-sm example" onchange="sortItem(event)">
+                    <option value="createDate,desc" th:selected="${sortBy.contains('createDate')}">Newest</option>
+                    <option value="tuitionFee,asc" th:selected="${sortBy.contains('tuitionFee')}">Low price</option>
+                    <option value="soldCount,desc" th:selected="${sortBy.contains('soldCount')}">Highest booking</option>
                 </select>
             </div>
 
@@ -55,14 +60,14 @@
                     <!--                    <div class="tag d-inline" th:each="cate: ${prod.categories}"-->
                     <!--                         th:text="${cate.categoryName}"></div>-->
                     <!--                    <div class="price mb-4" th:text="${prod.getTuitionFeeFormat()}"></div>-->
-
                     <div class="course_content">
                         <div class="tag-list-course d-inline" th:each="cate: ${prod.categories}"
                              th:text="${cate.categoryName}"></div>
                         <div class="price-list-course mb-4" th:text="${prod.getTuitionFeeFormat()}"></div>
-                        <h4 class="mb-3 course-name">
-                            <a th:href="@{/course-detail/{courseId}(courseId=${prod.id})}"
+                        <h4 class="mb-3 course-name tooltip-text">
+                            <a class="overflow_title" th:href="@{/course-detail/{courseId}(courseId=${prod.id})}"
                                th:text="${prod.courseName}"></a>
+                            <span th:text="${prod.courseName}"></span>
                         </h4>
                         <p th:text="|${prod.getStartDate()} to ${prod.getEndDate()}|"></p>
                         <div class="course_meta d-flex justify-content-lg-between align-items-lg-center flex-lg-row flex-column mt-4"
@@ -76,20 +81,20 @@
                         <i class="ti-user mr-2"></i><span th:text="${prod.slot}"></span>
                       </span>
                                 <span class="meta_info mr-2"
-                                ><a href="#"> <i class="ti-heart mr-2"></i>35 </a></span
+                                > <i class="ti-heart mr-2"></i><span th:text="${prod.soldCount}"></span></span
                                 >
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div th:unless="${sortByCourse}">
+            <div th:if="${paginationBy == 'category'}">
                 <!--pagination by cate-->
                 <nav class="blog-pagination justify-content-center d-flex">
                     <ul class="pagination" th:if="${pageNumbers.size() > 0}">
                         <li class="page-item">
                             <a th:style="${pageNo == 1}?'pointer-events: none;cursor: default;'"
-                               th:href="@{/categories/{categoryId}?pageNo={pageNo}(pageNo=${pageNo - 1},categoryId=${categoryId})}"
+                               th:href="@{/categories/{sortBy}?pageNo={pageNo} (categoryId=${categoryId}, pageNo=${pageNo - 1}, sortBy=${sortBy})}"
                                class="page-link" aria-label="Previous">
                                         <span aria-hidden="true">
                                             <i class="ti-angle-left"></i>
@@ -98,13 +103,13 @@
                         </li>
                         <span th:each="pageNumber : ${pageNumbers}">
                     <li class="page-item" th:classappend="${pageNo == pageNumber} ? active">
-                        <a th:href="@{/categories/{categoryId}?pageNo={pageNo}(pageNo=${pageNumber},categoryId=${categoryId})}"
+                        <a th:href="@{/categories/{sortBy}?pageNo={pageNo} (categoryId=${categoryId}, pageNo=${pageNumber}, sortBy=${sortBy})}"
                            class="page-link" th:text=${pageNumber}></a>
                     </li>
                         </span>
                         <li class="page-item">
                             <a th:style="${totalPage == pageNo}?'pointer-events: none;cursor: default;'"
-                               th:href="@{/categories/{categoryId}?pageNo={pageNo}(pageNo=${pageNo + 1},categoryId=${categoryId})}"
+                               th:href="@{/categories/{sortBy}?pageNo={pageNo} (categoryId=${categoryId}, pageNo=${pageNo + 1}, sortBy=${sortBy})}"
                                class="page-link" aria-label="Next">
                                         <span aria-hidden="true">
                                             <i class="ti-angle-right"></i>
@@ -114,7 +119,7 @@
                     </ul>
                 </nav>
             </div>
-            <div th:if="${sortByCourse}">
+            <div th:if="${paginationBy == 'slider'}">
                 <!--pagination-->
                 <nav class="blog-pagination justify-content-center d-flex">
                     <ul class="pagination" th:if="${pageNumbers.size() > 0}">
@@ -145,8 +150,39 @@
                     </ul>
                 </nav>
             </div>
+            <div th:if="${paginationBy == 'search'}">
+                <!--pagination-->
+                <nav class="blog-pagination justify-content-center d-flex">
+                    <ul class="pagination" th:if="${pageNumbers.size() > 0}">
+                        <li class="page-item">
+                            <a th:style="${pageNo == 1}?'pointer-events: none;cursor: default;'"
+                               th:href="@{/search/{sortBy}?name={name}&pageNo={pageNo}(pageNo=${pageNo - 1}, name=${name}, sortBy=${sortBy})}"
+                               class="page-link" aria-label="Previous">
+                                        <span aria-hidden="true">
+                                            <i class="ti-angle-left"></i>
+                                        </span>
+                            </a>
+                        </li>
+                        <span th:each="pageNumber : ${pageNumbers}">
+                    <li class="page-item" th:classappend="${pageNo == pageNumber} ? active">
+                        <a  th:href="@{/search/{sortBy}?name={name}&pageNo={pageNo}(pageNo=${pageNumber}, name=${name}, sortBy=${sortBy})}"
+                           class="page-link" th:text=${pageNumber}></a>
+                    </li>
+                        </span>
+                        <li class="page-item">
+                            <a th:style="${totalPage == pageNo}?'pointer-events: none;cursor: default;'"
+                               th:href="@{/search/{sortBy}?name={name}&pageNo={pageNo}(pageNo=${pageNo + 1}, name=${name}, sortBy=${sortBy})}"
+                               class="page-link" aria-label="Next">
+                                        <span aria-hidden="true">
+                                            <i class="ti-angle-right"></i>
+                                        </span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
         </div>
-        <div th:if="${courses.isEmpty}">No record match!!!!</div>
+        <div style="text-align: center" th:if="${courses.isEmpty}">No record match!!!!</div>
     </div>
 </div>
 <footer th:replace="../thymeleaf/footer :: footer"></footer>
@@ -166,4 +202,18 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
 <script src="../../resources/js/gmaps.min.js"></script>
 <script src="../../resources/js/theme.js"></script>
+<script th:inline="javascript">
+ /*<![CDATA[*/
+        var sort = document.querySelector('#selection-sort');
+        function sortItem (event) {
+        let url = window.location.href;
+        let locate = url.split("/")[4];
+        let sortBy = event.target.value;
+        let index = url.split("/");
+        url = sortBy + "?" + locate.split("?")[1];
+        location.href = url;
+        }
+ /*]]>*/
+</script>
+
 </html>

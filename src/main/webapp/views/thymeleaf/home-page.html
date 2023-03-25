@@ -10,11 +10,11 @@
     <link rel="icon" href="../../resources/img/qtc-logo-black.png" type="image/png"/>
     <title>The Best IT Training Center - 100+ Courses | QTCenter.com</title>
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="../../resources/css/bootstrap.css"/>
     <link rel="stylesheet" href="../../resources/css/flaticon.css"/>
     <link rel="stylesheet" href="../../resources/css/themify-icons.css"/>
     <link rel="stylesheet" href="../../resources/vendors/owl-carousel/owl.carousel.min.css"/>
     <link rel="stylesheet" href="../../resources/vendors/nice-select/css/nice-select.css"/>
+    <link rel="stylesheet" href="../../resources/css/bootstrap.css"/>
     <link rel="stylesheet" href="../../resources/css/header.css"/>
     <!-- main css -->
     <link rel="stylesheet" href="../../resources/css/style.css"/>
@@ -123,9 +123,10 @@
                             <div class="tag d-inline" th:each="cate: ${prod.categories}"
                                   th:text="${cate.categoryName}"></div>
                             <div class="price mb-4" th:text="${prod.getTuitionFeeFormat()}"></div>
-                            <h4 class="mb-3">
-                                <a th:href="@{/course-detail/{courseId}(courseId=${prod.id})}"
+                            <h4 class="mb-3 tooltip-text">
+                                <a class="overflow_title" th:href="@{/course-detail/{courseId}(courseId=${prod.id})}"
                                    th:text="${prod.courseName}"></a>
+                                <span th:text="${prod.courseName}"></span>
                             </h4>
                             <p th:text="|${prod.getStartDate()} to ${prod.getEndDate()}|"></p>
                             <div
@@ -178,9 +179,10 @@
                                  th:text="${cate.categoryName}"></div>
                             <div class="price mb-3" th:text="${prod.getTuitionFeeFormat()}"></div>
 
-                            <h4 class="mb-3">
-                                <a th:href="@{/course-detail/{courseId}(courseId=${prod.id})}"
+                            <h4 class="mb-3 tooltip-text">
+                                <a class="overflow_title" th:href="@{/course-detail/{courseId}(courseId=${prod.id})}"
                                    th:text="${prod.courseName}"></a>
+                                <span th:text="${prod.courseName}"></span>
                             </h4>
                             <p th:text="|${prod.getStartDate()} to ${prod.getEndDate()}|"></p>
                             <div
@@ -247,7 +249,7 @@
 
             <div class="col-lg-3 col-md-6 col-sm-12 single-trainer">
                 <div class="thumb d-flex justify-content-sm-center">
-                    <img class="img-fluid" src="../../resources/img/trainer/t2.jpg" alt=""/>
+                    <img class="img-fluid" src="../../resources/img/trainer/t3.jpg" alt=""/>
                 </div>
                 <div class="meta-text text-sm-center">
                     <h4>Huynh Phi</h4>
@@ -268,7 +270,7 @@
 
             <div class="col-lg-3 col-md-6 col-sm-12 single-trainer">
                 <div class="thumb d-flex justify-content-sm-center">
-                    <img class="img-fluid" src="../../resources/img/trainer/t3.jpg" alt=""/>
+                    <img class="img-fluid" src="../../resources/img/trainer/t2.jpg" alt=""/>
                 </div>
                 <div class="meta-text text-sm-center">
                     <h4>Quoc Thinh</h4>
@@ -428,4 +430,5 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
 <script src="../../resources/js/gmaps.min.js"></script>
 <script src="../../resources/js/theme.js"></script>
+<script src="../../resources/js/search-ajax.js"></script>
 </html>

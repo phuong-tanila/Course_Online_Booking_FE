@@ -7,10 +7,14 @@
             name="viewport"
             content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-    <link rel="icon" href="../../resources/img/qtc-logo-black.png" type="image/png" />
+    <link rel="icon" href="../../resources/img/qtc-logo-black.png" type="image/png"/>
     <title>The Best IT Training Center - 100+ Courses | QTCenter.com</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../../resources/css/bootstrap.css"/>
+    <link rel="stylesheet" href="../../resources/css/flaticon.css"/>
+    <link rel="stylesheet" href="../../resources/css/themify-icons.css"/>
+    <link rel="stylesheet" href="../../resources/vendors/owl-carousel/owl.carousel.min.css"/>
+    <link rel="stylesheet" href="../../resources/vendors/nice-select/css/nice-select.css"/>
     <!-- main css -->
     <link rel="stylesheet" href="../../resources/css/style.css"/>
     <script src="https://kit.fontawesome.com/f1ddccea8b.js" crossorigin="anonymous"></script>
@@ -40,8 +44,9 @@
             <div class="col-lg-4">
                 <div class="card mb-4">
                     <div class="card-body text-center">
-                        <img src="../../resources/img/VU_09217 (6).jpg" alt="avatar"
+                        <img id="img-avatar" src="../../resources/img/VU_09217 (6).jpg" alt="avatar"
                              class="img-thumbnail img-fluid" style="width: 150px;">
+                        <input type="file" id="input-avatar"/>
                         <h5 class="my-3 social-link" th:text="${teacher.fullname}"></h5>
                         <p class="text-muted mb-1" th:text="${teacher.description}"></p>
                         <p class="text-muted mb-4">District 9, HCM city</p>
@@ -60,7 +65,7 @@
                                 <p class="mb-0 card-p">Full Name</p>
                             </div>
                             <div class="col-sm-9">
-                                <p class="text-muted mb-0" th:text="${teacher.fullname}"></p>
+                                <input class="text-muted mb-0 input-profile" th:value="${teacher.fullname}">
                             </div>
                         </div>
                         <hr>
@@ -69,7 +74,7 @@
                                 <p class="mb-0 card-p">Email</p>
                             </div>
                             <div class="col-sm-9">
-                                <p class="text-muted mb-0" th:text="${teacher.email}"></p>
+                                <input class="text-muted mb-0 input-profile" th:value="${teacher.email}">
                             </div>
                         </div>
                         <hr>
@@ -78,7 +83,7 @@
                                 <p class="mb-0 card-p">Mobile</p>
                             </div>
                             <div class="col-sm-9">
-                                <p class="text-muted mb-0" th:text="${teacher.phone}"></p>
+                                <input class="text-muted mb-0 input-profile" th:value="${teacher.phone}">
                             </div>
                         </div>
                         <hr>
@@ -87,23 +92,16 @@
                                 <p class="mb-0 card-p">Description</p>
                             </div>
                             <div class="col-sm-9">
-                                <p class="text-muted mb-0" th:text="${teacher.description}"></p>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <p class="mb-0 card-p">Avatar</p>
-                            </div>
-                            <div class="col-sm-9">
-                                <p class="text-muted mb-0">https://img-b.udemycdn.com/course/480x270/2259120_305f_6.jpg</p>
+                                <input class="text-muted mb-0 input-profile" th:value="${teacher.description}">
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-12 mb-4">
-                        <button type="button" class="btn btn-light" data-mdb-ripple-color="dark">Update profile</button>
+                    <div class="col-lg-3 mb-5">
+                        <button id="submit" type="button" class="btn btn-light" data-mdb-ripple-color="dark">Update
+                            profile
+                        </button>
                     </div>
                 </div>
                 <div class="row">
@@ -136,4 +134,16 @@
 </section>
 <footer th:replace="../thymeleaf/footer :: footer"></footer>
 </body>
+<script src="../../resources/js/user-profile.js"></script>
+<script src="../../resources/js/firebase.js" type="module"></script>
+<script th:inline="javascript">
+  /*<![CDATA[*/
+    var input_avatar = document.querySelector("#input-avatar");
+    var img_avatar = document.querySelector("#img-avatar");
+    img_avatar.addEventListener("click", ()=>{
+    input_avatar.click()
+})
+        /*]]>*/
+</script>
+
 </html>

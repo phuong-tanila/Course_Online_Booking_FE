@@ -31,9 +31,5 @@ const handleSticky = () => {
         right_contents.removeAttribute('style')
         right_contents.classList.remove("sticky")
     }
-
-
-    console.log(window.pageYOffset + right_contents_height)
-
 }
 handleSticky()
