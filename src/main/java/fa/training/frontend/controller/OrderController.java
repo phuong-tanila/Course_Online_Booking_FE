@@ -1,10 +1,7 @@
 package fa.training.frontend.controller;
 
-import fa.training.frontend.helpers.JwtProvider;
+import fa.training.frontend.model.Order;
 import io.jsonwebtoken.Claims;
-import model.Category;
-import model.Course;
-import model.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
