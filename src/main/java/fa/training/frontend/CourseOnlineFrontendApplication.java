@@ -12,7 +12,6 @@ public class CourseOnlineFrontendApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(CourseOnlineFrontendApplication.class, args);
 	}
-
 	@Bean
 	public RestTemplate restTemplate() {
 		return new RestTemplate();

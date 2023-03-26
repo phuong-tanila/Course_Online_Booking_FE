@@ -15,7 +15,6 @@
   <link rel="stylesheet" href="../../resources/vendors/nice-select/css/nice-select.css" />
   <link rel="stylesheet" href="../../resources/css/header.css" />
   <!-- main css -->
-  <script src="../../resources/js/format-money.js"></script>
   <link rel="stylesheet" href="../../resources/css/style.css" />
 </head>
 
@@ -228,7 +227,7 @@
                   <img class="img-fluid" th:src="${prod.imageUrl}" alt="" />
                 </div>
                 <div class="course_content">
-                  <span class="price" th:text="${prod.getTuitionFeeFormat()}"></span>
+                  <span class="price" th:text="${prod.tuitionFee}"></span>
                   <span class="tag mb-4 d-inline-block">Java</span>
                   <h4 class="mb-3 tooltip-text">
                     <a class="overflow_title" th:href="@{/course-detail/{courseId}(courseId=${prod.id})}"
@@ -276,6 +275,8 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
 <script src="../../resources/js/gmaps.min.js"></script>
 <script src="../../resources/js/theme.js"></script>
+
+<script src="../../resources/js/format-money.js"></script>
 <!-- course detail JS -->
 <script src="../../resources/js/course-detail.js"></script>
 
