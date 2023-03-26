@@ -5,6 +5,7 @@ import fa.training.frontend.helpers.jwt.JwtClaims;
 import fa.training.frontend.helpers.jwt.JwtProvider;
 import fa.training.frontend.model.Category;
 import fa.training.frontend.model.Course;
+import fa.training.frontend.model.User;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -45,6 +46,9 @@ public class CoursesController {
         List<Category> categories = List.of(restTemplate.getForObject(url2, Category[].class));
         HttpSession session = request.getSession();
         session.setAttribute("categories", categories);
+        String url3 = apiUrl + "/user/list-teacher";
+        List<User> teachers = List.of(restTemplate.getForObject(url3, User[].class));
+        session.setAttribute("teachers", teachers);
         return "home-page";
     }
 
@@ -188,4 +192,6 @@ public class CoursesController {
 //        model.addAttribute("weather", weatherInfo);
 //        return "weather";
 //    }
+
+
 }
