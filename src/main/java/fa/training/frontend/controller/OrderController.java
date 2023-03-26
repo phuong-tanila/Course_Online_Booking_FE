@@ -1,23 +1,3 @@
-<<<<<<< HEAD
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package fa.training.frontend.controller;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-
-/**
- *
- * @author 15tha
- */
-@Controller
-public class OrderController {
-    @GetMapping("/cart")
-    String renderCartPage(){
-        return "cart-checkout";
-=======
 package fa.training.frontend.controller;
 
 import fa.training.frontend.model.Order;
@@ -72,6 +52,10 @@ public class OrderController {
 //            model.addAttribute("totalPage", totalPage);
 //        }
         return "history-booking";
->>>>>>> b9584df63a4f8d20700d4d27809801e0d0c048e9
+    }
+
+    @GetMapping("/cart")
+    String renderCartPage(){
+        return "cart-checkout";
     }
 }
