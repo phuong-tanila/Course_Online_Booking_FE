@@ -284,8 +284,8 @@
   /*<![CDATA[*/
 
     url = window.location.href;
-    const courseId = url.split("/")[4][0];
-    
+    const courseId = url.split("/")[4];
+    const coursePrice = document.querySelector(".price").getAttribute("course-price")
     function renderEnrolledBtn(btn, msg){
         if(!msg) msg =  "This course is already in cart";
         btn.disabled = true;
@@ -334,9 +334,11 @@
         if(cart == null){
             cart = []
         }
-        if(!cart.includes(courseId)) {
+        console.log(cart.some(item => item.id == courseId))
+        if(!cart.some(item => item.id == courseId)) {
             renderEnrolledBtn(el);
-            cart.push(courseId);
+            console.log({id: courseId, price: coursePrice})
+            cart.push({id: courseId, price: coursePrice});
             localStorage.setItem("cart", JSON.stringify(cart))
         }
     };
