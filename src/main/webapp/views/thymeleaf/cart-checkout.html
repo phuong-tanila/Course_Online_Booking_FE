@@ -164,9 +164,10 @@
 <script src="../../resources/js/theme.js"></script>
 <script src="../../resources/js/format-money.js"></script>
 <script>
-    let cart = JSON.parse(localStorage.getItem("cart"));
     let cartController = document.querySelector(".card");
     const cartSize = document.querySelector(".cart-size");
+    const checkOutBtn = document.querySelector(".btn.btn-success.btn-lg.btn-block");
+    if(cart.length == 0) checkOutBtn.disabled = true;
     console.log(cartController)
     if(cart.length == 0){
         cartController.innerHTML = "<h1>There are no item in cart</h1>"
@@ -202,7 +203,7 @@
                                     <!-- Data -->
                                 </div>
                                 <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-                                    <button type="button" onclick="handleDelete(this, ${data.id})" class="btn w-100 btn-outline-danger btn-sm me-1 mb-2 justify-content-center" data-mdb-toggle="tooltip" title="Remove item">
+                                    <button type="button" id="a1" onclick="handleDelete(this, ${data.id})" class="btn w-100 btn-outline-danger btn-sm me-1 mb-2 justify-content-center" data-mdb-toggle="tooltip" title="Remove item">
                                         <i class="fas fa-trash" aria-hidden="true"></i>
                                     </button>
                                 </div>
@@ -216,9 +217,35 @@
                     })
         })
     }
-    function handleDelete (el,id){
+   
+    function handleDelete(el,id){
+        console.log(cart)
+        el.parentElement.parentElement.parentElement.remove()
         cart =  cart.filter(i => i != id);
+        console.log(cart)
+        if(cart.length == 0){
+            if(cart.length == 0) checkOutBtn.disabled = true;
+            cartController.innerHTML = "<h1>There are no item in cart</h1>"
+            cartSize.innerHTML = "0 item"
+        }else{
+            cartSize.innerHTML = `${cart.length} item${cart.length > 1 ? "s" : ""}`;
+        }
         localStorage.setItem("cart", JSON.stringify(cart))
+        
+    }
+    function removeActiveClass(){
+        document.querySelectorAll(".payment-method i").forEach(i => i.classList.remove("opa-1"))
+    }
+    function handleChangePaymentMethod(el){
+        removeActiveClass();
+        el.querySelector("i").classList.add("opa-1");
+        const refreshToken = localStorage.getItem("refreshToken");
+        if(!refreshToken) {
+            document.getElementById('login-form').style.display='block';
+            document.getElementById("msg").innerHTML = "You must login to check out";
+        }else{
+            
+        }
     }
 </script>
 <script src="../../resources/js/cart-checkout.js"></script>
