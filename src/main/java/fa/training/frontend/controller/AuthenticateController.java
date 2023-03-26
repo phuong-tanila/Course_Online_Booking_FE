@@ -65,4 +65,23 @@ public class AuthenticateController {
         response.addCookie(accessCookie);
         response.addCookie(refreshCookie);
     }
+    @PostMapping("/login/google")
+    @ResponseBody
+    void loginByGoogle(@RequestBody LoginRequestModel loginRequest, HttpServletResponse response) throws IOException{
+        String endpoint = apiUrl + "/auth/login/google";
+        TokenAuthModel tokenModel = restTemplate.postForObject(endpoint, loginRequest, TokenAuthModel.class);
+        System.out.println(tokenModel);
+        System.out.println(loginRequest);
+        response.setContentType("application/json");
+        if (tokenModel.getAccessToken() != null) {
+            response.setStatus(HttpStatus.OK.value());
+            response.getWriter().print(objectMapper.writeValueAsString(tokenModel));
+        }else{
+            response.setStatus(HttpStatus.UNAUTHORIZED.value());
+            ExceptionResponse res = new ExceptionResponse(
+                    "bad credentials!", 
+                    "Your email has not been registered in our system");
+            response.getWriter().print(objectMapper.writeValueAsString(res));
+        }
+    }
 }

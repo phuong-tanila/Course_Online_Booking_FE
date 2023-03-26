@@ -87,7 +87,7 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="/cart" class="nav-link">
                                 <i class="ti-shopping-cart"></i>
                             </a>
                         </li>
@@ -188,9 +188,9 @@
                     </ul>
                 </div>
             </div>
-
+            <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
             <script src="https://accounts.google.com/gsi/client" async defer></script>
-            <script>
+             <script>
                 function setCookie(name,value,days) {
                     var expires = "";
                     if (days) {
@@ -274,18 +274,45 @@
                             },
                             body: JSON.stringify(json)
                         })
-                        .then(res => res.json())
+                        .then(res => {
+                            if (response.ok) {
+                                return response.json();
+                            }
+                            throw new Error('invalid email/phone or password');
+                        })
                         .then(data => {
                             console.log(data)
                             setCookie("accessToken", data.accessToken, 10);
-                            setCookie("refreshToken", data.refreshToken, 10);
                             localStorage.setItem("refreshToken", data.refreshToken)
                             localStorage.setItem("accessToken", data.accessToken)
                             document.getElementById('login-form').style.display = 'none'
                             displayLoginedUser();
+                        }).catch(err => {
+                            
+                            document.querySelector("#msg").innerHTML = "invalid email/phone or password";
                         })
+                        
                     }
                 });
+                
+                function loginByGoogle(response) {
+                    console.log(response)
+                    const responsePayload = decodeJwtResponse(response.credential);
+                    const body = {
+                        email : responsePayload.email,
+                        password: ""
+                    }
+                    fetch("http://localhost:8083/auth/login/google", {
+                        method: "POST",
+                        body: JSON.stringify(body)
+                    }).then(res => {
+                        if(res.ok) return res.json();
+                        throw "Your email has not been registered in our system"
+                    }).catch(err => {
+                        document.querySelector("#msg").innerHTML = "Your email has not been registered in our system";
+                        document.getElementById('login-form').style.display='block' 
+                    })
+                }
 
 
             </script>

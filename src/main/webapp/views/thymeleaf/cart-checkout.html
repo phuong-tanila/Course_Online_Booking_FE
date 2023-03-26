@@ -20,55 +20,17 @@
     <link rel="stylesheet" href="../../resources/css/style.css"/>
 </head>
 <body>
+    <!--<header th:replace="../thymeleaf/header-white :: header-white"></header>-->
 <section class="h-100 gradient-custom">
     <div class="container py-4">
         <div class="row d-flex justify-content-center my-4">
-            <div class="col-lg-8" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
+            <div class="col-lg-8 cart-controller" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
                 <div class="card mb-4">
                     <div class="card-header py-3">
                         <h5 class="mb-0 d-flex justify-content-between"><span
-                                class="justify-content-center">Cart - <span class='cart-size'>1</span> <span
-                                class='letter-s'>item</span></span></h5>
+                                class="justify-content-center">Cart - <span class='cart-size'>1 item</span></h5>
                     </div>
-                    <div class="card-body">
-                        <!-- Single item -->
-                        <div class="row course-id">
-                            <a href="#">
-                                <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
-                                    <!-- Image -->
-                                    <div class="bg-image hover-overlay hover-zoom ripple rounded"
-                                         data-mdb-ripple-color="light">
-                                        <img src="https://img-b.udemycdn.com/course/480x270/2259120_305f_6.jpg"
-                                             class="w-100" alt="course img"/>
-                                        <a href="#!">
-                                            <div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
-                                    <!-- Data -->
-                                    <p><span class="card-p">Course: </span>The Complete Flutter</p>
-                                    <p><span class="card-p">Trainer: </span>ChienNDA</p>
-                                    <p><span class="card-p">Duration: </span>24-03-2023 to 06-04-2023</p>
-                                    <p><span class="card-p">Tuition fee: </span><span style="color: red"
-                                                                                      class="itemMoney">2,199,000 VNĐ</span>
-                                    </p>
-                                    <!-- Data -->
-                                </div>
-                                <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-                                    <button type="button" onclick="handleDelete(this, ${i.courseID})"
-                                            class="btn w-100 btn-outline-danger btn-sm me-1 mb-2 justify-content-center"
-                                            data-mdb-toggle="tooltip"
-                                            title="Remove item">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
-                            </a>
-                        </div>
-
-                        <hr class="my-4"/>
-                        <!-- Single item -->
-                    </div>
+                    
                 </div>
             </div>
             <div class="col-lg-4">
@@ -170,5 +132,65 @@
     </div>
 </section>
 </body>
+<script src="../../resources/js/format-money.js"></script>
+<script>
+    let cart = JSON.parse(localStorage.getItem("cart"));
+    let cartController = document.querySelector(".card");
+    const cartSize = document.querySelector(".cart-size");
+    console.log(cartController)
+    if(cart.length == 0){
+        cartController.innerHTML = "<h1>There are no item in cart</h1>"
+        cartSize.innerHTML = "0 item"
+    }else{
+        cartSize.innerHTML = `${cart.length} item${cart.length > 1 ? "s" : ""}`;
+        cart.forEach(courseId => {
+            fetch("http://localhost:8080/courses/1")
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log(data);
+                        cartController.innerHTML +=`
+                <div class="card-body">
+                        <!-- Single item -->
+                        <div class="row course-id">
+                            <a href="/course-detail/${data.id}">
+                                </a><div class="col-lg-3 col-md-12 mb-4 mb-lg-0"><a href="#">
+                                    <!-- Image -->
+                                    </a><div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light"><a href="#">
+                                        <img src="${data.imageUrl}" class="w-100" alt="course img">
+                                        </a><a href="#">
+                                            <div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
+                                    <!-- Data -->
+                                    <p><span class="card-p">Course: </span>${data.courseName}</p>
+                                    <p><span class="card-p">Trainer: </span>${data.teacher.fullname}</p>
+                                    <p><span class="card-p">Duration: </span>24-03-2023 to 06-04-2023</p>
+                                    <p><span class="card-p">Tuition fee: </span><span style="color: red" class="itemMoney">${ formatter.format(parseInt(data.tuitionFee))}</span>
+                                    </p>
+                                    <!-- Data -->
+                                </div>
+                                <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                                    <button type="button" onclick="handleDelete(this, ${data.id})" class="btn w-100 btn-outline-danger btn-sm me-1 mb-2 justify-content-center" data-mdb-toggle="tooltip" title="Remove item">
+                                        <i class="fas fa-trash" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            
+                        </div>
+
+                        <hr class="my-4">
+                        <!-- Single item -->
+                    </div>
+                            `;
+                    })
+        })
+    }
+   
+    function handleDelete (el,id){
+        cart =  cart.filter(i => i != id);
+        localStorage.setItem("cart", JSON.stringify(cart))
+    }
+</script>
 <script src="../../resources/js/cart-checkout.js"></script>
 </html>
