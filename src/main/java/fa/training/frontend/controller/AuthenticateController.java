@@ -8,9 +8,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
-import model.ExceptionResponse;
-import model.LoginRequestModel;
-import model.TokenAuthModel;
+import fa.training.frontend.model.ExceptionResponse;
+import fa.training.frontend.model.LoginRequestModel;
+import fa.training.frontend.model.TokenAuthModel;
+import javax.servlet.http.Cookie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -56,7 +57,12 @@ public class AuthenticateController {
         }
     }
     @ResponseBody
-    void logout(@Validated @RequestBody TokenAuthModel tokenModel){
-        String endpoint = apiUrl + "/auth/logout";
+    void logout(@Validated @RequestBody TokenAuthModel tokenModel, HttpServletResponse response){
+        Cookie refreshCookie = new Cookie("refreshToken", "");
+        refreshCookie.setMaxAge(0);
+        Cookie accessCookie = new Cookie("accessToken", "");
+        refreshCookie.setMaxAge(0);
+        response.addCookie(accessCookie);
+        response.addCookie(refreshCookie);
     }
 }

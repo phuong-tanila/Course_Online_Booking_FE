@@ -1,7 +1,7 @@
 package fa.training.frontend.controller;
 
-import model.Category;
-import model.Course;
+import fa.training.frontend.model.Category;
+import fa.training.frontend.model.Course;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;

@@ -91,7 +91,7 @@
                                 <i class="ti-shopping-cart"></i>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" id="userInfo">
                             <a
                                     href="#"
                                     class="nav-link"
@@ -278,6 +278,7 @@
                         .then(data => {
                             console.log(data)
                             setCookie("accessToken", data.accessToken, 10);
+                            setCookie("refreshToken", data.refreshToken, 10);
                             localStorage.setItem("refreshToken", data.refreshToken)
                             localStorage.setItem("accessToken", data.accessToken)
                             document.getElementById('login-form').style.display = 'none'

@@ -1,4 +1,4 @@
-package model;
+package fa.training.frontend.model;
 
 import lombok.*;
 

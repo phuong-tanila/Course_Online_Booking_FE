@@ -1,7 +1,8 @@
-package model;
+package fa.training.frontend.model;
 
 import lombok.*;
 
+import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.Set;
 
@@ -14,8 +15,5 @@ public class Order {
     public Boolean paymentStatus;
     public String coupon;
     public String paymentId;
-    public User user;
     public Set<OrderDetail> orderDetails;
-
-
 }

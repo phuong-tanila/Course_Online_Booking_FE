@@ -4775,7 +4775,7 @@ a.text-white.payment-method i{
 }
 
 .search_result li a:hover{
-  opacity: 0.7
+  opacity: 0.7;
   cursor: pointer;
   color: #f39c12;
   background-color: #fafafa;
