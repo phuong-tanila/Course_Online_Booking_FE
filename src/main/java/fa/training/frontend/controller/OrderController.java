@@ -1,44 +1,24 @@
-<<<<<<< HEAD
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package fa.training.frontend.controller;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 
 /**
  *
  * @author 15tha
  */
-@Controller
-public class OrderController {
-    @GetMapping("/cart")
-    String renderCartPage(){
-        return "cart-checkout";
-=======
-package fa.training.frontend.controller;
+
 
 import fa.training.frontend.model.Order;
-import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 
 @Controller
@@ -72,6 +52,9 @@ public class OrderController {
 //            model.addAttribute("totalPage", totalPage);
 //        }
         return "history-booking";
->>>>>>> b9584df63a4f8d20700d4d27809801e0d0c048e9
+    }
+    @GetMapping("/cart")
+    String renderCartPage(){
+        return "cart-checkout";
     }
 }
