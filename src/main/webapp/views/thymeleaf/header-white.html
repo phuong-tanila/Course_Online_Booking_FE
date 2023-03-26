@@ -314,7 +314,12 @@
                     })
                 }
 
+                let cart = JSON.parse(localStorage.getItem("cart"));
 
+                if(cart == null){
+                    cart = []
+                    localStorage.setItem("cart", JSON.stringify(cart))
+                }
             </script>
         </nav>
     </div>
