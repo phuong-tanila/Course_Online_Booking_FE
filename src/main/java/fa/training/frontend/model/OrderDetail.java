@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.text.DecimalFormat;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -14,4 +15,8 @@ public class OrderDetail {
     public Order order;
     public Feedback feedback;
     public Course course;
+    public String getTuitionFeeFormat() {
+        DecimalFormat formatter = new DecimalFormat("###,###,###");
+        return  (formatter.format(this.price) + " VNĐ").replace(",", ".");
+    }
 }
