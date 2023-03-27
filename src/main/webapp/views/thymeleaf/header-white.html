@@ -264,8 +264,11 @@
                         localStorage.removeItem("refreshToken");
                         window.location.href = "/home";
                         localStorage.removeItem("cart")
+                        if (getCookie("accessToken")) deleteCookie("accessToken");
+                        if (getCookie("refreshToken")) deleteCookie("refreshToken");
                     });
                 }
+             
                 window.onload = function () {
                     const token = localStorage.getItem("refreshToken");
                     let claims = null;
