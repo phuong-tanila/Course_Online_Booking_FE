@@ -226,8 +226,10 @@
                   <img class="img-fluid" th:src="${prod.imageUrl}" alt="" />
                 </div>
                 <div class="course_content">
-                  <span class="price" th:inline="text" th:attr="course-price=${course.tuitionFee}" ></span>
-                  <span class="tag mb-4 d-inline-block">Java</span>
+                  <div class="tag d-inline" th:each="cate: ${prod.categories}"
+                       th:text="${cate.categoryName}"></div>
+                  <div class="price mb-3"  th:inline="text" th:attr="course-price=${prod.tuitionFee}" ></div>
+
                   <h4 class="mb-3 tooltip-text">
                     <a class="overflow_title" th:href="@{/course-detail/{courseId}(courseId=${prod.id})}"
                        th:text="${prod.courseName}"></a>
