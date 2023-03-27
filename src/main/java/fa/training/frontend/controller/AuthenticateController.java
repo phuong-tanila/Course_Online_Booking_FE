@@ -70,7 +70,7 @@ public class AuthenticateController {
     }
     @GetMapping("/logout")
     @ResponseBody
-    ResponseEntity logout(@Validated @RequestBody TokenAuthModel tokenModel, HttpServletResponse response){
+    ResponseEntity logout(HttpServletResponse response){
         Cookie refreshCookie = new Cookie("refreshToken", "");
         refreshCookie.setMaxAge(0);
         Cookie accessCookie = new Cookie("accessToken", "");
@@ -86,19 +86,18 @@ public class AuthenticateController {
     void loginByGoogle(@RequestBody LoginRequestModel loginRequest, HttpServletResponse response) throws IOException{
         String endpoint = apiUrl + "/auth/login/google";
         TokenAuthModel tokenModel = restTemplate.postForObject(endpoint, loginRequest, TokenAuthModel.class);
-        System.out.println("TOken: " + tokenModel);
+        System.out.println("Token: " + tokenModel);
         System.out.println(loginRequest);
         response.setContentType("application/json");
         
         if (tokenModel.getAccessToken() != null) {
             Cookie refreshTokenCookie = new Cookie("refreshToken", tokenModel.getRefreshToken());
             Cookie accessTokenCookie = new Cookie("accessToken", tokenModel.getAccessToken());
-            refreshTokenCookie.setMaxAge(60*60*24*24);
-            accessTokenCookie.setMaxAge(60*60*24*24);
+            refreshTokenCookie.setMaxAge(60*60*24);
+            accessTokenCookie.setMaxAge(60*60*24);
             response.addCookie(accessTokenCookie);
             response.addCookie(refreshTokenCookie);
             response.setStatus(HttpStatus.OK.value());
-            response.getWriter().print(objectMapper.writeValueAsString(tokenModel));
             response.getWriter().print(objectMapper.writeValueAsString(tokenModel));
         }else{
             response.setStatus(HttpStatus.UNAUTHORIZED.value());

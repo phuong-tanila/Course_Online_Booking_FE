@@ -45,7 +45,76 @@ public class UserController {
 
     @GetMapping("/profile")
     public String userProfile(Model model, HttpServletRequest request, HttpServletResponse response) throws JsonProcessingException {
+        Cookie[] cookies = request.getCookies();
+        boolean foundTokenCookie = false;
+        String accessToken = null;
+        JwtClaims claims = null;
+        if (cookies != null) {
+            TokenAuthModel tokenAuthModel = new TokenAuthModel();
+            for (Cookie cooky : cookies) {
+                System.out.println(cooky.getName());
+                if (cooky.getName().equals("accessToken")) {
+                    foundTokenCookie = true;
+                    tokenAuthModel.setAccessToken(cooky.getValue());
+                    accessToken = cooky.getValue();
+                } else if (cooky.getName().equals("refreshToken")) {
+                    foundTokenCookie = true;
+                    tokenAuthModel.setRefreshToken(cooky.getValue());
 
+                }
+            }
+            if (tokenAuthModel.getRefreshToken() != null && tokenAuthModel.getAccessToken() != null) {
+                try {
+                    accessToken = tokenAuthModel.getAccessToken();
+                    JwtProvider.validateAccessToken(accessToken);
+                    claims = JwtProvider.getClaimsFromJWT(accessToken);
+
+                } catch (ExpiredJwtException ex) {
+                    tokenAuthModel = JwtProvider.refreshNewToken(
+                            tokenAuthModel,
+                            apiUrl,
+                            restTemplate,
+                            response
+                    );
+                    accessToken = tokenAuthModel.getAccessToken();
+                }
+            }
+        }
+        User user = null;
+        if (accessToken != null) {
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Authorization", "Bearer " + accessToken);
+            HttpEntity<String> httpEntity = new HttpEntity<>(headers);
+            String url = apiUrl + "/user/profile-info";
+
+            try {
+                ResponseEntity<User> res = restTemplate.exchange(
+                        url, HttpMethod.GET,
+                        httpEntity, User.class,
+                        new Object());
+                user = res.getBody();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                user = new User();
+            }
+            model.addAttribute("user", user);
+            model.addAttribute("logout", false);
+            System.out.println(false);
+        }else{
+            System.out.println(true);
+            model.addAttribute("logout", true);
+        }
+        System.out.println(user);
+        System.out.println("User: " + user);
+        return "user-profile";
+    }
+
+    @PutMapping("/update-profile")
+    @ResponseBody
+    public String updateProfile(@RequestBody User user,
+                                Model model,
+                                HttpServletRequest request,
+                                HttpServletResponse response) throws JsonProcessingException {
         Cookie[] cookies = request.getCookies();
         boolean foundTokenCookie = false;
         String accessToken = null;
@@ -86,12 +155,11 @@ public class UserController {
 
             HttpHeaders headers = new HttpHeaders();
             headers.add("Authorization", "Bearer " + accessToken);
-            HttpEntity<String> httpEntity = new HttpEntity<>(headers);
-            String url = apiUrl + "/user/profile-info";
-            User user;
+            HttpEntity<User> httpEntity = new HttpEntity<>(user, headers);
+            String url = apiUrl + "/user/update-profile";
             try {
                 ResponseEntity<User> res = restTemplate.exchange(
-                        url, HttpMethod.GET,
+                        url, HttpMethod.PUT,
                         httpEntity, User.class,
                         new Object());
                 user = res.getBody();
@@ -108,6 +176,5 @@ public class UserController {
         }
         return "user-profile";
     }
-
 
 }

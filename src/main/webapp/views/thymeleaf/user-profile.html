@@ -43,7 +43,7 @@
             <div class="col-lg-4">
                 <div class="card mb-4">
                     <div class="card-body text-center">
-                        <img id="img-avatar" th:src="${user.avatar}" alt="avatar"
+                        <img id="img-avatar" th:src="${user.avatar == null?'':user.avatar}" alt="avatar"
                              class="img-thumbnail img-fluid" style="width: 150px;">
                         <input type="file" id="input-avatar"/>
                         <h5 class="my-3 social-link" th:text="${user.fullname}"></h5>
@@ -98,8 +98,7 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-3 mb-5">
-                        <button id="submit" type="button" class="btn btn-light" data-mdb-ripple-color="dark">Update
-                            profile
+                        <button id="submit" type="button" class="btn btn-light" data-mdb-ripple-color="dark">Edit
                         </button>
                     </div>
                 </div>

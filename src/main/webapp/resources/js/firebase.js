@@ -1,4 +1,4 @@
-var urlApi = "http://localhost:8080"
+
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
 import { listAll, getStorage, ref, getDownloadURL, deleteObject, uploadBytesResumable, uploadBytes } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-storage.js";
@@ -20,6 +20,14 @@ const app = initializeApp(firebaseConfig);
 const storage = getStorage();
 const listRef = ref(storage, 'userID/');
 console.log(listRef);
+
+document.querySelector('#input-avatar').onchange = evt => {
+  const [file] = document.querySelector('#input-avatar').files
+  if (file) {
+    document.querySelector('#img-avatar').src = URL.createObjectURL(file)
+  }
+}
+
 document.querySelector('#submit').addEventListener('click', function () {
             var http = new XMLHttpRequest();
             const avatar = document.querySelector('#input-avatar').files[0];
@@ -46,12 +54,13 @@ document.querySelector('#submit').addEventListener('click', function () {
                         .then(snapshot => {
                             return getDownloadURL(snapshot.ref)
                         }).then(url => {
+                                    console.log(url)
                                     let name = document.querySelector('#profile-name').value;
                                     let email = document.querySelector('#profile-email').value;
                                     let phone = document.querySelector('#profile-phone').value;
                                     let description = document.querySelector('#profile-description').value;
-                                    fetch(urlApi + "/user/update-profile", {
-                                                method: 'POST',
+                                    fetch("/update-profile", {
+                                                method: 'PUT',
                                                 body: JSON.stringify({
                                                      fullname: name,
                                                      phone: phone,
@@ -63,8 +72,26 @@ document.querySelector('#submit').addEventListener('click', function () {
                                                     'Content-type': 'application/json; charset=UTF-8',
                                                 },
 
-                                            }).then(res => res.json()).then(data => {
-                                                console.log(data)
+                                            }).then(res => {
+                                                const responsePayload = decodeJwtResponse(localStorage.getItem("refreshToken"));
+                                                const body = {
+                                                    email : responsePayload.sub,
+                                                    password: ""
+                                                }
+                                                console.log(body)
+                                                console.log(responsePayload)
+                                                    fetch("/logout").then(res => {
+                                                        console.log(res)
+                                                        if(res.ok) return res
+                                                    }).then((res) => {
+                                                        localStorage.removeItem("accessToken");
+                                                        localStorage.removeItem("refreshToken");
+                                                        localStorage.removeItem("cart")
+                                                        window.location.href="/home"
+                                                        if (getCookie("accessToken")) deleteCookie("accessToken");
+                                                        if (getCookie("refreshToken")) deleteCookie("refreshToken");
+                                                        return res;
+                                                    })
                                             })
                                 })
             }

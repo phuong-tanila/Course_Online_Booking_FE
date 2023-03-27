@@ -241,10 +241,13 @@
                     /></a>
                     <ul class="dropdown-menu">
                       <li class="nav-item">
-                        <a class="nav-link" href="#">Edit profile</a>
+                        <a class="nav-link" href="/profile">Edit profile</a>
                       </li>
                       ${claims.role == "US" ? `<li class="nav-item">
                         <a class="nav-link" href="/history">Purchase history</a>
+                      </li>` : ""}
+                      ${claims.role == "AD" ? `<li class="nav-item">
+                        <a class="nav-link" href="/dashboard">Dashboard</a>
                       </li>` : ""}
                       <li class="nav-item">
                         <a class="nav-link" style="cursor: pointer;" onclick="logout()">Log out</a>

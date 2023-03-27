@@ -149,7 +149,7 @@
         <!-- Area Chart Example-->
         <div class="card mb-3" id="chart-area">
             <div class="card-header">
-                <i class="fa fa-area-chart"></i> Area Chart Example
+                <i class="fa fa-area-chart"></i> Number of teachers per category
             </div>
             <div class="card-body">
                 <canvas id="myAreaChart" width="100%" height="30"></canvas>
@@ -234,7 +234,9 @@
                             <td style="color: #718093; font-weight: 500;" th:if="${user.role.equals('US')}" th:text="Student"></td>
                             <td style="color: #009432; font-weight: 500;" th:if="${user.role.equals('TC')}" th:text="Teacher"></td>
                             <td>
-                                <button type="button" class="btn btn-info"><a style="text-decoration: none; color: #ffff" href="#">View</a></button>
+                                <button type="button" class="btn btn-info">
+                                    <a style="text-decoration: none; color: #ffff" th:href="@{/view-profile/{id}/{role} (id=${user.id}, role=${user.role})}">View</a>
+                                </button>
                                 <button type="button" class="btn btn-danger">Delete</button>
                             </td>
                         </tr>

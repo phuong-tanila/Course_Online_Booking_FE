@@ -259,38 +259,47 @@
               document.cookie =
                 name + "=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
             }
-            function displayLoginedUser(claims) {
-              const accessToken = localStorage.getItem("accessToken");
-              if (accessToken != null) {
-                const claims = decodeJwtResponse(accessToken);
-                if (claims.role != "US")
-                  document.querySelector("#cart").style.display = "none";
-                const userInfoDropDown = document.querySelector("#userInfo");
+            function displayLoginedUser(claims){
+                    const accessToken = localStorage.getItem("accessToken");
+                    if(accessToken != null){
+                        const claims = decodeJwtResponse(accessToken);
+                        if(claims.role != "US") document.querySelector("#cart").style.display = 'none'
+                        const userInfoDropDown = document.querySelector("#userInfo");
 
-                userInfoDropDown.classList.add("submenu");
-                userInfoDropDown.classList.add("dropdown");
-                userInfoDropDown.innerHTML = `
-                            <div href="#" class="nav-link dropdown" style="cursor: pointer;"  >
-
-                                <button class="btn btn-secondary dropdown-toggle w-100" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fa-regular fa-user"></i>
-                                    ${claims.fullname}
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                  <a class="dropdown-item" href="/profile">Profile</a>
-                                  ${
-                                    claims.role == "US"
-                                      ? '<a class="dropdown-item" href="/history">Order history</a>'
-                                      : ""
-                                  }
-                                  <a class="dropdown-item" style="cursor: pointer;" onclick="logout()">Logout  </a>
-                                </div>
-                            </div>
-                        `;
-              } else {
-                google.accounts.id.prompt();
-              }
-            }
+                        userInfoDropDown.classList.add("submenu");
+                        userInfoDropDown.classList.add("dropdown");
+                        userInfoDropDown.innerHTML = `
+                            <!-- Avatar user after login success -->
+                <li class="nav-item submenu dropdown">
+                    <a
+                      href="#"
+                      class="nav-link dropdown-toggle avatar_user"
+                      data-toggle="dropdown"
+                      role="button"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                      ><img class="avatar_user_image" src="${claims.avatar}"
+                    /></a>
+                    <ul class="dropdown-menu">
+                      <li class="nav-item">
+                        <a class="nav-link" href="/profile">Edit profile</a>
+                      </li>
+                      ${claims.role == "US" ? `<li class="nav-item">
+                        <a class="nav-link" href="/history">Purchase history</a>
+                      </li>` : ""}
+                      ${claims.role == "AD" ? `<li class="nav-item">
+                        <a class="nav-link" href="/dashboard">Dashboard</a>
+                      </li>` : ""}
+                      <li class="nav-item">
+                        <a class="nav-link" style="cursor: pointer;" onclick="logout()">Log out</a>
+                      </li>
+                    </ul>
+                  </li>
+                        `
+                    }else {
+                        google.accounts.id.prompt();
+                    }
+                }
 
             function logout() {
               fetch("/logout")
@@ -345,9 +354,9 @@
                   fetch("/login", {
                     method: "POST",
                     headers: {
-                      "Content-Type": "application/json",
+                        "Content-Type": "application/json",
                     },
-                    body: JSON.stringify(json),
+                    body: JSON.stringify(json)
                   })
                     .then((res) => {
                       if (res.ok) {
