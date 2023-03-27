@@ -17,135 +17,97 @@
     <!-- main css -->
     <link rel="stylesheet" href="../../resources/css/style.css" />
 </head>
+
 <body>
-<header th:replace="../thymeleaf/header-white :: header-white"></header>
-<!--================Home Banner Area =================-->
-<section class="banner_area">
-    <div class="banner_inner d-flex align-items-center">
-        <div class="overlay"></div>
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-12">
-                    <div class="banner_content text-center">
-                        <h2 style="color: #fdc632;">Cart Booking</h2>
-                        <p>Your cart items</p>
+    <header th:replace="../thymeleaf/header-white :: header-white"></header>
+    <!--================Home Banner Area =================-->
+    <section class="banner_area">
+        <div class="banner_inner d-flex align-items-center">
+            <div class="overlay"></div>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-12">
+                        <div class="banner_content text-center">
+                            <h2 style="color: #fdc632;">Cart Booking</h2>
+                            <p>Your cart items</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
-<section class="h-100 gradient-custom">
-    <div class="container py-4">
-        <div class="row d-flex justify-content-center my-4">
-            <div class="col-lg-8 cart-controller" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
-                <div class="card mb-4">
-                    <div class="card-header py-3">
-                        <h5 class="mb-0 d-flex justify-content-between"><span
-                                class="justify-content-center">Cart - <span class='cart-size'>1 item</span></h5>
-                    </div>
-                    
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="card mb-4" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
-                    <div class="card text-black rounded-3">
-                        <div class='card-header py-3'>
-                            <h5 class="mb-0">Payment method</h5>
+    </section>
+    <section class="h-100 gradient-custom">
+        <div class="container py-4">
+            <div class="row d-flex justify-content-center my-4">
+                <div class="col-lg-8 cart-controller" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
+                    <div class="card mb-4">
+                        <div class="card-header py-3">
+                            <h5 class="mb-0 d-flex justify-content-between"><span class="justify-content-center">Cart -
+                                    <span class='cart-size'>1 item</span></h5>
                         </div>
-                        <div class="card-body">
-                            <a type="submit" class="text-white payment-method "
-                               onclick='handleChangePaymentMethod(this)'>
-                                <i class="fa-solid fa-money-bills opa-1"></i>
-                            </a>
-                            <a type="submit" class="text-white payment-method"
-                               onclick='handleChangePaymentMethod(this)'>
-                                <i class="fa-brands fa-cc-paypal"></i>
-                            </a>
-                        </div>
+
                     </div>
                 </div>
-                <div class="card mb-4" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
-                    <div class="card-header py-3">
-                        <h5 class="mb-0">Summary</h5>
-                    </div>
-                    <div class="card-body">
-                        <ul class="list-group list-group-flush">
-
-                            <li
-                                    class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
-                                <div>
-                                    <strong>Total amount</strong>
-                                    <p class="mb-0"><strong>(including VAT)</strong></p>
-                                </div>
-                                <span><strong class="total-money">2,199,000 VNĐ</strong></span>
-                            </li>
-                        </ul>
-
-
-                        <!-- Button trigger modal -->
-                        <div>
-                            <button type="button" class="btn btn-success btn-lg btn-block">
-                                Pay at center
-                            </button>
-                        </div>
-
-                        <!-- Modal -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                             aria-hidden="true">
-                            <div class="modal-dialog modal-xl">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Input payment information</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text" id="basic-addon1">@</span>
-                                            <input id='email' type="email" onchange="checkInput()" class="form-control"
-                                                   placeholder="Input your email" aria-label="Email"
-                                                   aria-describedby="basic-addon1">
-                                        </div>
-                                        <p style="color: red" class="email-noti"></p>
-                                        <div class="input-group mb-3">
-                                            <input id='fullName' type="text" onchange="checkInput()"
-                                                   class="form-control" placeholder="Input your full name">
-                                        </div>
-                                        <p style="color: red" class="fullName-noti"></p>
-                                        <div class="input-group mb-3">
-                                            <input id='phone' type="tel" onchange="checkInput()" class="form-control"
-                                                   placeholder="Input your phone">
-                                        </div>
-                                        <p style="color: red" class="phone-noti"></p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <!--<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
-                                        <div id="paypal-button-container">
-                                            <button type="button" class="btn btn-primary"
-                                                    onclick='handlePayment("not logged in")'>Pay
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
+                <div class="col-lg-4">
+                    <div class="card mb-4" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
+                        <div class="card text-black rounded-3">
+                            <div class='card-header py-3'>
+                                <h5 class="mb-0">Payment method</h5>
+                            </div>
+                            <div class="card-body">
+                                <a type="submit" class="text-white payment-method "
+                                    onclick='handleChangePaymentMethod(this)'>
+                                    <i class="fa-solid fa-money-bills opa-1"></i>
+                                </a>
+                                <a type="submit" class="text-white payment-method"
+                                    onclick='handleChangePaymentMethod(this)'>
+                                    <i class="fa-brands fa-cc-paypal"></i>
+                                </a>
                             </div>
                         </div>
                     </div>
+                    <div class="card mb-4" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
+                        <div class="card-header py-3">
+                            <h5 class="mb-0">Summary</h5>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+
+                                <li
+                                    class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                                    <div>
+                                        <strong>Total amount</strong>
+                                        <p class="mb-0"><strong>(including VAT)</strong></p>
+                                    </div>
+                                    <span><strong class="total-money">0 VNĐ</strong></span>
+                                </li>
+                            </ul>
+
+
+                            <!-- Button trigger modal -->
+                            <div id="paypal-button-container">
+                                <button type="button" class="btn btn-success btn-lg btn-block btn-checkout"
+                                    onclick="handleCheckOut(this)">
+                                    Pay at center
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
             </div>
+            <form id="hiddenForm" action="MainController">
+                <input name='btnAction' value='cart' hidden>
+                <input name='func' value='pay' hidden>
+                <input name='total' id="total" hidden>
+                <input name='email' id='hiddenEmail' hidden>
+                <input name='fullName' id='hiddenFullName' hidden>
+                <input name='phone' id='hiddenPhone' hidden>
+                <input name="paymentMethod" id="paymentMethod" hidden>
+            </form>
         </div>
-        <form id="hiddenForm" action="MainController">
-            <input name='btnAction' value='cart' hidden>
-            <input name='func' value='pay' hidden>
-            <input name='total' id="total" hidden>
-            <input name='email' id='hiddenEmail' hidden>
-            <input name='fullName' id='hiddenFullName' hidden>
-            <input name='phone' id='hiddenPhone' hidden>
-            <input name="paymentMethod" id="paymentMethod" hidden>
-        </form>
-    </div>
-</section>
-<footer th:replace="../thymeleaf/footer :: footer"></footer>
+    </section>
+    <footer th:replace="../thymeleaf/footer :: footer"></footer>
 </body>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -163,23 +125,33 @@
 <script src="../../resources/js/gmaps.min.js"></script>
 <script src="../../resources/js/theme.js"></script>
 <script src="../../resources/js/format-money.js"></script>
+<script
+    src="https://www.paypal.com/sdk/js?client-id=AcSATbC34qNTc0kDCzZGDxWFgnsdQpuWt8HMIPQwHfGU2UBgNx6lAPkoOtczUGEpWuHK0dm-ZOupi3iY"
+    data-namespace="paypal_sdk"></script>
+
 <script>
     let cartController = document.querySelector(".card");
     const cartSize = document.querySelector(".cart-size");
     const checkOutBtn = document.querySelector(".btn.btn-success.btn-lg.btn-block");
-    if(cart.length == 0) checkOutBtn.disabled = true;
-    console.log(cartController)
-    if(cart.length == 0){
-        cartController.innerHTML = "<h1>There are no item in cart</h1>"
-        cartSize.innerHTML = "0 item"
-    }else{
-        cartSize.innerHTML = `${cart.length} item${cart.length > 1 ? "s" : ""}`;
-        cart.forEach(courseId => {
-            fetch("http://localhost:8080/courses/" + courseId)
-                    .then(res => res.json())
-                    .then(data => {
-                        console.log(data);
-                        cartController.innerHTML +=`
+    //    renderTotalPrice()
+    async function load() {
+        if (cart.length == 0) checkOutBtn.disabled = true;
+        if (cart.length == 0) {
+            cartController.innerHTML = "<h1>There are no item in cart</h1>"
+            cartSize.innerHTML = "0 item"
+        } else {
+            await renderCart();
+        }
+        renderTotalPrice();
+    }
+    load()
+
+    async function getCourseDetail(courseId) {
+        var courseFee = 0;
+        await fetch("http://localhost:8080/courses/" + courseId)
+            .then(res => res.json())
+            .then(data => {
+                cartController.innerHTML += `
                 <div class="card-body">
                         <!-- Single item -->
                         <div class="row course-id">
@@ -198,7 +170,7 @@
                                     <p><span class="card-p">Course: </span>${data.courseName}</p>
                                     <p><span class="card-p">Trainer: </span>${data.teacher.fullname}</p>
                                     <p><span class="card-p">Duration: </span>24-03-2023 to 06-04-2023</p>
-                                    <p><span class="card-p">Tuition fee: </span><span style="color: red" class="itemMoney">${ formatter.format(parseInt(data.tuitionFee))}</span>
+                                    <p><span class="card-p">Tuition fee: </span><span style="color: red" class="itemMoney">${formatter.format(parseInt(data.tuitionFee))}</span>
                                     </p>
                                     <!-- Data -->
                                 </div>
@@ -214,39 +186,138 @@
                         <!-- Single item -->
                     </div>
                             `;
-                    })
+
+            });
+    }
+
+    async function renderCart() {
+        cartSize.innerHTML = `${cart.length} item${cart.length > 1 ? "s" : ""}`;
+        await cart.forEach(async course => {
+            await getCourseDetail(course.id);
+        });
+    }
+
+
+    function renderTotalPrice() {
+        let totalMoney = 0;
+        console.log(1)
+        cart.forEach(course => {
+            totalMoney += parseInt(course.price);
+        })
+        console.log(totalMoney)
+        document.querySelector(".total-money").innerHTML = formatter.format(totalMoney)
+
+    }
+
+    function handlePayment(details) {
+        console.log(details)
+        fetch(`/checkout?paymentId=${details.id}&paymentStatus=true&paymentMethod=paypal`, {
+            method: "POST",
+            body: JSON.stringify(cart.map(item => item.id)),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(res => {
+            if (res.ok) return res.json();
+            throw "Invalid id"
+        }).then(() => {
+            swal("", "", "success")
         })
     }
-   
-    function handleDelete(el,id){
+
+    function renderPaypalButton() {
+        const totalPriceVND = cart.reduce((acc, cur) => acc + parseInt(cur.price), 0);
+        console.log(totalPriceVND)
+        const price = parseInt(totalPriceVND) / parseInt(23000);
+        console.log(price)
+        paypal_sdk.Buttons({
+            onInit: function (data, actions) {
+                if (document.querySelector('.cart-size') == 0) {
+                    actions.disable();
+                } else {
+                    actions.enable();
+                }
+            },
+            createOrder: function (data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: (Math.round(price * 100) / 100).toString(),
+                        }
+                    }]
+                });
+            },
+            onApprove: function (data, actions) {
+                return actions.order.capture().then(function (details) {
+                    // This function shows a transaction success message to your buyer.
+                    console.log(details)
+                    handlePayment(details);
+                });
+            }
+            ,
+            style: {
+                layout: 'vertical',
+                color: 'blue',
+                shape: 'rect',
+                label: 'paypal'
+            }
+        }).render('#paypal-button-container');
+        prevMethodIsPaypal = true;
+    }
+
+    function handleDelete(el, id) {
         console.log(cart)
         el.parentElement.parentElement.parentElement.remove()
-        cart =  cart.filter(i => i != id);
+        cart = cart.filter(i => i != id);
         console.log(cart)
-        if(cart.length == 0){
-            if(cart.length == 0) checkOutBtn.disabled = true;
+        if (cart.length == 0) {
+            if (cart.length == 0) checkOutBtn.disabled = true;
             cartController.innerHTML = "<h1>There are no item in cart</h1>"
             cartSize.innerHTML = "0 item"
-        }else{
+        } else {
             cartSize.innerHTML = `${cart.length} item${cart.length > 1 ? "s" : ""}`;
         }
         localStorage.setItem("cart", JSON.stringify(cart))
-        
+        renderTotalPrice();
     }
-    function removeActiveClass(){
+    function removeActiveClass() {
         document.querySelectorAll(".payment-method i").forEach(i => i.classList.remove("opa-1"))
     }
-    function handleChangePaymentMethod(el){
+    function handleChangePaymentMethod(el) {
         removeActiveClass();
-        el.querySelector("i").classList.add("opa-1");
+        const icon = el.querySelector("i");
+        icon.classList.add("opa-1");
+        const checkoutContainer = document.querySelector("#paypal-button-container");
+        checkoutContainer.innerHTML = "";
+        if (icon.classList.contains("fa-cc-paypal")) {
+            renderPaypalButton();
+        } else {
+            checkoutContainer.innerHTML = `<button type="button" class="btn btn-success btn-lg btn-block btn-checkout" onclick="handleCheckOut(this)">
+                                    Pay at center
+                                </button>`
+        }
+    }
+    function handleCheckOut(el) {
         const refreshToken = localStorage.getItem("refreshToken");
-        if(!refreshToken) {
-            document.getElementById('login-form').style.display='block';
+        if (!refreshToken) {
+            document.getElementById('login-form').style.display = 'block';
             document.getElementById("msg").innerHTML = "You must login to check out";
-        }else{
-            
+        } else {
+            fetch("/checkout", {
+                method: "POST",
+                body: JSON.stringify(cart.map(item => item.id)),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }).then(res => {
+                if (res.ok) return res.json();
+                throw "Invalid id"
+            }).then(() => {
+                swal("", "", "success")
+            })
         }
     }
 </script>
 <script src="../../resources/js/cart-checkout.js"></script>
+
 </html>

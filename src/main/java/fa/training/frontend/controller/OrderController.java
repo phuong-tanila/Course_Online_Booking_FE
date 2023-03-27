@@ -1,8 +1,11 @@
 package fa.training.frontend.controller;
 
-
-
+import com.fasterxml.jackson.core.JsonProcessingException;
+import fa.training.frontend.helpers.jwt.JwtClaims;
+import fa.training.frontend.helpers.jwt.JwtProvider;
 import fa.training.frontend.model.Order;
+import fa.training.frontend.model.TokenAuthModel;
+import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -13,10 +16,21 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class OrderController {
+
     @Autowired
     private RestTemplate restTemplate;
     @Value("${courses.api.url}")
@@ -47,8 +61,75 @@ public class OrderController {
 //        }
         return "history-booking";
     }
+
     @GetMapping("/cart")
-    String renderCartPage(){
+    String renderCartPage() {
         return "cart-checkout";
+    }
+
+    @PostMapping("/checkout")
+    @ResponseBody
+    ResponseEntity checkout(
+            @RequestBody List<Integer> courseIds,
+            @RequestParam(defaultValue = "") String paymentId,
+            @RequestParam(defaultValue = "false") boolean paymentStatus,
+            @RequestParam(defaultValue = "") String coupon,
+            @RequestParam(defaultValue = "cod") String paymentMethod,
+            HttpServletRequest request,
+            HttpServletResponse response
+    ) throws JsonProcessingException {
+        Cookie[] cookies = request.getCookies();
+        boolean foundTokenCookie = false;
+        String accessToken = null;
+        JwtClaims claims = null;
+        if (cookies != null) {
+            TokenAuthModel tokenAuthModel = new TokenAuthModel();
+            for (Cookie cooky : cookies) {
+                if (cooky.getName().equals("accessToken")) {
+                    foundTokenCookie = true;
+                    tokenAuthModel.setAccessToken(cooky.getValue());
+                } else if (cooky.getName().equals("refreshToken")) {
+                    foundTokenCookie = true;
+                    tokenAuthModel.setRefreshToken(cooky.getValue());
+                }
+            }
+            if (tokenAuthModel.getRefreshToken() != null && tokenAuthModel.getAccessToken() != null) {
+                try {
+                    accessToken = tokenAuthModel.getAccessToken();
+                    JwtProvider.validateAccessToken(accessToken);
+                    claims = JwtProvider.getClaimsFromJWT(accessToken);
+
+                } catch (ExpiredJwtException ex) {
+                    tokenAuthModel = JwtProvider.refreshNewToken(
+                            tokenAuthModel,
+                            apiUrl,
+                            restTemplate,
+                            response
+                    );
+                    accessToken = tokenAuthModel.getAccessToken();
+
+                }
+            }
+        }
+        if (accessToken != null) {
+            System.out.println(accessToken);
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Authorization", "Bearer " + accessToken);
+            String url = apiUrl + "/order/checkout?"
+                    + "paymentId=" + paymentId
+                    + "&paymentStatus=" + paymentStatus
+                    + "&paymentMethod=" + paymentMethod;
+            Object[] uriVariables = new Object[2];
+            System.out.println(headers);
+            HttpEntity<Object> entity = new HttpEntity<>(courseIds, headers);
+            return restTemplate.exchange(
+                    url, HttpMethod.POST,
+                    entity, String.class,
+                    uriVariables
+            );
+        }else{
+            restTemplate.getForObject(apiUrl + "/logout", String.class);
+            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+        }
     }
 }

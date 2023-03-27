@@ -108,9 +108,10 @@ public class JwtProvider {
             RestTemplate restTemplate,
             HttpServletResponse response) {
         String url = apiUrl + "/auth/refresh";
+        
         System.out.println(tokenAuthModel);
         tokenAuthModel = restTemplate.postForObject(url, tokenAuthModel, TokenAuthModel.class);
-        System.out.println(tokenAuthModel);
+        System.out.println("new auth" + tokenAuthModel);
         Cookie refreshCookie = new Cookie("refreshToken", tokenAuthModel.getRefreshToken());
         refreshCookie.setMaxAge(60 * 60 * 24);
         Cookie accessCookie = new Cookie("accessToken", tokenAuthModel.getAccessToken());

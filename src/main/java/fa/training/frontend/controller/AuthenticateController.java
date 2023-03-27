@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -46,6 +47,10 @@ public class AuthenticateController {
         System.out.println(loginRequest);
         response.setContentType("application/json");
         if (tokenModel.getAccessToken() != null) {
+            Cookie refreshTokenCookie = new Cookie("refreshToken", tokenModel.getRefreshToken());
+            Cookie accessTokenCookie = new Cookie("accessToken", tokenModel.getAccessToken());
+            refreshTokenCookie.setMaxAge(60*60*24*24);
+            accessTokenCookie.setMaxAge(60*60*24*24);
             response.setStatus(HttpStatus.OK.value());
             response.getWriter().print(objectMapper.writeValueAsString(tokenModel));
         }else{
@@ -56,15 +61,19 @@ public class AuthenticateController {
             response.getWriter().print(objectMapper.writeValueAsString(res));
         }
     }
+    @GetMapping("/logout")
     @ResponseBody
-    void logout(@Validated @RequestBody TokenAuthModel tokenModel, HttpServletResponse response){
+    String logout(@Validated @RequestBody TokenAuthModel tokenModel, HttpServletResponse response){
         Cookie refreshCookie = new Cookie("refreshToken", "");
         refreshCookie.setMaxAge(0);
         Cookie accessCookie = new Cookie("accessToken", "");
         refreshCookie.setMaxAge(0);
         response.addCookie(accessCookie);
         response.addCookie(refreshCookie);
+        return "ok";
     }
+    
+    
     @PostMapping("/login/google")
     @ResponseBody
     void loginByGoogle(@RequestBody LoginRequestModel loginRequest, HttpServletResponse response) throws IOException{

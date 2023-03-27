@@ -249,9 +249,12 @@
                     localStorage.removeItem("refreshToken");
                     window.location.href = "/home";
                     localStorage.removeItem("cart")
+                    
                 }
                 window.onload = function () {
-                    const claims = decodeJwtResponse(localStorage.getItem("refreshToken"))
+                    const token =localStorage.getItem("refreshToken");
+                    const claims = null;
+                    if(token != null)  claims = decodeJwtResponse()
                     displayLoginedUser(claims);
                 }
                 function decodeJwtResponse(token) {
@@ -288,7 +291,6 @@
                         })
                         .then(data => {
                             console.log(data)
-                            setCookie("accessToken", data.accessToken, 10);
                             localStorage.setItem("refreshToken", data.refreshToken)
                             localStorage.setItem("accessToken", data.accessToken)
                             document.getElementById('login-form').style.display = 'none'
