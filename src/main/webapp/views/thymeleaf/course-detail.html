@@ -283,7 +283,6 @@
 
 <script th:inline="javascript">
 
-  /*<![CDATA[*/
 
     url = window.location.href;
     const courseId = url.split("/")[4];
@@ -294,10 +293,7 @@
         btn.classList.add("btn-disabled");
         btn.innerHTML = msg;
     }
-    
-    window.onload = () => {
-        const courseId = window.location.pathname.split("/")[2]
-        console.log(courseId)
+   
         const accessToken = localStorage.getItem("accessToken");
         if(accessToken != null){
             const claims = decodeJwtResponse(accessToken);
@@ -316,7 +312,7 @@
                 );
             }
         }
-    }
+    
     
     document.querySelectorAll(".price").forEach(el => {
       formatOnLoad(el, el.getAttribute("course-price"))
@@ -345,8 +341,6 @@
         }
     };
     
-    
-        /*]]>*/
 </script>
 
 </html>

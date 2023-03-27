@@ -30,5 +30,4 @@ public class AdminController {
         return "admin-update-course";
     }
 
-
 }
