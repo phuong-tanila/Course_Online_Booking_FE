@@ -164,7 +164,6 @@
           </div>
         </div>
 
-
         <div class="col-lg-4 right-contents">
           <ul>
             <li>
@@ -227,7 +226,7 @@
                   <img class="img-fluid" th:src="${prod.imageUrl}" alt="" />
                 </div>
                 <div class="course_content">
-                  <span class="price" th:text="${prod.tuitionFee}"></span>
+                  <span class="price" th:inline="text" th:attr="course-price=${course.tuitionFee}" ></span>
                   <span class="tag mb-4 d-inline-block">Java</span>
                   <h4 class="mb-3 tooltip-text">
                     <a class="overflow_title" th:href="@{/course-detail/{courseId}(courseId=${prod.id})}"
@@ -282,7 +281,6 @@
 
 <script th:inline="javascript">
 
-  /*<![CDATA[*/
 
     url = window.location.href;
     const courseId = url.split("/")[4];
@@ -293,10 +291,7 @@
         btn.classList.add("btn-disabled");
         btn.innerHTML = msg;
     }
-    
-    window.onload = () => {
-        const courseId = window.location.pathname.split("/")[2]
-        console.log(courseId)
+   
         const accessToken = localStorage.getItem("accessToken");
         if(accessToken != null){
             const claims = decodeJwtResponse(accessToken);
@@ -315,7 +310,7 @@
                 );
             }
         }
-    }
+    
     
     document.querySelectorAll(".price").forEach(el => {
       formatOnLoad(el, el.getAttribute("course-price"))
@@ -344,8 +339,6 @@
         }
     };
     
-    
-        /*]]>*/
 </script>
 
 </html>

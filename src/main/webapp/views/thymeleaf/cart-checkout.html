@@ -43,7 +43,7 @@
                     <div class="card mb-4">
                         <div class="card-header py-3">
                             <h5 class="mb-0 d-flex justify-content-between"><span class="justify-content-center">Cart -
-                                    <span class='cart-size'>1 item</span></h5>
+                                    <span class='cart-size'>0 item</span></h5>
                         </div>
 
                     </div>
@@ -218,10 +218,12 @@
                 "Content-Type": "application/json"
             }
         }).then(res => {
-            if (res.ok) return res.json();
+            if (res.ok) return ;
             throw "Invalid id"
         }).then(() => {
             swal("", "", "success")
+            cart = []
+            localStorage.setItem("cart", JSON.stringify(cart))
         })
     }
 
@@ -310,10 +312,13 @@
                     "Content-Type": "application/json"
                 }
             }).then(res => {
-                if (res.ok) return res.json();
+                if (res.ok) return;
                 throw "Invalid id"
             }).then(() => {
                 swal("", "", "success")
+                cart = []
+                localStorage.setItem("cart", JSON.stringify(cart))
+                load();
             })
         }
     }

@@ -59,6 +59,8 @@ public class AuthenticateController {
             Cookie accessTokenCookie = new Cookie("accessToken", tokenModel.getAccessToken());
             refreshTokenCookie.setMaxAge(60*60*24*24);
             accessTokenCookie.setMaxAge(60*60*24*24);
+            response.addCookie(accessTokenCookie);
+            response.addCookie(refreshTokenCookie);
             response.setStatus(HttpStatus.OK.value());
             response.getWriter().print(objectMapper.writeValueAsString(tokenModel));
         } else {
@@ -71,14 +73,14 @@ public class AuthenticateController {
     }
     @GetMapping("/logout")
     @ResponseBody
-    String logout(@Validated @RequestBody TokenAuthModel tokenModel, HttpServletResponse response){
+    ResponseEntity logout(@Validated @RequestBody TokenAuthModel tokenModel, HttpServletResponse response){
         Cookie refreshCookie = new Cookie("refreshToken", "");
         refreshCookie.setMaxAge(0);
         Cookie accessCookie = new Cookie("accessToken", "");
         refreshCookie.setMaxAge(0);
         response.addCookie(accessCookie);
         response.addCookie(refreshCookie);
-        return "ok";
+        return new ResponseEntity(HttpStatus.OK);
     }
     
     
@@ -87,11 +89,19 @@ public class AuthenticateController {
     void loginByGoogle(@RequestBody LoginRequestModel loginRequest, HttpServletResponse response) throws IOException{
         String endpoint = apiUrl + "/auth/login/google";
         TokenAuthModel tokenModel = restTemplate.postForObject(endpoint, loginRequest, TokenAuthModel.class);
-        System.out.println(tokenModel);
+        System.out.println("TOken: " + tokenModel);
         System.out.println(loginRequest);
         response.setContentType("application/json");
+        
         if (tokenModel.getAccessToken() != null) {
+            Cookie refreshTokenCookie = new Cookie("refreshToken", tokenModel.getRefreshToken());
+            Cookie accessTokenCookie = new Cookie("accessToken", tokenModel.getAccessToken());
+            refreshTokenCookie.setMaxAge(60*60*24*24);
+            accessTokenCookie.setMaxAge(60*60*24*24);
+            response.addCookie(accessTokenCookie);
+            response.addCookie(refreshTokenCookie);
             response.setStatus(HttpStatus.OK.value());
+            response.getWriter().print(objectMapper.writeValueAsString(tokenModel));
             response.getWriter().print(objectMapper.writeValueAsString(tokenModel));
         }else{
             response.setStatus(HttpStatus.UNAUTHORIZED.value());

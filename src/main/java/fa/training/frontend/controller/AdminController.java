@@ -24,10 +24,10 @@ public class AdminController {
     public String adminCreate(){
         return "admin-create-course";
     }
+
     @GetMapping("/admin-update")
     public String adminUpdate(){
         return "admin-update-course";
     }
-
 
 }

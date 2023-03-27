@@ -1,4 +1,4 @@
-
+var urlApi = "http://localhost:8080"
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
 import { listAll, getStorage, ref, getDownloadURL, deleteObject, uploadBytesResumable, uploadBytes } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-storage.js";
@@ -45,7 +45,28 @@ document.querySelector('#submit').addEventListener('click', function () {
                         })
                         .then(snapshot => {
                             return getDownloadURL(snapshot.ref)
-                        })
+                        }).then(url => {
+                                    let name = document.querySelector('#profile-name').value;
+                                    let email = document.querySelector('#profile-email').value;
+                                    let phone = document.querySelector('#profile-phone').value;
+                                    let description = document.querySelector('#profile-description').value;
+                                    fetch(urlApi + "/user/update-profile", {
+                                                method: 'POST',
+                                                body: JSON.stringify({
+                                                     fullname: name,
+                                                     phone: phone,
+                                                     email: email,
+                                                     avatar: url,
+                                                     description: description
+                                                 }),
+                                                headers: {
+                                                    'Content-type': 'application/json; charset=UTF-8',
+                                                },
+
+                                            }).then(res => res.json()).then(data => {
+                                                console.log(data)
+                                            })
+                                })
             }
 })
 //                        .then(url => {
@@ -74,4 +95,3 @@ document.querySelector('#submit').addEventListener('click', function () {
 //                            http.send();
 //                            return url
 //                        })
-                        .then(url => {console.log(url)})
