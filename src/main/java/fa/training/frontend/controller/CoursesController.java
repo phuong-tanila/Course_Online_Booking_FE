@@ -1,9 +1,12 @@
 package fa.training.frontend.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import fa.training.frontend.helpers.jwt.JwtClaims;
 import fa.training.frontend.helpers.jwt.JwtProvider;
 import fa.training.frontend.model.Category;
 import fa.training.frontend.model.Course;
+import fa.training.frontend.model.User;
+import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -43,6 +46,9 @@ public class CoursesController {
         List<Category> categories = List.of(restTemplate.getForObject(url2, Category[].class));
         HttpSession session = request.getSession();
         session.setAttribute("categories", categories);
+        String url3 = apiUrl + "/user/list-teacher";
+        List<User> teachers = List.of(restTemplate.getForObject(url3, User[].class));
+        session.setAttribute("teachers", teachers);
         return "home-page";
     }
 
@@ -60,9 +66,10 @@ public class CoursesController {
             Model model,
             HttpServletRequest request,
             HttpServletResponse response
-    ) {
+    ) throws JsonProcessingException {
         String url = apiUrl + "/courses/" + courseId;
         Course course = restTemplate.getForObject(url, Course.class);
+        System.out.println(course);
         model.addAttribute("course", course);
         String url1 = apiUrl + "/courses/slider/soldCount";
         List<Course> courses1 = List.of(restTemplate.getForObject(url1, Course[].class));
@@ -83,24 +90,27 @@ public class CoursesController {
                     tokenAuthModel.setRefreshToken(cooky.getValue());
                 }
             }
-            try {
-                accessToken = tokenAuthModel.getAccessToken();
-                JwtProvider.validateAccessToken(accessToken);
-                claims = JwtProvider.getClaimsFromJWT(accessToken);
-                
-            } catch (Exception ex) {
-                tokenAuthModel = JwtProvider.refreshNewToken(
-                        tokenAuthModel, 
-                        apiUrl, 
-                        restTemplate,
-                        response
-                );
-                System.out.println(tokenAuthModel);
-                
-            }finally{
-                if(claims != null) role = claims.role;
+            if(tokenAuthModel.getRefreshToken() != null && tokenAuthModel.getAccessToken() != null){
+                try {
+                    accessToken = tokenAuthModel.getAccessToken();
+                    JwtProvider.validateAccessToken(accessToken);
+                    claims = JwtProvider.getClaimsFromJWT(accessToken);
 
+                } catch (ExpiredJwtException ex) {
+                    tokenAuthModel = JwtProvider.refreshNewToken(
+                            tokenAuthModel,
+                            apiUrl,
+                            restTemplate,
+                            response
+                    );
+                    System.out.println(tokenAuthModel);
+
+                }finally{
+                    if(claims != null) role = claims.role;
+
+                }
             }
+
         }
         model.addAttribute("role", role);
         System.out.println(role);
@@ -182,4 +192,6 @@ public class CoursesController {
 //        model.addAttribute("weather", weatherInfo);
 //        return "weather";
 //    }
+
+
 }

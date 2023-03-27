@@ -24,6 +24,7 @@
 <body>
 <!--================ Start Header Menu Area =================-->
 <header class="header_area white-header" th:fragment="header-white">
+    <script src="https://kit.fontawesome.com/1aa19ebad3.js" crossorigin="anonymous"></script>
     <div class="main_menu">
         <div class="search_input" id="search_input_box">
             <div style="position: relative">
@@ -86,8 +87,8 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
+                        <li class="nav-item" id='cart'>
+                            <a href="/cart" class="nav-link">
                                 <i class="ti-shopping-cart"></i>
                             </a>
                         </li>
@@ -130,6 +131,7 @@
                                     <button type="submit" class="modal-login-btn">
                                         Login
                                     </button>
+                                    <h3 id="msg" style="color: red;"></h3>
                                     <div id="g_id_onload"
                                          data-client_id="148898507863-35p32uerrpsqcs752loi69eb9ouji8k1.apps.googleusercontent.com"
                                          data-context="signin"
@@ -188,9 +190,9 @@
                     </ul>
                 </div>
             </div>
-
+            <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
             <script src="https://accounts.google.com/gsi/client" async defer></script>
-            <script>
+             <script>
                 function setCookie(name,value,days) {
                     var expires = "";
                     if (days) {
@@ -213,12 +215,13 @@
                 function eraseCookie(name) {
                     document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
                 }
-                function displayLoginedUser(){
-
+                function displayLoginedUser(claims){
+                    
                     const accessToken = localStorage.getItem("accessToken");
                     if(accessToken != null){
                         const claims = decodeJwtResponse(accessToken);
                         console.log(claims);
+                        if(claims.role != "US") document.querySelector("#cart").style.display = 'none'
                         const userInfoDropDown = document.querySelector("#userInfo");
 
                         userInfoDropDown.classList.add("submenu");
@@ -232,7 +235,7 @@
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                   <a class="dropdown-item" href="#">Profile</a>
-                                  <a class="dropdown-item" href="#">Another action</a>
+                                  ${claims.role == "US" ? '<a class="dropdown-item" href="#">Order history</a>' : ""}
                                   <a class="dropdown-item" style="cursor: pointer;" onclick="logout()">Logout  </a>
                                 </div>
                             </div>
@@ -245,10 +248,14 @@
                     localStorage.removeItem("accessToken");
                     localStorage.removeItem("refreshToken");
                     window.location.href = "/home";
+                    localStorage.removeItem("cart")
+                    
                 }
                 window.onload = function () {
-
-                    displayLoginedUser();
+                    const token =localStorage.getItem("refreshToken");
+                    const claims = null;
+                    if(token != null)  claims = decodeJwtResponse()
+                    displayLoginedUser(claims);
                 }
                 function decodeJwtResponse(token) {
                     var base64Url = token.split('.')[1];
@@ -274,20 +281,53 @@
                             },
                             body: JSON.stringify(json)
                         })
-                        .then(res => res.json())
+                        .then(res => {
+                            console.log(res)
+                            console.log(res.ok)
+                            if (res.ok) {
+                                return res.json();
+                            }
+                            throw new Error('Err');
+                        })
                         .then(data => {
                             console.log(data)
-                            setCookie("accessToken", data.accessToken, 10);
-                            setCookie("refreshToken", data.refreshToken, 10);
                             localStorage.setItem("refreshToken", data.refreshToken)
                             localStorage.setItem("accessToken", data.accessToken)
                             document.getElementById('login-form').style.display = 'none'
-                            displayLoginedUser();
+                            displayLoginedUser(data);
+                        }).catch(err => {
+                            console.log(err)
+                            document.querySelector("#msg").innerHTML = "invalid email/phone or password";
                         })
+                        
                     }
                 });
+                
+                function loginByGoogle(response) {
+                    console.log(response)
+                    const responsePayload = decodeJwtResponse(response.credential);
+                    const body = {
+                        email : responsePayload.email,
+                        password: ""
+                    }
+                    fetch("http://localhost:8083/auth/login/google", {
+                        method: "POST",
+                        body: JSON.stringify(body)
+                    }).then(res => {
+                        if(res.ok) return res.json();
+                        throw "Your email has not been registered in our system"
+                    }).catch(err => {
+                        document.querySelector("#msg").innerHTML = "Your email has not been registered in our system";
+                        document.getElementById('login-form').style.display='block' 
+                    })
+                }
 
+                let cart = JSON.parse(localStorage.getItem("cart"));
 
+                if(cart == null){
+                    cart = []
+                    localStorage.setItem("cart", JSON.stringify(cart))
+                }
             </script>
         </nav>
     </div>

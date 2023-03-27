@@ -33,10 +33,28 @@
     <script src="../../resources/js/jquery.richtext.min.js"></script>
 </head>
 <body>
+<header th:replace="../thymeleaf/header-white :: header-white"></header>
+<!--================Home Banner Area =================-->
+<section class="banner_area">
+    <div class="banner_inner d-flex align-items-center">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="banner_content text-center">
+                        <h2 style="color: #fdc632">Administrator</h2>
+                        <p>Update Course</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================End Home Banner Area =================-->
 <div class="container">
     <ul class="nav nav-tabs">
         <li class="nav-item">
-            <a class="nav-link" href="admin-create-course.html" aria-current="page" >Create Product</a>
+            <a class="nav-link" href="/admin-create" aria-current="page" >Create Product</a>
         </li>
         <li class="nav-item">
             <a class="nav-link active" >Update product</a>
@@ -57,7 +75,7 @@
         </div>
         <div class="input-group mb-4">
             <span class="input-group-text field--label">Course image</span>
-            <input type="text" required name="courseImg" class="form-control field--input" placeholder="Course image">
+            <input type="file" required name="courseImg" class="form-control field--input" placeholder="Course image">
         </div>
         <div class="input-group mb-4">
             <span class="input-group-text field--label">Course description</span>
@@ -79,9 +97,10 @@
         <div class="input-group mb-4">
             <span class="input-group-text field--label">Teacher</span>
             <select class="box-select field--input" required name="teacherID">
-                <option value="">PhuongNH</option>
-                <option value="">ThanhDD</option>
-                <option value="">ThinhQP</option>
+                <option th:each="teacher: ${session.teachers}"
+                        th:value="${teacher.fullname}"
+                        th:text="${teacher.fullname}">
+                </option>
             </select>
         </div>
         <!--<input type="text" class="form-control course-image" >-->
@@ -89,10 +108,11 @@
         <div class="input-group mb-4">
             <span class="input-group-text field--label">Category</span>
             <!--<div class="w-f-c">-->
-            <select class="box-select select--input" required name="cateID">
-                <option value="">Java</option>
-                <option value="">Python</option>
-                <option value="">C#</option>
+            <select class="box-select" multiple required name="cateID">
+                <option th:each="cate: ${session.categories}"
+                        th:value="${cate.categoryName}"
+                        th:text="${cate.categoryName}">
+                </option>
             </select>
             <!--</div>-->
         </div>
@@ -124,6 +144,9 @@
         <input type="text" hidden name="func" value="create">
     </form>
 </div>
+<footer th:replace="../thymeleaf/footer :: footer"></footer>
 </body>
 <script src="../../resources/js/admin.js"></script>
+<script src="../../resources/js/login.btn.js"></script>
+<script src="../../resources/js/theme.js"></script>
 </html>

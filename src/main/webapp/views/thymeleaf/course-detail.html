@@ -15,7 +15,6 @@
   <link rel="stylesheet" href="../../resources/vendors/nice-select/css/nice-select.css" />
   <link rel="stylesheet" href="../../resources/css/header.css" />
   <!-- main css -->
-  <script src="../../resources/js/format-money.js"></script>
   <link rel="stylesheet" href="../../resources/css/style.css" />
 </head>
 
@@ -206,8 +205,8 @@
             </li>
 
           </ul>
-          <button  type="button"
-            class="primary-btn2  text-uppercase enroll rounded-0"
+          <button onclick="addToCart(this)" type="button"
+            class="primary-btn2 text-uppercase enroll rounded-0"
             th:classappend='${role != "US" ? "btn-disabled" : ""}' 
             th:disabled='${role != "US"}'
             th:text='${role == "US" ? "Enroll the course": "You can not enroll the course"}'
@@ -228,7 +227,7 @@
                   <img class="img-fluid" th:src="${prod.imageUrl}" alt="" />
                 </div>
                 <div class="course_content">
-                  <span class="price" th:text="${prod.getTuitionFeeFormat()}"></span>
+                  <span class="price" th:text="${prod.tuitionFee}"></span>
                   <span class="tag mb-4 d-inline-block">Java</span>
                   <h4 class="mb-3 tooltip-text">
                     <a class="overflow_title" th:href="@{/course-detail/{courseId}(courseId=${prod.id})}"
@@ -276,6 +275,8 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
 <script src="../../resources/js/gmaps.min.js"></script>
 <script src="../../resources/js/theme.js"></script>
+
+<script src="../../resources/js/format-money.js"></script>
 <!-- course detail JS -->
 <script src="../../resources/js/course-detail.js"></script>
 
@@ -283,19 +284,67 @@
 
   /*<![CDATA[*/
 
-  document.querySelectorAll(".price").forEach(el => {
-    formatOnLoad(el, el.getAttribute("course-price"))
-  });
-
-  document.querySelectorAll(".review-star").forEach(el => {
-
-    const reviewStar = parseInt(el.getAttribute("star"));
-
-    for (var i = 1; i <= 5; i++) {
-      console.log(`${i <= reviewStar ? "checked" : ""}`)
-      el.innerHTML += `<i class="ti-star ${i <= reviewStar ? "checked" : ""}"></i>`
+    url = window.location.href;
+    const courseId = url.split("/")[4];
+    const coursePrice = document.querySelector(".price").getAttribute("course-price")
+    function renderEnrolledBtn(btn, msg){
+        if(!msg) msg =  "This course is already in cart";
+        btn.disabled = true;
+        btn.classList.add("btn-disabled");
+        btn.innerHTML = msg;
     }
-  });
+    
+    window.onload = () => {
+        const courseId = window.location.pathname.split("/")[2]
+        console.log(courseId)
+        const accessToken = localStorage.getItem("accessToken");
+        if(accessToken != null){
+            const claims = decodeJwtResponse(accessToken);
+            console.log(claims);
+            if(claims.role != "US") {
+                renderEnrolledBtn(
+                    document.querySelector(".enroll"), 
+                    "You are not allowed to enroll this course"
+                );
+            }
+        }else {
+           if(cart.includes(courseId)) {
+                renderEnrolledBtn(
+                    document.querySelector(".enroll"), 
+                    "This course are already in your cart"
+                );
+            }
+        }
+    }
+    
+    document.querySelectorAll(".price").forEach(el => {
+      formatOnLoad(el, el.getAttribute("course-price"))
+    });
+
+    document.querySelectorAll(".review-star").forEach(el => {
+
+      const reviewStar = parseInt(el.getAttribute("star"));
+
+      for (var i = 1; i <= 5; i++) {
+        console.log(`${i <= reviewStar ? "checked" : ""}`)
+        el.innerHTML += `<i class="ti-star ${i <= reviewStar ? "checked" : ""}"></i>`
+      }
+    });
+    function addToCart(el){
+        console.log(courseId)
+        if(cart == null){
+            cart = []
+        }
+        console.log(cart.some(item => item.id == courseId))
+        if(!cart.some(item => item.id == courseId)) {
+            renderEnrolledBtn(el);
+            console.log({id: courseId, price: coursePrice})
+            cart.push({id: courseId, price: coursePrice});
+            localStorage.setItem("cart", JSON.stringify(cart))
+        }
+    };
+    
+    
         /*]]>*/
 </script>
 
