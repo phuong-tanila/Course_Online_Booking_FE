@@ -2,9 +2,7 @@
 
 ## Team member:
 - Nguyen Hoai Phuong (Leader)
-- Nguyen Nhat Minh Chau
 - Pham Phuc Thinh
-- Minh Quoc
 
 ## Component
 - Java
