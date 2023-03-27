@@ -4,6 +4,7 @@ import fa.training.frontend.model.Course;
 import fa.training.frontend.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,11 +22,19 @@ public class UserController {
     private String apiUrl;
 
     @GetMapping("teacher/{id}")
-    public String userProfile(Model model, @PathVariable("id") int id) {
+    public String teacherProfile(Model model, @PathVariable("id") int id) {
         String url = apiUrl + "/user/teacher/" + id;
         User teacher = restTemplate.getForObject(url, User.class);
         model.addAttribute("teacher", teacher);
-        return "user-profile";
+        return "teacher-profile";
     }
 
+    @GetMapping("/profile")
+    public String userProfile(Model model) {
+        String url = apiUrl + "/user/profile-info";
+        User user = restTemplate.getForObject(url, User.class);
+        System.err.println(user);
+        model.addAttribute("user", user);
+        return "user-profile";
+    }
 }

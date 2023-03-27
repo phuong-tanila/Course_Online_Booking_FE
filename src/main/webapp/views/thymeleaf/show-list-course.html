@@ -63,7 +63,7 @@
                     <div class="course_content">
                         <div class="tag-list-course d-inline" th:each="cate: ${prod.categories}"
                              th:text="${cate.categoryName}"></div>
-                        <div class="price-list-course mb-4" th:text="${prod.getTuitionFeeFormat()}"></div>
+                        <div class="price-list-course mb-4" th:inline="text" th:attr="course-price=${prod.tuitionFee}"></div>
                         <h4 class="mb-3 course-name tooltip-text">
                             <a class="overflow_title" th:href="@{/course-detail/{courseId}(courseId=${prod.id})}"
                                th:text="${prod.courseName}"></a>
@@ -202,6 +202,7 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
 <script src="../../resources/js/gmaps.min.js"></script>
 <script src="../../resources/js/theme.js"></script>
+<script src="../../resources/js/format-money.js"></script>
 <script th:inline="javascript">
  /*<![CDATA[*/
         var sort = document.querySelector('#selection-sort');
@@ -213,7 +214,10 @@
         url = sortBy + "?" + locate.split("?")[1];
         location.href = url;
         }
+
+        document.querySelectorAll(".price-list-course").forEach(el => {
+            formatOnLoad(el, el.getAttribute("course-price"))
+        });
  /*]]>*/
 </script>
-
 </html>

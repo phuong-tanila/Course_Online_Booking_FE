@@ -175,7 +175,7 @@
     }else{
         cartSize.innerHTML = `${cart.length} item${cart.length > 1 ? "s" : ""}`;
         cart.forEach(courseId => {
-            fetch("http://localhost:8080/courses/1")
+            fetch("http://localhost:8080/courses/" + courseId)
                     .then(res => res.json())
                     .then(data => {
                         console.log(data);

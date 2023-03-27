@@ -83,7 +83,7 @@
                             <ul class="dropdown-menu" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
                                 <li class="nav-item" th:each="cate: ${session.categories}">
                                     <a class="nav-link" th:text="${cate.categoryName}"
-                                       th:href="@{/categories/{categoryId}(categoryId=${cate.id})}"></a>
+                                       th:href="@{/categories/tuitionFee,asc (categoryId=${cate.id})}"></a>
                                 </li>
                             </ul>
                         </li>
@@ -133,7 +133,7 @@
                                     </button>
                                     <h3 id="msg" style="color: red;"></h3>
                                     <div id="g_id_onload"
-                                         data-client_id="148898507863-35p32uerrpsqcs752loi69eb9ouji8k1.apps.googleusercontent.com"
+                                         data-client_id="517352653612-kg4v25jpt8hmrttbhch06quva55l44v5.apps.googleusercontent.com"
                                          data-context="signin"
                                          data-ux_mode="popup"
                                          data-callback="loginByGoogle"
