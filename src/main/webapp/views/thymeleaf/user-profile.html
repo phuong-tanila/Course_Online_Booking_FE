@@ -15,11 +15,13 @@
     <link rel="stylesheet" href="../../resources/css/themify-icons.css"/>
     <link rel="stylesheet" href="../../resources/vendors/owl-carousel/owl.carousel.min.css"/>
     <link rel="stylesheet" href="../../resources/vendors/nice-select/css/nice-select.css"/>
+    <link rel="stylesheet" href="../../resources/css/header.css" />
     <!-- main css -->
     <link rel="stylesheet" href="../../resources/css/style.css"/>
     <script src="https://kit.fontawesome.com/f1ddccea8b.js" crossorigin="anonymous"></script>
 </head>
 <body>
+<header th:replace="../thymeleaf/header-white :: header-white"></header>
 <section class="banner_area">
     <div class="banner_inner d-flex align-items-center">
         <div class="overlay"></div>
@@ -27,11 +29,8 @@
             <div class="row justify-content-center">
                 <div class="col-lg-6">
                     <div class="banner_content text-center">
-                        <h2 style="color: #fdc632">Profile</h2>
-                        <div class="page_link">
-                            <a href="/home">Home</a>
-                            <a href="/categories/1">Courses</a>
-                        </div>
+                        <h2 style="color: #fdc632">User Profile</h2>
+                        <p>Your infomation</p>
                     </div>
                 </div>
             </div>
@@ -44,7 +43,7 @@
             <div class="col-lg-4">
                 <div class="card mb-4">
                     <div class="card-body text-center">
-                        <img id="img-avatar" src="../../resources/img/VU_09217 (6).jpg" alt="avatar"
+                        <img id="img-avatar" th:src="${user.avatar}" alt="avatar"
                              class="img-thumbnail img-fluid" style="width: 150px;">
                         <input type="file" id="input-avatar"/>
                         <h5 class="my-3 social-link" th:text="${user.fullname}"></h5>
@@ -134,7 +133,19 @@
 </section>
 <footer th:replace="../thymeleaf/footer :: footer"></footer>
 </body>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="../../resources/js/jquery-3.2.1.min.js"></script>
+<script src="../../resources/js/popper.js"></script>
+<script src="../../resources/js/bootstrap.min.js"></script>
+<script src="../../resources/vendors/nice-select/js/jquery.nice-select.min.js"></script>
+<script src="../../resources/vendors/owl-carousel/owl.carousel.min.js"></script>
+<script src="../../resources/js/owl-carousel-thumb.min.js"></script>
+<script src="../../resources/js/jquery.ajaxchimp.min.js"></script>
+<script src="../../resources/js/mail-script.js"></script>
+<script src="../../resources/js/login.btn.js"></script>
 <script src="../../resources/js/user-profile.js"></script>
+<script src="../../resources/js/theme.js"></script>
 <script src="../../resources/js/firebase.js" type="module"></script>
 <script th:inline="javascript">
   /*<![CDATA[*/
