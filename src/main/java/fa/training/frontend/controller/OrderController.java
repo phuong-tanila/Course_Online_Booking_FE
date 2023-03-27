@@ -36,17 +36,77 @@ public class OrderController {
     @Value("${courses.api.url}")
     private String apiUrl;
 
-    @GetMapping("history")
-    public String index(Model model, @RequestParam(defaultValue = "1") int pageNo) {
-        int userId = 3;
-        String url = apiUrl + "/order/" + userId;// + "?pageNo=" + (pageNo - 1);
-        List<Order> orders;
-        try {
-            orders = List.of(restTemplate.getForObject(url, Order[].class));
-        } catch (Exception ex) {
-            orders = new ArrayList<>();
+    @GetMapping("/history")
+    public String index(
+            Model model,
+            @RequestParam(defaultValue = "1") int pageNo,
+            HttpServletRequest request,
+            HttpServletResponse response
+    ) throws JsonProcessingException {
+        System.out.println("1111");
+        Cookie[] cookies = request.getCookies();
+        boolean foundTokenCookie = false;
+        String accessToken = null;
+        JwtClaims claims = null;
+        if (cookies != null) {
+            TokenAuthModel tokenAuthModel = new TokenAuthModel();
+            for (Cookie cooky : cookies) {
+                System.out.println(cooky.getName());
+                if (cooky.getName().equals("accessToken")) {
+                    foundTokenCookie = true;
+                    tokenAuthModel.setAccessToken(cooky.getValue());
+                    accessToken = cooky.getValue();
+                } else if (cooky.getName().equals("refreshToken")) {
+                    foundTokenCookie = true;
+                    tokenAuthModel.setRefreshToken(cooky.getValue());
+
+                }
+            }
+            if (tokenAuthModel.getRefreshToken() != null && tokenAuthModel.getAccessToken() != null) {
+                try {
+                    accessToken = tokenAuthModel.getAccessToken();
+                    JwtProvider.validateAccessToken(accessToken);
+                    claims = JwtProvider.getClaimsFromJWT(accessToken);
+
+                } catch (ExpiredJwtException ex) {
+                    tokenAuthModel = JwtProvider.refreshNewToken(
+                            tokenAuthModel,
+                            apiUrl,
+                            restTemplate,
+                            response
+                    );
+                    accessToken = tokenAuthModel.getAccessToken();
+                }
+            }
         }
-        model.addAttribute("orders", orders);
+        System.out.println(accessToken);
+        if (accessToken != null) {
+            
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Authorization", "Bearer " + accessToken);
+            HttpEntity<String> httpEntity = new HttpEntity<>(headers);
+            int userId = 3;
+            String url = apiUrl + "/order/";// + "?pageNo=" + (pageNo - 1);
+            List<Order> orders;
+            try {
+                ResponseEntity<Order[]> res = restTemplate.exchange(
+                        url, HttpMethod.GET, 
+                        httpEntity, Order[].class,
+                        new Object());
+                orders = List.of(res.getBody());
+                System.out.println(res);
+                System.out.println(orders);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                orders = new ArrayList<>();
+            }
+            model.addAttribute("orders", orders);
+            model.addAttribute("logout", false);
+            System.out.println(false);
+        }else{
+            System.out.println(true);
+            model.addAttribute("logout", true);
+        }
 //        model.addAttribute("pageNo", pageNo);
 //        url = apiUrl + "/categories/total-course/" + id;
 //        int pageNum = 20;
@@ -112,7 +172,6 @@ public class OrderController {
             }
         }
         if (accessToken != null) {
-            System.out.println(accessToken);
             HttpHeaders headers = new HttpHeaders();
             headers.add("Authorization", "Bearer " + accessToken);
             String url = apiUrl + "/order/checkout?"
@@ -120,14 +179,13 @@ public class OrderController {
                     + "&paymentStatus=" + paymentStatus
                     + "&paymentMethod=" + paymentMethod;
             Object[] uriVariables = new Object[2];
-            System.out.println(headers);
             HttpEntity<Object> entity = new HttpEntity<>(courseIds, headers);
             return restTemplate.exchange(
                     url, HttpMethod.POST,
                     entity, String.class,
                     uriVariables
             );
-        }else{
+        } else {
             restTemplate.getForObject(apiUrl + "/logout", String.class);
             return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
