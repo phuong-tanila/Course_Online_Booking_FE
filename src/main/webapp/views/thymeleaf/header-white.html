@@ -219,30 +219,38 @@
                     document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
                 }
                 function displayLoginedUser(claims){
-                    console.log(111111)
                     const accessToken = localStorage.getItem("accessToken");
-                    console.log(accessToken)
                     if(accessToken != null){
                         const claims = decodeJwtResponse(accessToken);
-                        console.log(claims);
                         if(claims.role != "US") document.querySelector("#cart").style.display = 'none'
                         const userInfoDropDown = document.querySelector("#userInfo");
 
                         userInfoDropDown.classList.add("submenu");
                         userInfoDropDown.classList.add("dropdown");
                         userInfoDropDown.innerHTML = `
-                            <div href="#" class="nav-link dropdown" style="cursor: pointer;"  >
-
-                                <button class="btn btn-secondary dropdown-toggle w-100" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fa-regular fa-user"></i>
-                                    ${claims.fullname}
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                  <a class="dropdown-item" href="#">Profile</a>
-                                  ${claims.role == "US" ? '<a class="dropdown-item" href="/history">Order history</a>' : ""}
-                                  <a class="dropdown-item" style="cursor: pointer;" onclick="logout()">Logout  </a>
-                                </div>
-                            </div>
+                            <!-- Avatar user after login success -->
+                <li class="nav-item submenu dropdown">
+                    <a
+                      href="#"
+                      class="nav-link dropdown-toggle avatar_user"
+                      data-toggle="dropdown"
+                      role="button"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                      ><img class="avatar_user_image" src="${claims.avatar}"
+                    /></a>
+                    <ul class="dropdown-menu">
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">Edit profile</a>
+                      </li>
+                      ${claims.role == "US" ? `<li class="nav-item">
+                        <a class="nav-link" href="/history">Purchase history</a>
+                      </li>` : ""}
+                      <li class="nav-item">
+                        <a class="nav-link" style="cursor: pointer;" onclick="logout()">Log out</a>
+                      </li>
+                    </ul>
+                  </li> 
                         `
                     }else {
                         google.accounts.id.prompt();
@@ -262,7 +270,6 @@
                     const token = localStorage.getItem("refreshToken");
                     let claims = null;
                     if(token != null)  claims = decodeJwtResponse(token)
-                    console.log(token)
                     displayLoginedUser(claims);
                 }
                 function decodeJwtResponse(token) {
@@ -290,15 +297,12 @@
                             body: JSON.stringify(json)
                         })
                         .then(res => {
-                            console.log(res)
-                            console.log(res.ok)
                             if (res.ok) {
                                 return res.json();
                             }
                             throw new Error('Err');
                         })
                         .then(data => {
-                            console.log(data)
                             localStorage.setItem("refreshToken", data.refreshToken)
                             localStorage.setItem("accessToken", data.accessToken)
                             document.getElementById('login-form').style.display = 'none'
@@ -312,7 +316,6 @@
                 });
                 
                 function loginByGoogle(response) {
-                    console.log(response)
                     const responsePayload = decodeJwtResponse(response.credential);
                     const body = {
                         email : responsePayload.email,
