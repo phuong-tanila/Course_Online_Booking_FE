@@ -154,9 +154,9 @@
                 cartController.innerHTML += `
                 <div class="card-body">
                         <!-- Single item -->
-                        <div class="row course-id">
+                        <div class="row course-id" style="cursor: pointer;" onclick="viewCourseDetail(${data.id}, event)">
                             <a href="/course-detail/${data.id}">
-                                </a><div class="col-lg-3 col-md-12 mb-4 mb-lg-0"><a href="#">
+                                <div class="col-lg-3 col-md-12 mb-4 mb-lg-0"><a href="#">
                                     <!-- Image -->
                                     </a><div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light"><a href="#">
                                         <img src="${data.imageUrl}" class="w-100" alt="course img">
@@ -175,11 +175,11 @@
                                     <!-- Data -->
                                 </div>
                                 <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-                                    <button type="button" id="a1" onclick="handleDelete(this, ${data.id})" class="btn w-100 btn-outline-danger btn-sm me-1 mb-2 justify-content-center" data-mdb-toggle="tooltip" title="Remove item">
+                                    <button type="button" onclick="handleDelete(this, ${data.id})" class="btn w-100 btn-remove btn-outline-danger btn-sm me-1 mb-2 justify-content-center" data-mdb-toggle="tooltip" title="Remove item">
                                         <i class="fas fa-trash" aria-hidden="true"></i>
                                     </button>
                                 </div>
-                            
+                            </a>
                         </div>
 
                         <hr class="my-4">
@@ -207,6 +207,13 @@
         console.log(totalMoney)
         document.querySelector(".total-money").innerHTML = formatter.format(totalMoney)
 
+    }
+
+    function viewCourseDetail(id, event){
+        if(!event.target.classList.contains("btn-remove")){
+            console.log(1)
+            window.location.href = '/course-detail/' + id;
+        }
     }
 
     function handlePayment(details) {
@@ -269,8 +276,14 @@
 
     function handleDelete(el, id) {
         console.log(cart)
+        let newCart = []
         el.parentElement.parentElement.parentElement.remove()
-        cart = cart.filter(i => i != id);
+        cart.forEach(item =>{
+            if(item.id != id){
+                newCart.push(item);
+            }
+        });
+        cart = newCart;
         console.log(cart)
         if (cart.length == 0) {
             if (cart.length == 0) checkOutBtn.disabled = true;

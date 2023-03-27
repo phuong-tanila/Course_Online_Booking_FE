@@ -114,7 +114,7 @@ public class AuthenticateController {
         model.addAttribute("user", new User());
         return "register";
     }
-
+    
     @PostMapping("/register")
     public Object register(@ModelAttribute("user") User user, Model model) {
         String url = apiUrl + "/auth/register";

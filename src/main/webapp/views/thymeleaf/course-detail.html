@@ -294,24 +294,29 @@
         btn.innerHTML = msg;
     }
    
-        const accessToken = localStorage.getItem("accessToken");
-        if(accessToken != null){
-            const claims = decodeJwtResponse(accessToken);
-            console.log(claims);
-            if(claims.role != "US") {
-                renderEnrolledBtn(
-                    document.querySelector(".enroll"), 
-                    "You are not allowed to enroll this course"
-                );
-            }
-        }else {
-           if(cart.includes(courseId)) {
+    const accessToken = localStorage.getItem("accessToken");
+    let isAdmin = false;
+    if(accessToken != null){
+        const claims = decodeJwtResponse(accessToken);
+        console.log(claims.role != "US");
+        console.log(1)
+        console.log(cart)
+        if(claims.role != "US") {
+            isAdmin = true;
+            renderEnrolledBtn(
+                document.querySelector(".enroll"), 
+                "You are not allowed to enroll this course"
+            );
+        }
+    }
+    if(!isAdmin){
+        if(cart.some(course => course.id == courseId)) {
                 renderEnrolledBtn(
                     document.querySelector(".enroll"), 
                     "This course are already in your cart"
                 );
-            }
         }
+    }
     
     
     document.querySelectorAll(".price").forEach(el => {
@@ -335,7 +340,6 @@
         console.log(cart.some(item => item.id == courseId))
         if(!cart.some(item => item.id == courseId)) {
             renderEnrolledBtn(el);
-            console.log({id: courseId, price: coursePrice})
             cart.push({id: courseId, price: coursePrice});
             localStorage.setItem("cart", JSON.stringify(cart))
         }
