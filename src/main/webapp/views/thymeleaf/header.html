@@ -234,8 +234,13 @@
                                     ${claims.fullname}
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+<<<<<<< HEAD
                                   <a class="dropdown-item" href="#">Profile</a>
                                   ${claims.role == "US" ? '<a class="dropdown-item" href="/history">Order history</a>' : ""}
+=======
+                                  <a class="dropdown-item" href="/profile">Profile</a>
+                                  ${claims.role == "US" ? '<a class="dropdown-item" href="#">Order history</a>' : ""}
+>>>>>>> accc030c0787e2d8d2e44ab59bd847678d5afed3
                                   <a class="dropdown-item" style="cursor: pointer;" onclick="logout()">Logout  </a>
                                 </div>
                             </div>
