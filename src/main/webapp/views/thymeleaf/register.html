@@ -51,10 +51,19 @@
                                             id="email-or-phone"
                                             type="text"
                                             class="form-control form-control-lg"
-                                            placeholder="Enter Email or Phone"
+                                            placeholder="Enter Email"
                                             th:field="*{email}"
                                             required
                                             onchange="checkEmail()"
+                                    />
+                                </div>
+                                <div class="form-outline mb-2">
+                                    <input
+                                            type="text"
+                                            class="form-control form-control-lg"
+                                            placeholder="Enter Phone"
+                                            th:field="*{phone}"
+                                            required
                                     />
                                 </div>
                                 <div id="msg-email-or-phone"></div>

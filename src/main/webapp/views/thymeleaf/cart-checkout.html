@@ -197,7 +197,6 @@
         });
     }
 
-
     function renderTotalPrice() {
         let totalMoney = 0;
         console.log(1)
@@ -284,13 +283,14 @@
             }
         });
         cart = newCart;
-        console.log(cart)
+
         if (cart.length == 0) {
             if (cart.length == 0) checkOutBtn.disabled = true;
             cartController.innerHTML = "<h1>There are no item in cart</h1>"
             cartSize.innerHTML = "0 item"
         } else {
-            cartSize.innerHTML = `${cart.length} item${cart.length > 1 ? "s" : ""}`;
+        console.log(cart.length)
+            document.querySelector('.cart-size').innerHTML = `${cart.length} item${cart.length > 1 ? "s" : ""}`
         }
         localStorage.setItem("cart", JSON.stringify(cart))
         renderTotalPrice();

@@ -5,6 +5,7 @@ import fa.training.frontend.helpers.jwt.JwtClaims;
 import fa.training.frontend.helpers.jwt.JwtProvider;
 import fa.training.frontend.model.Category;
 import fa.training.frontend.model.Course;
+import fa.training.frontend.model.TokenAuthModel;
 import fa.training.frontend.model.User;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,15 +17,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.List;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import fa.training.frontend.model.TokenAuthModel;
 
 @Controller
 public class CoursesController {
@@ -135,6 +135,7 @@ public class CoursesController {
         model.addAttribute("pageNo", pageNo);
         model.addAttribute("sortBy", sortBy);
         model.addAttribute("paginationBy", "slider");
+
         url = apiUrl + "/courses/total-course";
         int pageNum = 20;
         int totalCourse = restTemplate.getForObject(url, Integer.class);

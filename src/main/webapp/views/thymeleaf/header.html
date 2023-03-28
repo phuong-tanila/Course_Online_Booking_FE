@@ -290,6 +290,12 @@
                       ${claims.role == "AD" ? `<li class="nav-item">
                         <a class="nav-link" href="/dashboard">Dashboard</a>
                       </li>` : ""}
+                      ${claims.role == "AD" ? `<li class="nav-item">
+                        <a class="nav-link" href="/admin-create">Create course</a>
+                      </li>` : ""}
+                      ${claims.role == "AD" ? `<li class="nav-item">
+                        <a class="nav-link" href="/admin-update">Update course</a>
+                      </li>` : ""}
                       <li class="nav-item">
                         <a class="nav-link" style="cursor: pointer;" onclick="logout()">Log out</a>
                       </li>
@@ -304,7 +310,7 @@
             function logout() {
               fetch("/logout")
                 .then((res) => {
-                  if (res.ok) return res.json();
+                  if (res.ok) return res;
                 })
                 .then(() => {
                   localStorage.removeItem("accessToken");
