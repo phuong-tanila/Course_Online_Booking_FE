@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -116,7 +116,6 @@ public class CoursesController {
         System.out.println(role);
         return "course-detail";
     }
-
     
 
     @GetMapping("/courses-sortBy/{sortBy}")
@@ -175,7 +174,6 @@ public class CoursesController {
                     model.addAttribute("totalPage", totalPage);
                 }
             }
-
         }
         model.addAttribute("courses", courses);
         return "show-list-course";
@@ -185,14 +183,5 @@ public class CoursesController {
     public String contact() {
         return "contact-us";
     }
-
-//    @PostMapping("/")
-//    public String getWeatherInfo(@ModelAttribute("weather") WeatherInfo weather, Model model) {
-//        String url = apiUrl + "?city=" + weather.getName();
-//        WeatherInfo weatherInfo = restTemplate.getForObject(url, WeatherInfo.class);
-//        model.addAttribute("weather", weatherInfo);
-//        return "weather";
-//    }
-
 
 }
