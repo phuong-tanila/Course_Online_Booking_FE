@@ -13,236 +13,239 @@
   <link rel="stylesheet" href="../../resources/css/themify-icons.css" />
   <link rel="stylesheet" href="../../resources/vendors/owl-carousel/owl.carousel.min.css" />
   <link rel="stylesheet" href="../../resources/vendors/nice-select/css/nice-select.css" />
-  <link rel="stylesheet" href="../../resources/css/header.css"/>
+  <link rel="stylesheet" href="../../resources/css/header.css" />
   <!-- main css -->
-  <script src="../../resources/js/format-money.js"></script>
   <link rel="stylesheet" href="../../resources/css/style.css" />
 </head>
 
 <body>
-<!--<header th:replace="../thymeleaf/header :: header"></header>-->
-<!--================Home Banner Area =================-->
-<section class="banner_area">
-  <div class="banner_inner d-flex align-items-center">
-    <div class="overlay"></div>
+
+  <header th:replace="../thymeleaf/header-white :: header-white"></header>
+  <!--================Home Banner Area =================-->
+  <section class="banner_area">
+    <div class="banner_inner d-flex align-items-center">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-6">
+            <div class="banner_content text-center">
+              <h2 style="color: #fdc632">Course Details</h2>
+              <p>More information about the course</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--================End Home Banner Area =================-->
+
+  <!--================ Start Course Details Area =================-->
+  <section class="course_details_area section_gap">
     <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-lg-6">
-          <div class="banner_content text-center">
-            <h2 style="color: #fdc632">Course Details</h2>
-            <div class="page_link">
-              <a href="/home">Home</a>
-              <a href="/categories/1">Courses</a>
+      <div class="row course-container">
+        <div class="col-lg-8 course_details_left">
+          <div class="main_image">
+            <img style="width: 700px" class="img-fluid" th:src="${course.imageUrl}" alt="">
+          </div>
+          <div class="content_wrapper"><br />
+            <h2 style="color: #fdc632" th:text="${course.courseName}"></h2>
+
+            <h4 class="title">Objectives</h4>
+            <div class="content" th:text="${course.objective}   ">
+
+            </div>
+
+            <h4 class="title">Description</h4>
+            <div class="content" th:utext="${course.description}"></div>
+
+            <h4 class="title">Who this course is for:</h4>
+            <div class="content" th:utext="${course.suitable}"></div>
+
+            <h4 class="title">Course Outline</h4>
+            <div class="content">
+              <ul class="course_list">
+                <th:block th:each="chapter : ${course.chapters}">
+                  <li class="justify-content-between d-flex w-100">
+                    <p th:text="${chapter.chapterName}">Introduction Lesson</p>
+                  </li>
+                </th:block>
+              </ul>
+
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<!--================End Home Banner Area =================-->
-
-<!--================ Start Course Details Area =================-->
-<section class="course_details_area section_gap">
-  <div class="container">
-    <div class="row course-container">
-      <div class="col-lg-8 course_details_left">
-        <div class="main_image">
-          <img style="width: 700px" class="img-fluid"
-               th:src="${course.imageUrl}" alt="">
-        </div>
-        <div class="content_wrapper"><br/>
-          <h2 style="color: #fdc632" th:text="${course.courseName}"></h2>
-
-          <h4 class="title">Objectives</h4>
-          <div class="content" th:text="${course.objective}   ">
-
-          </div>
-
-          <h4 class="title">Description</h4>
-          <div class="content" th:utext="${course.description}"></div>
-
-          <h4 class="title">Who this course is for:</h4>
-          <div class="content" th:utext="${course.suitable}"></div>
-
-          <h4 class="title">Course Outline</h4>
+          <h4 class="title">Reviews</h4>
           <div class="content">
-            <ul class="course_list">
-              <th:block th:each="chapter : ${course.chapters}">
-                <li class="justify-content-between d-flex w-100" >
-                  <p th:text="${chapter.chapterName}">Introduction Lesson</p>
-                </li>
+            <div class="review-top row pt-40">
+              <div class="col-lg-12">
+                <h6 class="mb-15">Rating</h6>
+                <div class="d-flex flex-row reviews justify-content-between">
+                  <div class="star">
+                    <i class="ti-star checked"></i>
+                    <i class="ti-star checked"></i>
+                    <i class="ti-star checked"></i>
+                    <i class="ti-star checked"></i>
+                    <i class="ti-star checked"></i>
+                  </div>
+                  <span>254</span>
+                </div>
+                <div class="d-flex flex-row reviews justify-content-between">
+                  <div class="star">
+                    <i class="ti-star checked"></i>
+                    <i class="ti-star checked"></i>
+                    <i class="ti-star checked"></i>
+                    <i class="ti-star checked"></i>
+                    <i class="ti-star"></i>
+                  </div>
+                  <span>20</span>
+                </div>
+                <div class="d-flex flex-row reviews justify-content-between">
+                  <div class="star">
+                    <i class="ti-star checked"></i>
+                    <i class="ti-star checked"></i>
+                    <i class="ti-star checked"></i>
+                    <i class="ti-star"></i>
+                    <i class="ti-star"></i>
+                  </div>
+                  <span>10</span>
+                </div>
+                <div class="d-flex flex-row reviews justify-content-between">
+                  <div class="star">
+                    <i class="ti-star checked"></i>
+                    <i class="ti-star checked"></i>
+                    <i class="ti-star"></i>
+                    <i class="ti-star"></i>
+                    <i class="ti-star"></i>
+                  </div>
+                  <span>5</span>
+                </div>
+                <div class="d-flex flex-row reviews justify-content-between">
+                  <div class="star">
+                    <i class="ti-star checked"></i>
+                    <i class="ti-star"></i>
+                    <i class="ti-star"></i>
+                    <i class="ti-star"></i>
+                    <i class="ti-star"></i>
+                  </div>
+                  <span>1</span>
+                </div>
+              </div>
+            </div>
+            <div class="feedeback">
+              <h6>Your Feedback</h6>
+              <textarea name="feedback" class="form-control" cols="10" rows="10"></textarea>
+              <div class="mt-10 text-right">
+                <a href="#" class="primary-btn2 text-right rounded-0 text-white">Submit</a>
+              </div>
+            </div>
+            <div class="comments-area mb-30">
+              <th:block th:each="feedback : ${course.feedbacks}">
+                <div class="comment-list">
+                  <div class="single-comment single-reviews justify-content-between d-flex">
+                    <div class="user justify-content-between d-flex">
+                      <div class="thumb">
+                        <img style="width: 30px; height: 30px;" th:src="${feedback.user.avatar}" alt="">
+                      </div>
+                      <div class="desc">
+                        <h5><a href="#" th:text="${feedback.user.fullname}"></a>
+                          <div class="review-star star" th:attr="star=${feedback.rating}">
+                          </div>
+                        </h5>
+                        <p class="comment" th:text="${feedback.comment}">
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </th:block>
-            </ul>
-
+            </div>
           </div>
         </div>
-        <h4 class="title">Reviews</h4>
-        <div class="content">
-          <div class="review-top row pt-40">
-            <div class="col-lg-12">
-              <h6 class="mb-15">Rating</h6>
-              <div class="d-flex flex-row reviews justify-content-between">
-                <div class="star">
-                  <i class="ti-star checked"></i>
-                  <i class="ti-star checked"></i>
-                  <i class="ti-star checked"></i>
-                  <i class="ti-star checked"></i>
-                  <i class="ti-star checked"></i>
-                </div>
-                <span>254</span>
-              </div>
-              <div class="d-flex flex-row reviews justify-content-between">
-                <div class="star">
-                  <i class="ti-star checked"></i>
-                  <i class="ti-star checked"></i>
-                  <i class="ti-star checked"></i>
-                  <i class="ti-star checked"></i>
-                  <i class="ti-star"></i>
-                </div>
-                <span>20</span>
-              </div>
-              <div class="d-flex flex-row reviews justify-content-between">
-                <div class="star">
-                  <i class="ti-star checked"></i>
-                  <i class="ti-star checked"></i>
-                  <i class="ti-star checked"></i>
-                  <i class="ti-star"></i>
-                  <i class="ti-star"></i>
-                </div>
-                <span>10</span>
-              </div>
-              <div class="d-flex flex-row reviews justify-content-between">
-                <div class="star">
-                  <i class="ti-star checked"></i>
-                  <i class="ti-star checked"></i>
-                  <i class="ti-star"></i>
-                  <i class="ti-star"></i>
-                  <i class="ti-star"></i>
-                </div>
-                <span>5</span>
-              </div>
-              <div class="d-flex flex-row reviews justify-content-between">
-                <div class="star">
-                  <i class="ti-star checked"></i>
-                  <i class="ti-star"></i>
-                  <i class="ti-star"></i>
-                  <i class="ti-star"></i>
-                  <i class="ti-star"></i>
-                </div>
-                <span>1</span>
-              </div>
-            </div>
-          </div>
-          <div class="feedeback">
-            <h6>Your Feedback</h6>
-            <textarea name="feedback" class="form-control" cols="10" rows="10"></textarea>
-            <div class="mt-10 text-right">
-              <a href="#" class="primary-btn2 text-right rounded-0 text-white">Submit</a>
-            </div>
-          </div>
-          <div class="comments-area mb-30">
-            <th:block th:each="feedback : ${course.feedbacks}">
-              <div class="comment-list">
-                <div class="single-comment single-reviews justify-content-between d-flex">
-                  <div class="user justify-content-between d-flex">
-                    <div class="thumb">
-                      <img th:src="${feedback.user.avatar}" alt="">
-                    </div>
-                    <div class="desc">
-                      <h5><a href="#" th:text="${feedback.user.fullname}"></a>
-                        <div class="review-star star" th:attr="star=${feedback.rating}">
-                        </div>
-                      </h5>
-                      <p class="comment" th:text="${feedback.comment}">
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </th:block>
-          </div>
+
+        <div class="col-lg-4 right-contents">
+          <ul>
+            <li>
+              <a class="justify-content-between d-flex" th:href="@{/teacher/{id}(id=${course.teacher.id})}">
+                <p>Trainer</p>
+                <span class="or" th:text="${course.teacher.fullname}"></span>
+              </a>
+            </li>
+            <li>
+              <a class="justify-content-between d-flex" href="#">
+                <p>Course Fee </p>
+                <span class="or price" th:inline="text" th:attr="course-price=${course.tuitionFee}"></span>
+              </a>
+            </li>
+            <li>
+              <a class="justify-content-between d-flex" href="#">
+                <p>Slot </p>
+                <span th:text="${course.slot}"></span>
+              </a>
+            </li>
+            <li>
+              <a class="justify-content-between d-flex" href="#">
+                <p>Schedule </p>
+                <span>6.00 pm <i class="ti-alarm-clock"></i> 9.00 pm</span>
+              </a>
+            </li>
+            <li>
+              <a class="justify-content-between d-flex" href="#">
+                <p>Duration </p>
+                <span>03-03-2023 <i class="ti-calendar"></i> 04-06-2023</span>
+              </a>
+            </li>
+            <li>
+              <a class="justify-content-between d-flex" href="#">
+                <p>Start date </p>
+                <span class="or" th:text="${course.startDate}"></span>
+              </a>
+            </li>
+
+          </ul>
+          <button onclick="addToCart(this)" type="button"
+            class="primary-btn2 text-uppercase enroll rounded-0"
+            th:classappend='${role != "US" ? "btn-disabled" : ""}' 
+            th:disabled='${role != "US"}'
+            th:text='${role == "US" ? "Enroll the course": "You can not enroll the course"}'
+            >
+              Enroll the course
+          </button>
         </div>
       </div>
 
+      <h4 class="title stop-sticky">You might also like</h4>
+      <div class="popular_courses">
+        <div class="row">
+          <!-- single course -->
+          <div class="col-lg-12">
+            <div class="owl-carousel active_course">
+              <div class="single_course" th:each="prod: ${courses1}">
+                <div class="course_head">
+                  <img class="img-fluid" th:src="${prod.imageUrl}" alt="" />
+                </div>
+                <div class="course_content">
+                  <div class="tag d-inline" th:each="cate: ${prod.categories}"
+                       th:text="${cate.categoryName}"></div>
+                  <div class="price mb-3"  th:inline="text" th:attr="course-price=${prod.tuitionFee}" ></div>
 
-      <div class="col-lg-4 right-contents">
-        <ul>
-          <li>
-            <a class="justify-content-between d-flex" th:href="@{/teacher/{id}(id=${course.teacher.id})}" >
-              <p>Trainer</p>
-              <span class="or" th:text="${course.teacher.fullname}"></span>
-            </a>
-          </li>
-          <li>
-            <a class="justify-content-between d-flex" href="#">
-              <p>Course Fee </p>
-              <span class="or price" th:inline="text" th:attr="course-price=${course.tuitionFee}"></span>
-            </a>
-          </li>
-          <li>
-            <a class="justify-content-between d-flex" href="#">
-              <p>Slot </p>
-              <span th:text="${course.slot}"></span>
-            </a>
-          </li>
-          <li>
-            <a class="justify-content-between d-flex" href="#">
-              <p>Schedule </p>
-              <span>6.00 pm <i class="ti-alarm-clock"></i> 9.00 pm</span>
-            </a>
-          </li>
-          <li>
-            <a class="justify-content-between d-flex" href="#">
-              <p>Duration </p>
-              <span>03-03-2023 <i class="ti-calendar"></i> 04-06-2023</span>
-            </a>
-          </li>
-          <li>
-            <a class="justify-content-between d-flex" href="#">
-              <p>Start date </p>
-              <span class="or" th:text="${course.startDate}"></span>
-            </a>
-          </li>
-
-        </ul>
-        <a href="#" class="primary-btn2 text-uppercase enroll rounded-0">Add course to cart</a>
-      </div>
-    </div>
-
-    <h4 class="title stop-sticky">You might also like</h4>
-    <div class="popular_courses">
-      <div class="row">
-        <!-- single course -->
-        <div class="col-lg-12">
-          <div class="owl-carousel active_course">
-            <div class="single_course" th:each="prod: ${courses1}">
-              <div class="course_head">
-                <img class="img-fluid" th:src="${prod.imageUrl}" alt=""/>
-              </div>
-              <div class="course_content">
-                <div class="tag d-inline" th:each="cate: ${prod.categories}"
-                     th:text="${cate.categoryName}"></div>
-                <div class="price mb-4" th:attr="course-price=${prod.tuitionFee}"></div>
-                <h4 class="mb-3">
-                  <a th:href="@{/course-detail/{courseId}(courseId=${prod.id})}"
-                     th:text="${prod.courseName}"></a>
-                </h4>
-                <p th:text="|${prod.getStartDate()} to ${prod.getEndDate()}|"></p>
-                <div
-                        class="course_meta d-flex justify-content-lg-between align-items-lg-center flex-lg-row flex-column mt-4"
-                >
-                  <div class="authr_meta">
-                    <img src="../../resources/img/courses/author1.png" alt=""/>
-                    <span class="d-inline-block ml-2" th:text="${prod.teacher.fullname}"></span>
-                  </div>
-                  <div class="mt-lg-0 mt-3">
+                  <h4 class="mb-3 tooltip-text">
+                    <a class="overflow_title" th:href="@{/course-detail/{courseId}(courseId=${prod.id})}"
+                       th:text="${prod.courseName}"></a>
+                    <span th:text="${prod.courseName}"></span>
+                  </h4>
+                  <p th:text="|${prod.getStartDate()} to ${prod.getEndDate()}|"></p>
+                  <div
+                    class="course_meta d-flex justify-content-lg-between align-items-lg-center flex-lg-row flex-column mt-4">
+                    <div class="authr_meta">
+                      <img src="../../resources/img/courses/author1.png" alt="" />
+                      <span class="d-inline-block ml-2" th:text="${prod.teacher.fullname}"></span>
+                    </div>
+                    <div class="mt-lg-0 mt-3">
                       <span class="meta_info mr-4">
                         <i class="ti-user mr-2"></i><span th:text="${prod.slot}"></span>
                       </span>
-                    <span class="meta_info"
-                    ><i class="ti-heart mr-2"></i><span th:text="${prod.soldCount}"></span>
-                    </span>
+                      <span class="meta_info"><i class="ti-heart mr-2"></i><span th:text="${prod.soldCount}"></span>
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -251,10 +254,9 @@
         </div>
       </div>
     </div>
-  </div>
-</section>
-<!--================ End Course Details Area =================-->
-<footer th:replace="../thymeleaf/footer :: footer"></footer>
+  </section>
+  <!--================ End Course Details Area =================-->
+  <footer th:replace="../thymeleaf/footer :: footer"></footer>
 </body>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -271,26 +273,75 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
 <script src="../../resources/js/gmaps.min.js"></script>
 <script src="../../resources/js/theme.js"></script>
+
+<script src="../../resources/js/format-money.js"></script>
 <!-- course detail JS -->
 <script src="../../resources/js/course-detail.js"></script>
 
 <script th:inline="javascript">
 
-      /*<![CDATA[*/
 
-          document.querySelectorAll(".price").forEach( el => {
-            formatOnLoad(el, el.getAttribute("course-price"))
-          })
+    url = window.location.href;
+    const courseId = url.split("/")[4];
+    const coursePrice = document.querySelector(".price").getAttribute("course-price")
+    function renderEnrolledBtn(btn, msg){
+        if(!msg) msg =  "This course is already in cart";
+        btn.disabled = true;
+        btn.classList.add("btn-disabled");
+        btn.innerHTML = msg;
+    }
+   
+    const accessToken = localStorage.getItem("accessToken");
+    let isAdmin = false;
+    if(accessToken != null){
+        const claims = decodeJwtResponse(accessToken);
+        console.log(claims.role != "US");
+        console.log(1)
+        console.log(cart)
+        if(claims.role != "US") {
+            isAdmin = true;
+            renderEnrolledBtn(
+                document.querySelector(".enroll"), 
+                "You are not allowed to enroll this course"
+            );
+        }
+    }
+    if(!isAdmin){
+        if(cart.some(course => course.id == courseId)) {
+                renderEnrolledBtn(
+                    document.querySelector(".enroll"), 
+                    "This course are already in your cart"
+                );
+        }
+    }
+    
+    
+    document.querySelectorAll(".price").forEach(el => {
+      formatOnLoad(el, el.getAttribute("course-price"))
+    });
 
-          document.querySelectorAll(".review-star").forEach( el => {
+    document.querySelectorAll(".review-star").forEach(el => {
 
-            const reviewStar = parseInt(el.getAttribute("star"));
+      const reviewStar = parseInt(el.getAttribute("star"));
 
-            for(var i = 1; i <= 5; i++){
-              console.log(`${i <= reviewStar ? "checked" : "" }`)
-              el.innerHTML += `<i class="ti-star ${i <= reviewStar ? "checked" : "" }"></i>`
-            }
-          });
-       /*]]>*/
+      for (var i = 1; i <= 5; i++) {
+        console.log(`${i <= reviewStar ? "checked" : ""}`)
+        el.innerHTML += `<i class="ti-star ${i <= reviewStar ? "checked" : ""}"></i>`
+      }
+    });
+    function addToCart(el){
+        console.log(courseId)
+        if(cart == null){
+            cart = []
+        }
+        console.log(cart.some(item => item.id == courseId))
+        if(!cart.some(item => item.id == courseId)) {
+            renderEnrolledBtn(el);
+            cart.push({id: courseId, price: coursePrice});
+            localStorage.setItem("cart", JSON.stringify(cart))
+        }
+    };
+    
 </script>
+
 </html>

@@ -1,47 +1,66 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <!-- Required meta tags -->
-    <meta charset="utf-8"/>
-    <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <link rel="icon" href="../../resources/img/qtc-logo-black.png" type="image/png" />
     <title>The Best IT Training Center - 100+ Courses | QTCenter.com</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com/%22%3E
-        <link rel=" preconnect
-    " href="https://fonts.gstatic.com/" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;1,100;1,300&display=swap"
-          rel="stylesheet">
-
-    <script src="https://kit.fontawesome.com/330a21053c.js" crossorigin="anonymous"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../../resources/css/bootstrap.css" />
+    <link rel="stylesheet" href="../../resources/css/flaticon.css" />
+    <link rel="stylesheet" href="../../resources/css/themify-icons.css" />
+    <link rel="stylesheet" href="../../resources/vendors/owl-carousel/owl.carousel.min.css" />
+    <link rel="stylesheet" href="../../resources/vendors/nice-select/css/nice-select.css" />
+    <link rel="stylesheet" href="../../resources/css/header.css" />
     <!-- main css -->
+    <link rel="stylesheet" href="../../resources/css/style.css" />
     <link rel="stylesheet" href="../../resources/css/history-booking.css"/>
 </head>
 <body>
+<header th:replace="../thymeleaf/header-white :: header-white"></header>
+<!--================Home Banner Area =================-->
+<section class="banner_area">
+    <div class="banner_inner d-flex align-items-center">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-12">
+                    <div class="banner_content text-center">
+                        <h2 style="color: #fdc632; margin: 0 auto;">History Booking</h2>
+                        <p>Courses you have enrolled</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================End Home Banner Area =================-->
 <div class="container">
-    <h1 class="title">History Booking</h1>
     <div>
         <div class="order-container">
             <!--order-->
-            <c:forEach items="${histories}" var="history">
-                <div class="order-item">
+            <div class="order-item" th:each="order: ${orders}">
+                <div th:with="result=0">
+                    <script th:inline="javascript">  /*<![CDATA[*/
+                        var total = 0;
+                        /*]]>*/
+                    </script>
                     <div class="order-item-header">
                         <span class="status"><i class="fa-solid fa-money-bills"></i>Pay Successful</span>
-                        <span class="status"><i class="fa-solid fa-calendar-days"></i>30-01-2023</span>
+                        <span class="status"><i class="fa-solid fa-calendar-days"></i>
+                        <span th:text="${#dates.format(order.buyDate, 'dd-MM-yyyy')}"></span></span>
                     </div>
-                    <div class="order-item-info">
+                    <div class="order-item-info" th:each="item: ${order.orderDetails}">
                         <div>
                             <div class="product">
                                 <div class="detail">
-                                    <div class="product-img"
-                                         style="background-image: url('../../resources/img/testimonials/t1.jpg')">
-                                        <span class="quantity">1</span>
-                                    </div>
+                                    <img class="product-img" th:src="${item.course.imageUrl}" alt=""/>
                                     <div class="product-info">
-                                        <a href="#" class="product-name">Course Name</a>
-                                        <div class="store"><a href="#">Trainer</a>
+                                        <a href="#" class="product-name" th:text="${item.course.courseName}">Course
+                                            Name</a>
+                                        <div class="store"><a th:text="${item.course.teacher.fullname}" href="#"></a>
                                         </div>
                                         <div class="product-review">
                                             <span>Chatting</span>
@@ -49,24 +68,54 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="price">
-                                    <span><fmt:formatNumber value="${item.price}" type="currency"/></span>
-                                </div>
-
+                                <div class="price" th:text="${item.getTuitionFeeFormat()}"></div>
                             </div>
-            </c:forEach>
-            <div class="btn-more"><p>Show more</p></div>
-            <!--end product-->
-
-        </div>
-    </div>
-    <div class="total-order">
-        <div class="total-title">Total price</div>
-        <div class="total-price">
-            <fmt:formatNumber value="${history.total}" type="currency"/>
+                        </div>
+                        <script th:inline="javascript">/*<![CDATA[*/
+                        total += /*[[${item.price}]]*/;
+                        /*]]>*/
+                        </script>
+                    </div>
+                    <!--end product-->
+                    <div class="total-price">
+                        <div class="total-order">
+                            <div class="total-title">Total price</div>
+                            <div th:id="|a${order.id}|" class="total-price"></div>
+                            <script th:inline="javascript">/*<![CDATA[*/
+                            var a = document.querySelector('#a'+ /*[[${order.id}]]*/);
+                            a.innerHTML = total;
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+<footer th:replace="../thymeleaf/footer :: footer"></footer>
 </body>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="../../resources/js/jquery-3.2.1.min.js"></script>
+<script src="../../resources/js/popper.js"></script>
+<script src="../../resources/js/bootstrap.min.js"></script>
+<script src="../../resources/vendors/nice-select/js/jquery.nice-select.min.js"></script>
+<script src="../../resources/vendors/owl-carousel/owl.carousel.min.js"></script>
+<script src="../../resources/js/owl-carousel-thumb.min.js"></script>
+<script src="../../resources/js/jquery.ajaxchimp.min.js"></script>
+<script src="../../resources/js/mail-script.js"></script>
+<script src="../../resources/js/login.btn.js"></script>
+<!--gmaps Js-->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
+<script src="../../resources/js/gmaps.min.js"></script>
+<script src="../../resources/js/theme.js"></script>
 <script src="../../resources/js/history-booking.js"></script>
+<script th:inline="javascript">
+    console.log([[${logout}]])
+    if([[${logout == true}]]){
+//        logout();
+//        console.log(logout)
+        
+    }
+</script>
 </html>

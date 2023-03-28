@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8"/>
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link rel="icon" href="../../resources/img/qtc-logo-black.png" type="image/png"/>
+    <title>The Best IT Training Center - 100+ Courses | QTCenter.com</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../../resources/css/bootstrap.css"/>
+    <!--    <link rel="stylesheet" href="../../resources/css/flaticon.css"/>-->
+    <!--    <link rel="stylesheet" href="../../resources/css/themify-icons.css"/>-->
+    <!--    <link rel="stylesheet" href="../../resources/vendors/owl-carousel/owl.carousel.min.css"/>-->
+    <!--    <link rel="stylesheet" href="../../resources/vendors/nice-select/css/nice-select.css"/>-->
+    <!--    <link rel="stylesheet" href="../../resources/css/header.css"/>-->
+    <!-- main css -->
+    <!--    <link rel="stylesheet" href="../../resources/css/style.css"/>-->
+    <link rel="stylesheet" href="../../resources/css/dashboard.css"/>
+    <link href="https://cdn.datatables.net/v/bs4/dt-1.13.4/datatables.min.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.16/css/dataTables.bootstrap4.css"
+          rel="stylesheet"/>
+    <script src="https://cdn.datatables.net/v/bs4/dt-1.13.4/datatables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.5/umd/popper.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.16/js/dataTables.bootstrap4.js"></script>
+    <script src="https://kit.fontawesome.com/f1ddccea8b.js" crossorigin="anonymous"></script>
+</head>
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+    <a class="navbar-brand" href="/home"><i class="fa-solid fa-angle-left"></i> Home Page</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+            data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+                <a class="nav-link" href="#page-top">
+                    <i class="fa fa-fw fa-dashboard"></i>
+                    <span class="nav-link-text">Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+                <a class="nav-link" href="#chart-area">
+                    <i class="fa fa-fw fa-area-chart"></i>
+                    <span class="nav-link-text">Charts</span>
+                </a>
+            </li>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+                <a class="nav-link" href="#tables">
+                    <i class="fa fa-fw fa-table"></i>
+                    <span class="nav-link-text">Tables</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="navbar-nav sidenav-toggler">
+            <li class="nav-item">
+                <a class="nav-link text-center" id="sidenavToggler">
+                    <i class="fa fa-fw fa-angle-left"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="content-wrapper">
+    <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item breadcrumb-link">
+                <a href="#">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item active">Admin Dashboard</li>
+        </ol>
+        <!-- Icon Cards-->
+        <div class="row">
+            <div class="col-xl-3 col-sm-6 mb-3">
+                <div class="card text-white bg-primary o-hidden h-100">
+                    <div class="card-body">
+                        <div class="card-body-icon">
+                            <i class="fa fa-fw fa-comments"></i>
+                        </div>
+                        <div class="mr-5">26 New Messages!</div>
+                    </div>
+                    <a class="card-footer text-white clearfix small z-1" href="#">
+                        <span class="float-left">View Details</span>
+                        <span class="float-right">
+                <i class="fa fa-angle-right"></i>
+              </span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-xl-3 col-sm-6 mb-3">
+                <div class="card text-white bg-warning o-hidden h-100">
+                    <div class="card-body">
+                        <div class="card-body-icon">
+                            <i class="fa fa-fw fa-list"></i>
+                        </div>
+                        <div class="mr-5">11 New Tasks!</div>
+                    </div>
+                    <a class="card-footer text-white clearfix small z-1" href="#">
+                        <span class="float-left">View Details</span>
+                        <span class="float-right">
+                <i class="fa fa-angle-right"></i>
+              </span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-xl-3 col-sm-6 mb-3">
+                <div class="card text-white bg-success o-hidden h-100">
+                    <div class="card-body">
+                        <div class="card-body-icon">
+                            <i class="fa fa-fw fa-shopping-cart"></i>
+                        </div>
+                        <div class="mr-5">123 New Orders!</div>
+                    </div>
+                    <a class="card-footer text-white clearfix small z-1" href="#">
+                        <span class="float-left">View Details</span>
+                        <span class="float-right">
+                <i class="fa fa-angle-right"></i>
+              </span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-xl-3 col-sm-6 mb-3">
+                <div class="card text-white bg-danger o-hidden h-100">
+                    <div class="card-body">
+                        <div class="card-body-icon">
+                            <i class="fa fa-fw fa-support"></i>
+                        </div>
+                        <div class="mr-5">13 New Tickets!</div>
+                    </div>
+                    <a class="card-footer text-white clearfix small z-1" href="#">
+                        <span class="float-left">View Details</span>
+                        <span class="float-right">
+                <i class="fa fa-angle-right"></i>
+              </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- Area Chart Example-->
+        <div class="card mb-3" id="chart-area">
+            <div class="card-header">
+                <i class="fa fa-area-chart"></i> Number of teachers per category
+            </div>
+            <div class="card-body">
+                <canvas id="myAreaChart" width="100%" height="30"></canvas>
+            </div>
+            <div class="card-footer small text-muted">Updated at <script>
+              document.write(new Date().toLocaleString());
+            </script>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-7">
+                <!-- Example Bar Chart Card-->
+                <div class="card mb-5">
+                    <div class="card-header">
+                        <i class="fa fa-bar-chart"></i> Number of courses at Center
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-12 my-auto">
+                                <canvas id="myBarChart" width="100" height="50"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer small text-muted">Updated at <script>
+              document.write(new Date().toLocaleString());
+            </script>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <!-- Example Pie Chart Card-->
+                <div class="card mb-5">
+                    <div class="card-header">
+                        <i class="fa fa-pie-chart"></i> Total rating stars
+                    </div>
+                    <div class="card-body">
+                        <canvas id="myPieChart" width="100%" height="75"></canvas>
+                    </div>
+                    <div class="card-footer small text-muted">Updated at <script>
+              document.write(new Date().toLocaleString());
+            </script>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- Example DataTables Card-->
+        <div class="card mb-3" id="tables">
+            <div class="card-header">
+                <i class="fa fa-table"></i> Table of users
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table style="text-align: center;" class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>Avatar</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone Number</th>
+                            <th>Role</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <th>Avatar</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone Number</th>
+                            <th>Role</th>
+                            <th>Action</th>
+                        </tr>
+                        </tfoot>
+                        <tbody >
+                        <tr th:each="user: ${users}">
+                            <td><img style="width: 30px; height: 30px;" th:src="${user.avatar}" alt="" src=""/></td>
+                            <td th:text="${user.fullname}"></td>
+                            <td th:text="${user.email}"></td>
+                            <td th:text="${user.phone}"></td>
+                            <td style="color: #c23616; font-weight: 500;" th:if="${user.role.equals('AD')}" th:text="Admin"></td>
+                            <td style="color: #718093; font-weight: 500;" th:if="${user.role.equals('US')}" th:text="Student"></td>
+                            <td style="color: #009432; font-weight: 500;" th:if="${user.role.equals('TC')}" th:text="Teacher"></td>
+                            <td>
+                                <button type="button" class="btn btn-info">
+                                    <a style="text-decoration: none; color: #ffff" th:href="@{/view-profile/{id}/{role} (id=${user.id}, role=${user.role})}">View</a>
+                                </button>
+                                <button type="button" class="btn btn-danger">Delete</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer small text-muted">Updated at <script>
+              document.write(new Date().toLocaleString());
+            </script>
+            </div>
+
+        </div>
+    </div>
+    <!-- /.container-fluid-->
+    <!-- /.content-wrapper-->
+    <footer class="sticky-footer">
+        <div class="container">
+            <div class="text-center">
+                Copyright &copy; QTCenter
+                <script>
+              document.write(new Date().getFullYear());
+                </script>
+            </div>
+        </div>
+    </footer>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fa fa-angle-up"></i>
+    </a>
+    <!-- Logout Modal-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="login.html">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="../../resources/js/dashboard.js"></script>
+</html>
